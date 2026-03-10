@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarsLogWorkig.Models
 {
-    public class owner : User1
+    public class Owner : User1
     {
         private string _fullName;
         public string FullName

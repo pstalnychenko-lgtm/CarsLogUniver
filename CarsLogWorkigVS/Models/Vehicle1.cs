@@ -1,42 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle1
+    public class Vehicle
     {
-        private string _plateNumber;
         
-        private string _brand;
-        
-        private string _model;
+        private string _plateNumber { get; set; }
 
-        public Guid Id { get; private set; }
-        
-        public string PlateNumber
-        {
-            get => _plateNumber;
-            set => _plateNumber = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
-        
-        public string Brand
-        {
-            get => _brand;
-            set => _brand = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
-        
-        public string Model
-        {
-            get => _model;
-            set => _model = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
-        
-        public int Year { get; set; }
-        
-        public string FuelType { get; set; }
+        private string _brand { get; set; }
+
+        private string _model { get; set; }
+
+        private DateTime _yearOfRelease;
+
+        public FuelType FuelType { get; set; }
+
         public int CurrentMileage { get; set; }
 
         
+        public string FullName;
+    }
+
+    public enum FuelType
+    {
+        Gasoline,
+        Diesel,
+        Electric,
+        Hybrid,
+        LPG
     }
 }

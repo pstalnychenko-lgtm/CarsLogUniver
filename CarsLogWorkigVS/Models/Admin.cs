@@ -1,18 +1,17 @@
-﻿using System;
+﻿using CarsLogWorkig.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarsLogDrive.Models1
+namespace CarsLogDrive.Models
 {
-    public class Admin 
+    public class Admin : User1  
     {
         private string _fullName;
-        public string FullName
-        {
-            get => _fullName;
-            set => _fullName = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
+
         public string Position { get; set; }
         public string ContactInfo { get; set; }
+
+
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 
 namespace CarsLogWorkig.Models
@@ -11,22 +9,48 @@ namespace CarsLogWorkig.Models
         
         private string _passwordHash;
 
-        public Guid Id { get; private set; }
+        private string IdUser { get; set;}
         
-        public string Login
-        {
-            get => _login;
-            set => _login = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
+        private string _email ;
+        public string Email{ 
+            get => _email;
+            set => _email = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
         }
-        
-        public string PasswordHash
-        {
-            get => _passwordHash;
-            set => _passwordHash = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
-        
-        public string SubscriptionStatus { get; set; }
+        private UserRole _role { get; set; }
 
-        
+
+        public SubscriptionStatus SubscriptionStatus { get; set; }
+
+        private DateTime DateOfBirth;
+
+        private DateTime DateOfLastActivity;
+
+        private DateTime DateOfRegistration;
+
+        private UserSex UserSex;
+
+        private List<Document> Documents { get; set; }
+
+    }
+
+    public enum SubscriptionStatus
+    {
+        Active,
+        Inactive,
+        Expired
+    }
+
+    public enum UserRole
+    {
+        Owner,
+        Driver,
+        Admin
+    }
+
+    public enum UserSex 
+    { 
+    Male,
+    Female
     }
 }
+
