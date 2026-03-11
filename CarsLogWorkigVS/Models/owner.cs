@@ -6,12 +6,12 @@ namespace CarsLogWorkig.Models
 {
     public class Owner : User1
     {
-        private string _fullName;
-        public string FullName
-        {
-            get => _fullName;
-            set => _fullName = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
-        }
+        private string _ownerFirName;
+
+        private string _ownerSecName;
+
+        private DateTime _dateOfPurchaseTheCar; 
+
 
     }
 }

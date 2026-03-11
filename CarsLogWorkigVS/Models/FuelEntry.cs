@@ -8,7 +8,7 @@ namespace CarsLogWorkig.Models
     {
         public string GasStation { get; set; }
         
-        public FuelsType TypeOfFuel ;
+        private FuelsType TypeOfFuel ;
 
     }
 

@@ -8,10 +8,10 @@ namespace CarsLogWorkig.Models
         
         private string _passwordHash;
 
-        private string IdUser { get; set;}
+        private string IdUser { get; init;}
         
         private string _email ;
-        public string Email{ 
+        private string Email{ 
             get => _email;
             set => _email = string.IsNullOrWhiteSpace(value) ? throw new ArgumentException() : value;
         }

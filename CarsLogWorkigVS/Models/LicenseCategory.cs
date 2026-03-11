@@ -18,7 +18,6 @@ namespace CarsLogWorkigVS.Models
         private string _serialNumber;
 
         private string _TrafficPoliceCenter;
-        public Guid Id { get; private set; }
     }
     public enum CategoryName
     {

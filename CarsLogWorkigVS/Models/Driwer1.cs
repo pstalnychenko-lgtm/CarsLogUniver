@@ -9,7 +9,7 @@ namespace CarsLogWorkig.Models
         private string _fullName;
         
         public DateTime LicenseExpiryDate { get; set; }
-        public bool MedicalCertStatus { get; set; }
+        private bool MedicalCertStatus { get; set; }
 
         private UserSex DriverSex { get; set; }
     }
