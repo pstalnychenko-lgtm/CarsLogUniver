@@ -9,7 +9,7 @@ namespace CarsLogWorkig.Models
 
         private string _partName { get; set; }
 
-        public int InstallationMileage { get; set; }
+        public uint InstallationMileage { get; set; }
 
         private bool _іsExpired;
 

@@ -13,20 +13,12 @@ namespace CarsLogWorkig.Models
 
         private DateTime _yearOfRelease;
 
-        public FuelType FuelType { get; set; }
+        public uint CurrentMileage { get; set; }
 
-        public int CurrentMileage { get; set; }
+        public List<FuelEntry> FuelEntries { get; set; }
 
-        
-        public string FullName;
+
     }
 
-    public enum FuelType
-    {
-        Gasoline,
-        Diesel,
-        Electric,
-        Hybrid,
-        LPG
-    }
+    
 }

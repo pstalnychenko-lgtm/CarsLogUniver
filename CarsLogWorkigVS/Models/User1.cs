@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace CarsLogWorkig.Models
 {
     public class User1

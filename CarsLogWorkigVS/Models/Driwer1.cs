@@ -10,5 +10,7 @@ namespace CarsLogWorkig.Models
         
         public DateTime LicenseExpiryDate { get; set; }
         public bool MedicalCertStatus { get; set; }
+
+        private UserSex DriverSex { get; set; }
     }
  }
