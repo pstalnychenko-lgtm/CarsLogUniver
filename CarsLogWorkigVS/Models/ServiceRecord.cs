@@ -1,20 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace CarsLogWorkig.Models
 {
     public class ServiceRecord
     {
-        
-        private DateTime _dateOfLastServiceRec { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        private decimal _value;
-        private decimal _valueOfService
+        public DateTime DateOfService { get; set; }
+
+        public string Description { get; set; }
+
+        public uint MileageAtService { get; set; }
+
+        public uint NextServiceMileage { get; set; }
+
+        public DateTime NextServiceDate { get; set; }
+
+        private decimal _cost;
+        public decimal Cost
         {
-            get => _value;
-            set => _value = value < 0 ? 0 : value;
+            get => _cost;
+            set => _cost = value < 0 ? 0 : value;
         }
-        
     }
 }

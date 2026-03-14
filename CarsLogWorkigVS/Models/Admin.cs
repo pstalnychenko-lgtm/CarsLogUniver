@@ -1,17 +1,13 @@
-﻿using CarsLogWorkig.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CarsLogDrive.Models
+namespace CarsLogWorkig.Models
 {
-    public class Admin : User1  
+    public class Admin : User
     {
-        private string _fullName;
+        public string FullName { get; set; }
 
-        private string _position { get; set; }
-        private string _contactInfo { get; set; }
+        public string Position { get; set; }
 
-
+        public string ContactInfo { get; set; }
     }
 }

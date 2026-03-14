@@ -1,17 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User1
+    public class Owner : User
     {
-        private string _ownerFirName;
+        public string FirstName { get; set; }
 
-        private string _ownerSecName;
+        public string LastName { get; set; }
 
-        private DateTime _dateOfPurchaseTheCar; 
+        public string Phone { get; set; }
 
+        public string Address { get; set; }
 
+        public DateTime DateOfPurchaseTheCar { get; set; }
+
+        public DateTime? DateOfSaleTheCar { get; set; }
     }
 }

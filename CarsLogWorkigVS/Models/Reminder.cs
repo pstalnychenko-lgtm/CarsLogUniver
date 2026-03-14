@@ -8,8 +8,7 @@ namespace CarsLogWorkig.Models
 
         private uint _installationMileage { get; set; }
 
-        private bool _іsExpired;
-
-       
+        private bool _іsExpired; // Чи потребує заміни (t or f)
+        private DateTime _installationDate { get; set; }
     }
 }

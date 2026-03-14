@@ -1,16 +1,24 @@
-﻿using System;
-
-using System.Collections.Generic;
-
-using System.Text;
+using System;
 
 namespace CarsLogWorkig.Models
 {
     public class Note
     {
-        private string _content;
-        private DateTime _noteCreatedAtTime { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-      
+        public string Title { get; set; }
+
+        public string Content { get; set; }
+
+        public NoteCategory Category { get; set; }
+    }
+
+    public enum NoteCategory
+    {
+        General,
+        Fuel,
+        Service,
+        Finance,
+        Reminder
     }
 }

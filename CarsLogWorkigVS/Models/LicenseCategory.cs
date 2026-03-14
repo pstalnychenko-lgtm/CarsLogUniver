@@ -1,38 +1,37 @@
-﻿using CarsLogWorkig.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CarsLogWorkigVS.Models
+namespace CarsLogWorkig.Models
 {
-    public class LicenseCategory 
+    public class LicenseCategory
     {
-        private List<DateTime, CategoryName> _fullCategories;
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        private DateTime _dateOfIssue;
+        public DateTime DateOfIssue { get; set; }// Дата видачі категорії
 
-        private DateTime _expirationDate;
+        public DateTime ExpirationDate { get; set; }
 
-        private string _sityOfIssue;
+        public string CityOfIssue { get; set; }
 
-        private string _serialNumber;
+        public string SerialNumber { get; set; }
 
-        private string _trafficPoliceCenter;
+        public string TrafficPoliceCenter { get; set; } // Центр ДАІ, який видав категорію
     }
+
     public enum CategoryName
     {
-            A,
-            A1,
-            B,
-            B1,
-            C,
-            C1,
-            D,
-            D1,
-            CE,
-            C1E,
-            BE,
-            T1,
-            T2
+        A,
+        A1,
+        B,
+        B1,
+        C,
+        C1,
+        D,
+        D1,
+        CE,
+        C1E,
+        BE,
+        T1,
+        T2
     }
 }

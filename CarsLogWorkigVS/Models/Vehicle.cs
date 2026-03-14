@@ -1,25 +1,55 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
     public class Vehicle
     {
-        
-        private string _plateNumber { get; set; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        private string _brand { get; set; }
+        public string PlateNumber { get; set; }
 
-        private string _model { get; set; }
+        public string Vin { get; set; }// Ідентифікаційний номер транспортного засобу
 
-        private DateTime _yearOfRelease;
+        public string Brand { get; set; }
 
-        private uint _currentMileage { get; set; }
+        public string Model { get; set; }
 
-        private List<FuelEntry> _fuelEntries { get; set; }
+        public string Color { get; set; }
 
-        private DateTime _carReleaseDate;
+        public string BodyType { get; set; }
 
+        public uint EngineVolumeCc { get; set; } // Об'єм двигуна в кубічних сантиметрах
+
+        public FuelsType FuelType { get; set; }// Тип палива
+
+        public decimal FuelTankCapacity { get; set; }// Ємність паливного бака в літрах
+
+        public DateTime YearOfRelease { get; set; }
+
+        public DateTime CarReleaseDate { get; set; }
+
+        public uint CurrentMileage { get; set; }
+
+        public string Notes { get; set; }
+
+        // Навігаційні властивості
+        public Owner Owner { get; set; }
+
+        public List<Driver> Drivers { get; set; } = new List<Driver>();
+
+        public List<Document> Documents { get; set; } = new List<Document>();
+
+        public List<FuelEntry> FuelEntries { get; set; } = new List<FuelEntry>();
+
+        public List<ServiceRecord> ServiceRecords { get; set; } = new List<ServiceRecord>();
+
+        public List<VehicleComponent> Components { get; set; } = new List<VehicleComponent>();
+
+        public List<Note> Notess { get; set; } = new List<Note>();
+
+        public List<TripLog> TripLogs { get; set; } = new List<TripLog>();
+
+        public List<Expense> Expenses { get; set; } = new List<Expense>();
     }
-
-    
 }
