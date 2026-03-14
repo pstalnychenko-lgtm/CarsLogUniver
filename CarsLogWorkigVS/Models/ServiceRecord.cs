@@ -7,10 +7,10 @@ namespace CarsLogWorkig.Models
     public class ServiceRecord
     {
         
-        private DateTime DateOfLastServiceRec { get; set; }
+        private DateTime _dateOfLastServiceRec { get; set; }
 
         private decimal _value;
-        private decimal ValueOfService
+        private decimal _valueOfService
         {
             get => _value;
             set => _value = value < 0 ? 0 : value;

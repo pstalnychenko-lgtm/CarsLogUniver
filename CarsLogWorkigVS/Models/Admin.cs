@@ -9,8 +9,8 @@ namespace CarsLogDrive.Models
     {
         private string _fullName;
 
-        private string Position { get; set; }
-        private string ContactInfo { get; set; }
+        private string _position { get; set; }
+        private string _contactInfo { get; set; }
 
 
     }

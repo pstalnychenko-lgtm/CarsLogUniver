@@ -7,7 +7,7 @@ namespace CarsLogWorkigVS.Models
 {
     public class LicenseCategory 
     {
-        private List<DateTime, CategoryName> FullCategories;
+        private List<DateTime, CategoryName> _fullCategories;
 
         private DateTime _dateOfIssue;
 
@@ -17,7 +17,7 @@ namespace CarsLogWorkigVS.Models
 
         private string _serialNumber;
 
-        private string _TrafficPoliceCenter;
+        private string _trafficPoliceCenter;
     }
     public enum CategoryName
     {

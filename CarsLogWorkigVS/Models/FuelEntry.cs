@@ -6,7 +6,7 @@ namespace CarsLogWorkig.Models
 {
     public class FuelEntry
     {
-        public string GasStation { get; set; }
+        private string _gasStation { get; set; }
         
         private FuelsType TypeOfFuel ;
 

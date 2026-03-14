@@ -8,7 +8,7 @@ namespace CarsLogWorkig.Models
         
         private string _passwordHash;
 
-        private string IdUser { get; init;}
+        private string _idUser { get; init;}
         
         private string _email ;
         private string Email{ 
@@ -20,15 +20,15 @@ namespace CarsLogWorkig.Models
 
         public SubscriptionStatus SubscriptionStatus { get; set; }
 
-        private DateTime DateOfBirth;
+        private DateTime _dateOfBirth;
 
-        private DateTime DateOfLastActivity;
+        private DateTime _dateOfLastActivity;
 
-        private DateTime DateOfRegistration;
+        private DateTime _dateOfRegistration;
 
-        private UserSex UserSex;
+        private UserSex _userSex;
 
-        private List<Document> Documents { get; set; }
+        private List<Document> _documents { get; set; }
 
     }
 

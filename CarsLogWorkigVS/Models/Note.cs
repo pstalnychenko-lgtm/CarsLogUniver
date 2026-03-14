@@ -9,7 +9,7 @@ namespace CarsLogWorkig.Models
     public class Note
     {
         private string _content;
-        private DateTime NoteCreatedAtTime { get; set; }
+        private DateTime _noteCreatedAtTime { get; set; }
 
       
     }

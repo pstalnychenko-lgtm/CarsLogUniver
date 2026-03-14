@@ -13,11 +13,11 @@ namespace CarsLogWorkig.Models
 
         private DateTime _yearOfRelease;
 
-        private uint CurrentMileage { get; set; }
+        private uint _currentMileage { get; set; }
 
-        private List<FuelEntry> FuelEntries { get; set; }
+        private List<FuelEntry> _fuelEntries { get; set; }
 
-        private DateTime CarReleaseDate;
+        private DateTime _carReleaseDate;
 
     }
 

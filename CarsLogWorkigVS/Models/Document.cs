@@ -8,11 +8,11 @@ namespace CarsLogWorkig.Models
       
       {
         private string _title;
-        private string PolicyNumber { get; set; }
+        private string _policyNumber { get; set; }
         
         public DateTime ExpiryDate { get; set; }
         
-        private string ImagePath { get; set; }
+        private string _imagePath { get; set; }
         
     }
 }
