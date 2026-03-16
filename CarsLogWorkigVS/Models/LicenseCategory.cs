@@ -7,15 +7,58 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public DateTime DateOfIssue { get; set; }// Дата видачі категорії
+        public DateTime DateOfIssue { get; private set; } // Дата видачі категорії
 
-        public DateTime ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; private set; }
 
-        public string CityOfIssue { get; set; }
+        private string _cityOfIssue;
+        public string CityOfIssue
+        {
+            get => _cityOfIssue;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _cityOfIssue = value;
+            }
+        }
 
-        public string SerialNumber { get; set; }
+        private string _serialNumber;
+        public string SerialNumber
+        {
+            get => _serialNumber;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _serialNumber = value;
+            }
+        }
 
-        public string TrafficPoliceCenter { get; set; } // Центр ДАІ, який видав категорію
+        private string _trafficPoliceCenter;
+        public string TrafficPoliceCenter // Центр ДАІ, який видав категорію
+        {
+            get => _trafficPoliceCenter;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _trafficPoliceCenter = value;
+            }
+        }
+
+        public LicenseCategory(DateTime dateOfIssue, DateTime expirationDate,
+                                string cityOfIssue, string serialNumber, string trafficPoliceCenter)
+        {
+            DateOfIssue = dateOfIssue;
+            ExpirationDate = expirationDate;
+            CityOfIssue = cityOfIssue;
+            SerialNumber = serialNumber;
+            TrafficPoliceCenter = trafficPoliceCenter;
+        }
     }
 
     public enum CategoryName

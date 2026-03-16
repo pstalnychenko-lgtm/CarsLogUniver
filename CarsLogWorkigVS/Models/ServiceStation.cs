@@ -6,10 +6,50 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _name = value;
+            }
+        }
 
-        public string Address { get; set; }
+        private string _address;
+        public string Address
+        {
+            get => _address;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _address = value;
+            }
+        }
 
-        public string WorkingHours { get; set; }
+        private string _workingHours;
+        public string WorkingHours
+        {
+            get => _workingHours;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _workingHours = value;
+            }
+        }
+
+        public ServiceStation(string name, string address, string workingHours)
+        {
+            Name = name;
+            Address = address;
+            WorkingHours = workingHours;
+        }
     }
 }

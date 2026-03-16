@@ -8,11 +8,11 @@ namespace CarsLogWorkig.Models
 
         public string Title { get; set; }
 
-        public DocumentType DocumentType { get; set; }
+        public DocumentType DocumentType { get;private set; }
 
-        public string PolicyNumber { get; set; }
+        public string PolicyNumber { get;private set; }
 
-        public DateTime IssueDate { get; set; }
+        public DateTime IssueDate { get;private set; }
     }
 
     public enum DocumentType

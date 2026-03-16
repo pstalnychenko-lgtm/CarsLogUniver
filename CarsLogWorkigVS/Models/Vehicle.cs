@@ -7,49 +7,143 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public string PlateNumber { get; set; }
+        private string _plateNumber;
+        public string PlateNumber
+        {
+            get => _plateNumber;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _plateNumber = value;
+            }
+        }
 
-        public string Vin { get; set; }// Ідентифікаційний номер транспортного засобу
+        private string _vin;
+        public string Vin // Ідентифікаційний номер транспортного засобу
+        {
+            get => _vin;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _vin = value;
+            }
+        }
 
-        public string Brand { get; set; }
+        private string _brand;
+        public string Brand
+        {
+            get => _brand;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _brand = value;
+            }
+        }
 
-        public string Model { get; set; }
+        private string _model;
+        public string Model
+        {
+            get => _model;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _model = value;
+            }
+        }
 
-        public string Color { get; set; }
+        private string _color;
+        public string Color
+        {
+            get => _color;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _color = value;
+            }
+        }
 
-        public string BodyType { get; set; }
+        private string _bodyType;
+        public string BodyType
+        {
+            get => _bodyType;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _bodyType = value;
+            }
+        }
 
-        public uint EngineVolumeCc { get; set; } // Об'єм двигуна в кубічних сантиметрах
+        public uint EngineVolumeCc { get; private set; } // Об'єм двигуна в кубічних сантиметрах
 
-        public FuelsType FuelType { get; set; }// Тип палива
+        public FuelsType FuelType { get; private set; } // Тип палива
 
-        public decimal FuelTankCapacity { get; set; }// Ємність паливного бака в літрах
+        public decimal FuelTankCapacity { get; private set; } // Ємність паливного бака в літрах
 
-        public DateTime YearOfRelease { get; set; }
+        public DateTime YearOfRelease { get; private set; }
 
-        public DateTime CarReleaseDate { get; set; }
+        public DateTime CarReleaseDate { get; private set; }
 
-        public uint CurrentMileage { get; set; }
+        public uint CurrentMileage { get; set; } // залишено set — оновлюється під час експлуатації
 
-        public string Notes { get; set; }
+        private string _notes;
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _notes = value;
+            }
+        }
 
-        // Навігаційні властивості
-        public Owner Owner { get; set; }
+        public Owner Owner { get; private set; }
 
-        public List<Driver> Drivers { get; set; } = new List<Driver>();
+        public List<Driver> Drivers { get; private set; } = new List<Driver>();
 
-        public List<Document> Documents { get; set; } = new List<Document>();
+        public List<Document> Documents { get; private set; } = new List<Document>();
 
-        public List<FuelEntry> FuelEntries { get; set; } = new List<FuelEntry>();
+        public List<FuelEntry> FuelEntries { get; private set; } = new List<FuelEntry>();
 
-        public List<ServiceRecord> ServiceRecords { get; set; } = new List<ServiceRecord>();
+        public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();
 
-        public List<VehicleComponent> Components { get; set; } = new List<VehicleComponent>();
+        public List<VehicleComponent> Components { get; private set; } = new List<VehicleComponent>();
 
-        public List<Note> Notess { get; set; } = new List<Note>();
+        public List<Note> Notess { get; private set; } = new List<Note>();
 
-        public List<TripLog> TripLogs { get; set; } = new List<TripLog>();
+        public List<TripLog> TripLogs { get; private set; } = new List<TripLog>();
 
-        public List<Expense> Expenses { get; set; } = new List<Expense>();
+        public List<Expense> Expenses { get; private set; } = new List<Expense>();
+
+        public Vehicle(string plateNumber, string vin, string brand, string model, string color,
+                        string bodyType, uint engineVolumeCc, FuelsType fuelType, decimal fuelTankCapacity,
+                        DateTime yearOfRelease, DateTime carReleaseDate, Owner owner)
+        {
+            PlateNumber = plateNumber;
+            Vin = vin;
+            Brand = brand;
+            Model = model;
+            Color = color;
+            BodyType = bodyType;
+            EngineVolumeCc = engineVolumeCc;
+            FuelType = fuelType;
+            FuelTankCapacity = fuelTankCapacity;
+            YearOfRelease = yearOfRelease;
+            CarReleaseDate = carReleaseDate;
+            Owner = owner;
+        }
     }
 }

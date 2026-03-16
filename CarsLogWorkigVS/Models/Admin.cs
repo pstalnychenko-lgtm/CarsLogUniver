@@ -4,10 +4,10 @@ namespace CarsLogWorkig.Models
 {
     public class Admin : User
     {
-        public string FullName { get; set; }
+        public string FullName { get;private set; }
 
-        public string Position { get; set; }
+        public string Position { get;private set; }
 
-        public string ContactInfo { get; set; }
+        public string ContactInfo { get;private set; }
     }
 }

@@ -13,8 +13,6 @@ namespace CarsLogWorkig.Models
 
         public string Address { get; set; }
 
-        public DateTime DateOfPurchaseTheCar { get; set; }
-
-        public DateTime? DateOfSaleTheCar { get; set; }
+        public DateTime DateOfPurchaseTheCar { get;private set ; } // дата покупки автомобиля
     }
 }

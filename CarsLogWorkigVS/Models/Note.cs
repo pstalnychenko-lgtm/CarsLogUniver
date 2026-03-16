@@ -6,11 +6,40 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public string Title { get; set; }
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _title = value;
+            }
+        }
 
-        public string Content { get; set; }
+        private string _content;
+        public string Content
+        {
+            get => _content;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _content = value;
+            }
+        }
 
-        public NoteCategory Category { get; set; }
+        public NoteCategory Category { get; private set; }
+
+        public Note(string title, string content, NoteCategory category)
+        {
+            Title = title;
+            Content = content;
+            Category = category;
+        }
     }
 
     public enum NoteCategory

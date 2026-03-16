@@ -7,7 +7,18 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public string Login { get; private set; }
+        private string _login;
+        public string Login
+        {
+            get => _login;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                else
+                    _login = value;
+            }
+        }
 
         private string _passwordHash;
 
@@ -15,9 +26,13 @@ namespace CarsLogWorkig.Models
         public string Email
         {
             get => _email;
-            set => _email = string.IsNullOrWhiteSpace(value)
-                ? throw new ArgumentException("Email не може бути порожнім.")
-                : value;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Email не може бути порожнім.");
+                else
+                    _email = value;
+            }
         }
 
         public UserRole Role { get; set; }
@@ -28,8 +43,7 @@ namespace CarsLogWorkig.Models
 
         public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
 
-        public DateTime DateOfLastActivity { get; set; }
-
+        public DateTime DateOfLastActivity { get; set; } 
     }
 
     public enum UserRole
