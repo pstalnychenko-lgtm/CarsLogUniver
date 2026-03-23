@@ -5,11 +5,15 @@ namespace CarsLogWorkig.Models
 {
     public class LicenseCategory
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор категорії водійського посвідчення
 
         public DateTime DateOfIssue { get; private set; } // Дата видачі категорії
+        public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy");
 
-        public DateTime ExpirationDate { get; private set; }
+
+        public DateTime ExpirationDate { get; private set; }// Дата закінчення терміну дії категорії
+        public string ExpirationDateFormatted => ExpirationDate.ToString("dd.MM.yyyy");
+
 
         private string _cityOfIssue;
         public string CityOfIssue
@@ -51,7 +55,8 @@ namespace CarsLogWorkig.Models
         }
 
         public LicenseCategory(DateTime dateOfIssue, DateTime expirationDate,
-                                string cityOfIssue, string serialNumber, string trafficPoliceCenter)
+                                string cityOfIssue, string serialNumber, string trafficPoliceCenter)/* конструктор для створення
+                                                                                                     * категорії водійського посвідчення*/
         {
             DateOfIssue = dateOfIssue;
             ExpirationDate = expirationDate;

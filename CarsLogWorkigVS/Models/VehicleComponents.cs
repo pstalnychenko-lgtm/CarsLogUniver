@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class VehicleComponents
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid(); // унікальний ідентифікатор компонента транспортного засобу
 
         public ComponentType ComponentType { get; private set; } // Тип компонента (наприклад, масло, фільтр, шини тощо)
 
@@ -25,21 +25,21 @@ namespace CarsLogWorkig.Models
 
         public bool IsBeInNormalCondition { get; private set; } // Чи знаходиться компонент в нормальному стані
 
-        private string _notes;
-        public string Notes
+        private string _notesComponents;
+        public string NotesComponents // Додаткові нотатки або коментарі щодо компонента (наприклад, причина заміни)
         {
-            get => _notes;
+            get => _notesComponents;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _notes = value;
+                    _notesComponents = value;
             }
         }
 
         public VehicleComponents(ComponentType componentType, string customPartName,
-                                  bool isReplaced, bool isBeInNormalCondition, string notes)
+                                  bool isReplaced, bool isBeInNormalCondition, string notes) /* конструктор для створення запису про компонент транспортного засобу*/
         {
             ComponentType = componentType;
             CustomPartName = customPartName;
@@ -48,8 +48,8 @@ namespace CarsLogWorkig.Models
             Notes = notes;
         }
     }
-
-    public enum ComponentType
+    
+    public enum ComponentType // Перелік типів компонентів, які можуть бути відстежені
     {
         OilFilter,      // Масляний фільтр
         AirFilter,      // Повітряний фільтр

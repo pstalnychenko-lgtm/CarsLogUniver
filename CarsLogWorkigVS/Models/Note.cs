@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class Note
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор нотатки
 
         private string _title;
         public string Title
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _content;
+        private string _content;// зміст нотатки
         public string Content
         {
             get => _content;
@@ -32,9 +32,9 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public NoteCategory Category { get; private set; }
+        public NoteCategory Category { get; private set; }// категорія нотатки
 
-        public Note(string title, string content, NoteCategory category)
+        public Note(string title, string content, NoteCategory category)// конструктор для створення запису про нотатку
         {
             Title = title;
             Content = content;

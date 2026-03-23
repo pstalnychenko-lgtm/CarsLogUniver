@@ -5,29 +5,29 @@ namespace CarsLogWorkig.Models
 {
     public class Driver : User
     {
-        private string _fullName;
-        public string FullName
+        private string _fullNameByDriver;
+        public string FullNameByDriver// ім'я водія
         {
-            get => _fullName;
+            get => _fullNameByDriver;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _fullName = value;
+                    _fullNameByDriver = value;
             }
         }
 
-        private string _phone;
-        public string Phone // номер телефону
+        private string _phoneByDriver;
+        public string PhoneByDriver // номер телефону
         {
-            get => _phone;
+            get => _phoneByDriver;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _phone = value;
+                    _phoneByDriver = value;
             }
         }
 
@@ -56,22 +56,43 @@ namespace CarsLogWorkig.Models
                     _licenseIssuedBy = value;
             }
         }
+        public BloodType BloodType { get;private set; } // група крові водія
 
         public DateTime LicenseExpiryDate { get; private set; } // дата закінчення терміну дії водійського посвідчення
+        public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
 
-        public bool MedicalCertStatus { get; private set; }
+        public bool MedicalCertStatus { get; private set; }// статус наявності медичної довідки (true - є, false - немає)
 
         public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>();
 
         public Driver(string fullName, string phone, string licenseNumber, string licenseIssuedBy,
-                      DateTime licenseExpiryDate, bool medicalCertStatus)
+                      DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType)// конструктор для створення об'єкта водія
         {
-            FullName = fullName;
-            Phone = phone;
+            FullNameByDriver = fullName;
+            PhoneByDriver = phone;
             LicenseNumber = licenseNumber;
             LicenseIssuedBy = licenseIssuedBy;
             LicenseExpiryDate = licenseExpiryDate;
             MedicalCertStatus = medicalCertStatus;
+            BloodType = bloodType;
         }
+    
+    
     }
+
+    public enum BloodType
+     {
+         A_Positive,
+         A_Negative,
+         B_Positive,
+         B_Negative,
+         AB_Positive,
+         AB_Negative,
+         O_Positive,
+         O_Negative
+    }
+    
+        
+
 }
+

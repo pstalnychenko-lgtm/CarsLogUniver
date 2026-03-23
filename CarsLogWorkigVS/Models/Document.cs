@@ -1,18 +1,20 @@
 using System;
+using System.Data;
 
 namespace CarsLogWorkig.Models
 {
     public class Document
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор документа
 
-        public string Title { get; set; }
+        public string Title { get; set; } // Назва документа 
 
-        public DocumentType DocumentType { get;private set; }
+        public DateTime DateOfIssueDoc { get; private set; }
+        public string DateOfIssueDocFormatted => DateOfIssueDoc.ToString("dd.MM.yyyy");// Дата видачі документа
 
-        public string PolicyNumber { get;private set; }
+        public DocumentType DocumentType { get;private set; }// Тип документа (техпаспорт, страховий поліс, техогляд тощо)
 
-        public DateTime IssueDate { get;private set; }
+        public string PolicyNumber { get; private set; }// Номер поліса (для страхового полісу)
     }
 
     public enum DocumentType

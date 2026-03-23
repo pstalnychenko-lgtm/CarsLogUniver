@@ -4,13 +4,11 @@ namespace CarsLogWorkig.Models
 {
     public class Expense // Клас для запису витрат, пов'язаних з автомобілем
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про витрати
 
         public ExpenseCategory Category { get; private set; } // Категорія витрат
 
         public decimal Amount { get; private set; } // Сума витрат
-
-        public DateTime Date { get; private set; }
 
         private string _description;
         public string Description
@@ -26,9 +24,10 @@ namespace CarsLogWorkig.Models
         }
 
         // Навігаційна властивість
-        public Guid VehicleId { get; private set; }
+        public Guid VehicleId { get; private set; }// Ідентифікатор автомобіля, до якого належить витрата
 
-        public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)
+        public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)/*конструктор для створення
+                                                                                                                     запису про витрати*/
         {
             Category = category;
             Amount = amount;
@@ -38,7 +37,7 @@ namespace CarsLogWorkig.Models
         }
     }
 
-    public enum ExpenseCategory
+    public enum ExpenseCategory// Категорії витрат
     {
         Fuel,
         Service,

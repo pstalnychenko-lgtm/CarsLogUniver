@@ -5,10 +5,10 @@ namespace CarsLogWorkig.Models
 {
     public class Vehicle
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid(); // унікальний ідентифікатор транспортного засобу
 
         private string _plateNumber;
-        public string PlateNumber
+        public string PlateNumber // Номерний знак транспортного засобу
         {
             get => _plateNumber;
             private set
@@ -34,7 +34,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _brand;
-        public string Brand
+        public string Brand // Марка транспортного засобу   
         {
             get => _brand;
             private set
@@ -47,7 +47,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _model;
-        public string Model
+        public string Model// Модель транспортного засобу
         {
             get => _model;
             private set
@@ -60,7 +60,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _color;
-        public string Color
+        public string Color// Колір транспортного засобу
         {
             get => _color;
             private set
@@ -73,7 +73,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _bodyType;
-        public string BodyType
+        public string BodyType// Тип кузова (наприклад, седан, хетчбек, позашляховик тощо)
         {
             get => _bodyType;
             private set
@@ -91,14 +91,13 @@ namespace CarsLogWorkig.Models
 
         public decimal FuelTankCapacity { get; private set; } // Ємність паливного бака в літрах
 
-        public DateTime YearOfRelease { get; private set; }
+        public DateTime YearOfRelease { get; private set; } // Рік випуску автомобіля 
 
-        public DateTime CarReleaseDate { get; private set; }
-
+        public DateTime CarReleaseDate { get; private set; } = DateTime.Now; // Дата випуску автомобіля
         public uint CurrentMileage { get; set; } // залишено set — оновлюється під час експлуатації
 
         private string _notes;
-        public string Notes
+        public string Notes// додаткова інформація або коментарі про транспортний засіб, які можуть бути корисними для власника або водіїв
         {
             get => _notes;
             set
@@ -110,17 +109,25 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public Owner Owner { get; private set; }
+        public Owner Owner { get; private set; }// Навігаційна властивість для власника транспортного засобу
 
-        public List<Driver> Drivers { get; private set; } = new List<Driver>();
+        public List<Driver> Drivers { get; private set; } = new List<Driver>(); // Навігаційна властивість для водіїв,
+                                                                                // які керують транспортним засобом
 
-        public List<Document> Documents { get; private set; } = new List<Document>();
+        public List<Document> Documents { get; private set; } = new List<Document>();/* Навігаційна властивість для документів, 
+                                                                                        пов'язаних з транспортним засобом*/
 
-        public List<FuelEntry> FuelEntries { get; private set; } = new List<FuelEntry>();
+        public List<FuelEntry> FuelEntries { get; private set; } = new List<FuelEntry>();// Навігаційна властивість для записів про
+                                                                                         // заправки транспортного засобу
 
-        public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();
+        public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();// Навігаційна властивість для записів про сервісне
+                                                                                                    // обслуговування транспортного засобу
 
-        public List<VehicleComponent> Components { get; private set; } = new List<VehicleComponent>();
+        public List<VehicleComponent> Components { get; private set; } = new List<VehicleComponent>();// Навігаційна властивість для
+                                                                                                      // компонентів
+                                                                                                      // транспортного засобу
+                                                                                                      // (наприклад, шини, акумулятор,
+                                                                                                      // гальмівні колодки тощо)
 
         public List<Note> Notess { get; private set; } = new List<Note>();
 
@@ -130,7 +137,7 @@ namespace CarsLogWorkig.Models
 
         public Vehicle(string plateNumber, string vin, string brand, string model, string color,
                         string bodyType, uint engineVolumeCc, FuelsType fuelType, decimal fuelTankCapacity,
-                        DateTime yearOfRelease, DateTime carReleaseDate, Owner owner)
+                        DateTime yearOfRelease, DateTime carReleaseDate, Owner owner) // конструктор для створення нового транспортного засобу
         {
             PlateNumber = plateNumber;
             Vin = vin;

@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class FuelEntry
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про заправку
 
         private string _gasStation;
         public string GasStation // назва заправки
@@ -23,19 +23,18 @@ namespace CarsLogWorkig.Models
 
         public DateTime FuelDate { get; private set; } // дата заправки
 
-        public decimal Liters { get; private set; }
-
         public decimal PricePerLiter { get; private set; } // ціна за літр
 
         public decimal TotalCost { get; private set; }
-        // загальна вартість заправки (розраховується як Liters * PricePerLiter)
+        
+        /* загальна вартість заправки (розраховується як Liters * PricePerLiter)
+ Обчислювана властивість: витрата л/100км
 
-        /* Обчислювана властивість: витрата л/100км
            Розраховується відносно попереднього запису — заповнюється при збереженні */
-        public decimal? FuelConsumptionPer100Km { get; private set; }
+        public decimal? FuelConsumptionPer100Km { get; private set; }// палива на 100 км
 
         public FuelEntry(string gasStation, FuelsType fuelType, DateTime fuelDate,
-                         decimal liters, decimal pricePerLiter)
+                         decimal liters, decimal pricePerLiter) // конструктор для створення запису про заправку
         {
             GasStation = gasStation;
             FuelType = fuelType;
@@ -46,7 +45,7 @@ namespace CarsLogWorkig.Models
         }
     }
 
-    public enum FuelsType
+    public enum FuelsType // тип палива
     {
         Petrol,
         Diesel,

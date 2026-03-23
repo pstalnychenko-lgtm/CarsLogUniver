@@ -21,8 +21,8 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _destination;
-        public string Destination
+        private string _destination; 
+        public string Destination// Можна додати окремо місто та адресу, якщо потрібно
         {
             get => _destination;
             private set
@@ -36,30 +36,28 @@ namespace CarsLogWorkig.Models
 
         public TripPurpose Purpose { get; private set; } // Мета поїздки (наприклад, особиста, службова, обслуговування тощо)
 
-        public uint StartMileage { get; private set; }
+        public uint StartMileage { get; private set; }// Пробіг на початку поїздки 
 
-        public uint EndMileage { get; private set; }
+        public uint EndMileage { get; private set; }// Пробіг в кінці поїздки
 
-        // Обчислювана відстань поїздки
-        public uint DistanceKm => EndMileage > StartMileage
-            ? EndMileage - StartMileage
-            : 0;
 
-        private string _notes;
-        public string Notes
+
+        private uint _distanceKm; //додаткова змінна для зберігання відстані
+
+        public uint DistanceKm// Обчислювана відстань поїздкb
         {
-            get => _notes;
+            get => _distanceKm;
             private set
             {
-                if (string.IsNullOrEmpty(value))
+                if (value == 0)
                     return;
                 else
-                    _notes = value;
+                    _distanceKm = value;
             }
         }
 
         public TripLog(DateTime tripDate, string departurePoint, string destination,
-                        TripPurpose purpose, uint startMileage, uint endMileage, string notes)
+                        TripPurpose purpose, uint startMileage, uint endMileage, string notes) // канструктор для створення запису про поїздку
         {
             TripDate = tripDate;
             DeparturePoint = departurePoint;
@@ -71,7 +69,7 @@ namespace CarsLogWorkig.Models
         }
     }
 
-    public enum TripPurpose
+    public enum TripPurpose// Перелік можливих цілей поїздки
     {
         Personal,
         Business,

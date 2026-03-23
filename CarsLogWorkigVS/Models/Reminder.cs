@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class VehicleComponent
     {
-        private string _partName;
+        private string _partName;// Назва компонента (наприклад, "Гальмівні колодки", "Масляний фільтр" тощо)
         public string PartName
         {
             get => _partName;
@@ -17,7 +17,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private uint _installationMileage;
+        private uint _installationMileage;// Пробіг автомобіля на момент встановлення компонента
         public uint InstallationMileage
         {
             get => _installationMileage;
@@ -31,7 +31,7 @@ namespace CarsLogWorkig.Models
             private set => _isExpired = value;
         }
 
-        private DateTime _installationDate;
+        private DateTime _installationDate;// Дата встановлення компонента
         public DateTime InstallationDate
         {
             get => _installationDate;

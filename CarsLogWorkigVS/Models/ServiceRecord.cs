@@ -4,9 +4,9 @@ namespace CarsLogWorkig.Models
 {
     public class ServiceRecord
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про сервісне обслуговування
 
-        public DateTime DateOfService { get; private set; }
+        public DateTime DateOfService { get; private set; }// Дата проведення сервісного обслуговування
 
         private string _description;
         public string Description
@@ -21,12 +21,6 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public uint MileageAtService { get; private set; }
-
-        public uint NextServiceMileage { get; private set; }
-
-        public DateTime NextServiceDate { get; private set; }
-
         private decimal _cost;
         public decimal Cost
         {
@@ -35,7 +29,7 @@ namespace CarsLogWorkig.Models
         }
 
         public ServiceRecord(DateTime dateOfService, string description, uint mileageAtService,
-                              uint nextServiceMileage, DateTime nextServiceDate, decimal cost)
+                               decimal cost)
         {
             DateOfService = dateOfService;
             Description = description;

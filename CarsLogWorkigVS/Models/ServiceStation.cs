@@ -4,31 +4,31 @@ namespace CarsLogWorkig.Models
 {
     public class ServiceStation
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор сервісної станції
 
-        private string _name;
-        public string Name
+        private string _serviseName;// назва сервісної станції
+        public string ServiseName
         {
-            get => _name;
+            get => _serviseName;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _name = value;
+                    _serviseName = value;
             }
         }
 
-        private string _address;
-        public string Address
+        private string _serviseAddress;
+        public string ServiseAddress
         {
-            get => _address;
+            get => _serviseAddress;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _address = value;
+                    _serviseAddress = value;
             }
         }
 
@@ -45,10 +45,10 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public ServiceStation(string name, string address, string workingHours)
+        public ServiceStation(string serviseName, string serviseAddress, string workingHours)
         {
-            Name = name;
-            Address = address;
+            Name = serviseName;
+            Address = serviseAddress;
             WorkingHours = workingHours;
         }
     }
