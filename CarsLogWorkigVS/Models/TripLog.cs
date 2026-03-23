@@ -65,7 +65,7 @@ namespace CarsLogWorkig.Models
             Purpose = purpose;
             StartMileage = startMileage;
             EndMileage = endMileage;
-            Notes = notes;
+            
         }
     }
 

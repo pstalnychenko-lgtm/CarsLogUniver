@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class VehicleComponent
+    public class VehicleComponent // Клас для зберігання інформації про компоненти автомобіля, які потребують заміни або обслуговування
     {
         private string _partName;// Назва компонента (наприклад, "Гальмівні колодки", "Масляний фільтр" тощо)
         public string PartName
@@ -39,7 +39,7 @@ namespace CarsLogWorkig.Models
         }
 
         public VehicleComponent(string partName, uint installationMileage,
-                                 bool isExpired, DateTime installationDate)
+                                 bool isExpired, DateTime installationDate) // конструктор для створення запису про компонент автомобіля
         {
             PartName = partName;
             InstallationMileage = installationMileage;

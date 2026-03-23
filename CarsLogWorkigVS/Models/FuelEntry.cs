@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry
+    public class FuelEntry // Клас для запису інформації про заправку автомобіля
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про заправку
 
@@ -39,7 +39,6 @@ namespace CarsLogWorkig.Models
             GasStation = gasStation;
             FuelType = fuelType;
             FuelDate = fuelDate;
-            Liters = liters;
             PricePerLiter = pricePerLiter;
             TotalCost = liters * pricePerLiter;
         }

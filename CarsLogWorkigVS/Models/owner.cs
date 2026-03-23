@@ -1,13 +1,13 @@
-using Android.Media.TV;
+
 using System;
 using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User
+    public class Owner : User // клас для зберігання інформації про власника автомобіля, успадковує від класу User
     {
         private string _firstNameByOwner;
-        public string FirstNameByOwner
+        public string FirstNameByOwner // властивість для зберігання імені власника автомобіля
         {
             get => _firstNameByOwner;
             private set
@@ -18,7 +18,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _lastNameByOwner;
-        public string LastNameByOwner
+        public string LastNameByOwner // властивість для зберігання прізвища власника автомобіля
         {
             get => _lastNameByOwner;
             private set
@@ -29,7 +29,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _phoneByOwner;
-        public string PhoneByOwner
+        public string PhoneByOwner //   властивість для зберігання номера телефону власника автомобіля
         {
             get => _phoneByOwner;
             private set
@@ -40,7 +40,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _addressByOwner;
-        public string AddressByOwner
+        public string AddressByOwner // властивість для зберігання адреси власника автомобіля
         {
             get => _addressByOwner;
             private set
@@ -50,12 +50,12 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public DateTime DateOfPurchaseTheCar { get;private set ; } 
+        public DateTime DateOfPurchaseTheCar { get;private set ; }  
         public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy");// дата покупки автомобиля
 
         public Owner(string firstNameByOwnerv , string lastNameByOwner, string phoneByOwner, string addressByOwner,
-            DateTime dateOfPurchaseTheCar)
-         
+            DateTime dateOfPurchaseTheCar) // конструктор для створення запису про власника автомобіля
+
         {
             FirstNameByOwner = firstNameByOwnerv ;
             LastNameByOwner = lastNameByOwner ;

@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Note
+    public class Note // Клас для запису нотаток, пов'язаних з автомобілем
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор нотатки
 

@@ -47,8 +47,8 @@ namespace CarsLogWorkig.Models
 
         public ServiceStation(string serviseName, string serviseAddress, string workingHours)
         {
-            Name = serviseName;
-            Address = serviseAddress;
+            ServiseName = serviseName;
+            ServiseAddress = serviseAddress;
             WorkingHours = workingHours;
         }
     }

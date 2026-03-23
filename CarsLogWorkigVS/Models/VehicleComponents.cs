@@ -39,13 +39,13 @@ namespace CarsLogWorkig.Models
         }
 
         public VehicleComponents(ComponentType componentType, string customPartName,
-                                  bool isReplaced, bool isBeInNormalCondition, string notes) /* конструктор для створення запису про компонент транспортного засобу*/
+                                  bool isReplaced, bool isBeInNormalCondition, string notesComponents) /* конструктор для створення запису про компонент транспортного засобу*/
         {
             ComponentType = componentType;
             CustomPartName = customPartName;
             IsReplaced = isReplaced;
             IsBeInNormalCondition = isBeInNormalCondition;
-            Notes = notes;
+            NotesComponents = notesComponents;
         }
     }
     

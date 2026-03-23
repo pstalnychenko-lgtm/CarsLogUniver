@@ -4,8 +4,8 @@ namespace CarsLogWorkig.Models
 {
     public class Admin : User
     {
-        private string _firstName;
-        public string FirstName 
+        private string _firstName; 
+        public string FirstName // властивість для зберігання імені адміністратора
         { 
             get;
             private set 
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
             
         }
 
-        private string _lastName;
+        private string _lastName; // властивість для зберігання прізвища адміністратора
         public string LastName 
         { 
             get => _lastName;
@@ -34,10 +34,11 @@ namespace CarsLogWorkig.Models
 
 
 
-        public AdminPosition Position { get;private set; }
+        public AdminPosition Position { get;private set; } /* властивість для зберігання посади адміністратора*/                                                          
+                                                            
 
         private string _contactInfo;
-        public string ContactInfo 
+        public string ContactInfo // властивість для зберігання контактної інформації адміністратора
         {
             get => _contactInfo;
             private set
@@ -53,7 +54,7 @@ namespace CarsLogWorkig.Models
 
     }
 
-public enum AdminPosition
+public enum AdminPosition // Перелік посад адміністратора
     {
         SuperAdmin,
         Manager,

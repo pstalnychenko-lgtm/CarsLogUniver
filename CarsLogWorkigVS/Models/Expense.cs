@@ -31,7 +31,6 @@ namespace CarsLogWorkig.Models
         {
             Category = category;
             Amount = amount;
-            Date = date;
             Description = description;
             VehicleId = vehicleId;
         }
