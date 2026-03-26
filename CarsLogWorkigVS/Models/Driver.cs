@@ -6,7 +6,7 @@ namespace CarsLogWorkig.Models
     public class Driver : User, IDriver
     {
         private string _fullNameByDriver;
-        public string FullNameByDriver // ім'я водія
+        public string FullNameByDriver
         {
             get => _fullNameByDriver;
             private set
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _phoneByDriver;
-        public string PhoneByDriver // номер телефону
+        public string PhoneByDriver
         {
             get => _phoneByDriver;
             private set
@@ -32,7 +32,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _licenseNumber;
-        public string LicenseNumber // номер ліцензії
+        public string LicenseNumber
         {
             get => _licenseNumber;
             private set
@@ -45,7 +45,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _licenseIssuedBy;
-        public string LicenseIssuedBy // орган, що видав водійське посвідчення
+        public string LicenseIssuedBy
         {
             get => _licenseIssuedBy;
             private set
@@ -57,17 +57,17 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public BloodType BloodType { get; private set; } // група крові водія
+        public BloodType BloodType { get; private set; }
 
-        public DateTime LicenseExpiryDate { get; private set; } // дата закінчення терміну дії водійського посвідчення
+        public DateTime LicenseExpiryDate { get; private set; }
         public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
 
-        public bool MedicalCertStatus { get; private set; } // статус наявності медичної довідки (true - є, false - немає)
+        public bool MedicalCertStatus { get; private set; }
 
         public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>();
 
         public Driver(string fullName, string phone, string licenseNumber, string licenseIssuedBy,
-                      DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType) // конструктор для створення об'єкта водія
+                      DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType)
         {
             FullNameByDriver = fullName;
             PhoneByDriver = phone;
@@ -78,21 +78,19 @@ namespace CarsLogWorkig.Models
             BloodType = bloodType;
         }
 
-        // Дії водія
-
-        public void AddLicenseCategory(LicenseCategory category) // Додати категорію до посвідчення
+        public void AddLicenseCategory(LicenseCategory category) // метод для додавання категорії водійських прав
         {
             if (category != null && !LicenseCategories.Contains(category))
                 LicenseCategories.Add(category);
         }
 
-        public bool IsLicenseValid() // Перевірити чи посвідчення ще дійсне
+        public bool IsLicenseValid() // метод для перевірки дійсності водійських прав
         {
             return LicenseExpiryDate > DateTime.Now;
         }
     }
 
-    public enum BloodType // тип крові та резус
+    public enum BloodType //перелік груп крові для водія
     {
         A_Positive,
         A_Negative,

@@ -2,24 +2,15 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    // Інтерфейс для адміністратора: управління користувачами та автомобілями в системі
     public interface IAdmin : IUser
     {
-        
-        string FirstName { get; }  // Переглянути ім'я адміністратора
-        string LastName { get; }   // Переглянути прізвище адміністратора
+        string FirstName { get; }
+        string LastName { get; }
 
-        
-        void DeactivateUser(User user);   // Деактивувати обліковий запис користувача
-        void ActivateUser(User user);     // Активувати обліковий запис користувача
-        void AssignRole(User user, UserRole role); // Призначити роль користувачу
+        void DeactivateUser(User user); // Метод для деактивації користувача
+        void ActivateUser(User user); // Метод для активації користувача
+        void AssignRole(User user, UserRole role); // Метод для назначененя ролі користувачу
 
-        
-        void AddVehicle(Vehicle vehicle);    // Додати автомобіль до системи
-        void RemoveVehicle(Vehicle vehicle); // Видалити автомобіль з системи
-
-        
-        bool CanViewUserDetails(User user);    // Перевірити доступ до даних користувача
-        bool CanEditVehicle(Vehicle vehicle);  // Перевірити доступ до редагування авто
+        bool CanViewUserDetails(User user); // Метод для перевірки, чи може адміністратор переглядати деталі користувача
     }
 }

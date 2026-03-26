@@ -2,10 +2,10 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Admin : User, IAdmin // клас адмін
+    public class Admin : User, IAdmin
     {
         private string _firstName;
-        public string FirstName // властивість для зберігання імені адміністратора
+        public string FirstName
         {
             get => _firstName;
             private set
@@ -18,7 +18,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _lastName;
-        public string LastName // властивість для зберігання прізвища адміністратора
+        public string LastName
         {
             get => _lastName;
             private set
@@ -30,45 +30,35 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        //Управління користувачами
-
-        public void DeactivateUser(User user) // Деактивувати обліковий запис користувача
+        public void DeactivateUser(User user) // деактивація користувача
         {
-            if (user != null && user.Role != UserRole.Admin)
-                user.IsActive = false;
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            if (user.Role == UserRole.Admin)
+                throw new InvalidOperationException("Адмін не може деактивувати іншого адміна.");
+            user.IsActive = false;
         }
 
-        public void ActivateUser(User user) // Активувати обліковий запис користувача
+        public void ActivateUser(User user) // активація користувача
         {
-            if (user != null)
-                user.IsActive = true;
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            user.IsActive = true;
         }
 
-        public void AssignRole(User user, UserRole role) // Призначити роль — але не вище Admin
+        public void AssignRole(User user, UserRole role) // призначення ролі користувачу
         {
-            if (user != null && role != UserRole.Admin)
-                user.ChangeRole(role);
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            if (role == UserRole.Admin)
+                throw new InvalidOperationException("Адмін не може призначати роль адміна. Це може зробити лише SuperAdmin.");
+            user.ChangeRole(role);
         }
 
-        //Управління автомобілями
-
-        public void AddVehicle(Vehicle vehicle) { }// Додати автомобіль до системи
-        public void RemoveVehicle(Vehicle vehicle) { } // Видалити автомобіль з системи
-        
-
-        
-
-
-
-        public bool CanViewUserDetails(User user) // Адмін бачить дані всіх, крім інших адмінів
+        public bool CanViewUserDetails(User user) // перевірка, чи може адмін переглядати деталі користувача
         {
             if (user == null) return false;
             return user.Role != UserRole.Admin;
-        }
-
-        public bool CanEditVehicle(Vehicle vehicle) // Адмін може редагувати будь-який автомобіль
-        {
-            return vehicle != null;
         }
     }
 }

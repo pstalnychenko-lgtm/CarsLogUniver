@@ -5,13 +5,10 @@ namespace CarsLogWorkig.Models
 {
     public class User
     {
-        public Guid Id { get; init; } = Guid.NewGuid(); /* унікальний ідентифікатор користувача ,який буде дійсний
-                                                          і для інших сутностей, які будуть пов'язані з користувачем
-                                                          (наприклад, нотатки, записи про сервісне обслуговування тощо) */
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         private string _login;
-        public string Login /* логін користувача, який буде використовуватися для входу в систему. 
-                               Він повинен бути унікальним для кожного користувача.*/
+        public string Login
         {
             get => _login;
             private set
@@ -32,9 +29,7 @@ namespace CarsLogWorkig.Models
             this.Role = UserRole.Driver;
         }
 
-        public string Email/* електронна пошта користувача, яка може використовуватися для відновлення пароля або 
-                              для інших комунікацій. 
-                              Вона також повинна бути унікальною для кожного користувача. */
+        public string Email
         {
             get => _email;
             set
@@ -46,29 +41,18 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public UserRole Role { get;private set; }/* роль користувача, яка визначає рівень доступу та дозволи в системі. 
-                                    Це може бути корисно для реалізації різних рівнів доступу до функціональності програми 
-                                    (наприклад, власник автомобіля, водій, адміністратор тощо).*/
+        public UserRole Role { get; private set; }
 
-        public UserSex Sex { get;private set; }/* стать користувача, яка може бути використана для персоналізації 
-                                           інтерфейсу або для інших цілей. */
-                                        
+        public UserSex Sex { get; private set; }
 
         public DateTime DateOfBirth { get; set; }
-        public string DateOfBirthFormatted => DateOfBirth.ToString("dd.MM.yyyy");/* дата народження користувача, яка може використовуватися для 
-                                                                                    персоналізації інтерфейсу або для інших цілей.*/
+        public string DateOfBirthFormatted => DateOfBirth.ToString("dd.MM.yyyy");
 
-        public bool IsActive { get; set; } = true; /* статус активності користувача, який може використовуватися для визначення,
-                                                     чи є обліковий запис активним чи ні. 
-                                                    Це може бути корисно для блокування або видалення облікових записів, я
-                                                    кі більше не використовуються.*/
+        public bool IsActive { get; set; } = true;
 
-
-
-        private string _userFirstName{ get; set; }/* ім'я користувача, яке може використовуватися для персоналізації
-                                                     інтерфейсу або для інших цілей.*/
-        public string UserFirstName 
-        { 
+        private string _userFirstName { get; set; }
+        public string UserFirstName
+        {
             get => _userFirstName;
             private set
             {
@@ -79,27 +63,24 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow; /* Дата реєстрації користувача в системі, яка встановлюється 
-                                                                                автоматично при створенні нового користувача.*/
+        public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
 
-        public DateTime DateOfLastActivity { get; set; } /* Дата останньої активності користувача в системі, яка
-                                                          * може оновлюватися при кожному вході або виконанні певних дій. 
-                                                          * Це може бути корисно для відстеження активності користувача та визначення 
-                                                          * неактивних облікових записів.*/
+        public DateTime DateOfLastActivity { get; set; }
+
         public void ChangeRole(UserRole role)
         {
             this.Role = role;
         }
     }
 
-    public enum UserRole // Роль користувача, яка визначає рівень доступу та дозволи в системі.
+    public enum UserRole
     {
         Owner,
         Driver,
         Admin
     }
 
-    public enum UserSex// Стать користувача, яка може бути використана для персоналізації інтерфейсу або для інших цілей.
+    public enum UserSex
     {
         Male,
         Female

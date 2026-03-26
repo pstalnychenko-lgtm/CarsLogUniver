@@ -1,28 +1,38 @@
 using System;
+using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    // Інтерфейс для власника: управління своїми автомобілями, водіями, витратами
     public interface IOwner : IUser
     {
-        //Особисті дані 
-        string FirstNameByOwner { get; }       // Переглянути ім'я
-        string LastNameByOwner { get; }        // Переглянути прізвище
-        string PhoneByOwner { get; }           // Переглянути номер телефону
-        string AddressByOwner { get; }         // Переглянути адресу
-        DateTime DateOfPurchaseTheCar { get; } // Переглянути дату покупки автомобіля
-        string DateOfPurchaseTheCarFormatted { get; } // Відформатована дата покупки
+        string FirstNameByOwner { get; }
+        string LastNameByOwner { get; }
+        string PhoneByOwner { get; }
+        string AddressByOwner { get; } // Адреса власника
+        DateTime DateOfPurchaseTheCar { get; } // Дата покупки авто
+        string DateOfPurchaseTheCarFormatted { get; } // Форматована дата покупки авто
+        List<Vehicle> Vehicles { get; } // Список транспортних засобів, якими володіє власник
 
-        // Дії власника
-        void AddDriverToVehicle(Vehicle vehicle, Driver driver); // Додати водія до автомобіля
-        void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver); // Видалити водія з автомобіля
 
-        void AddNoteToVehicle(Vehicle vehicle, Note note);         // Додати нотатку до автомобіля
-        void AddExpenseToVehicle(Vehicle vehicle, Expense expense); // Додати витрату до автомобіля
+        // Методи для управління транспортними засобами власника
+        void AddVehicle(Vehicle vehicle); 
+        void RemoveVehicle(Vehicle vehicle);
 
-        void AddDocumentToVehicle(Vehicle vehicle, Document document);  // Додати документ до автомобіля
-        void AddServiceRecord(Vehicle vehicle, ServiceRecord record);    // Додати запис про сервіс
 
-        bool IsVehicleOwner(Vehicle vehicle); // Перевірити, чи є власником конкретного авто
+        // Методи для управління водіями, які можуть керувати транспортними засобами власника
+        void AssignDriverToVehicle(Vehicle vehicle, Driver driver);
+        void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver);
+
+
+        // Методи для управління нотатками, витратами, документами, записами про обслуговування, заправками та журналами поїздок для транспортних засобів власника
+        void AddNoteToVehicle(Vehicle vehicle, Note note);
+        void AddExpenseToVehicle(Vehicle vehicle, Expense expense);
+        void AddDocumentToVehicle(Vehicle vehicle, Document document);
+        void AddServiceRecord(Vehicle vehicle, ServiceRecord record);
+        void AddFuelEntry(Vehicle vehicle, FuelEntry entry);
+        void AddTripLog(Vehicle vehicle, TripLog tripLog);
+
+        // Метод для перевірки, чи є власником певного транспортного засобу
+        bool IsVehicleOwner(Vehicle vehicle);
     }
 }

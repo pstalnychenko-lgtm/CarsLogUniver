@@ -2,12 +2,12 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class VehicleComponents // клас базових компонентів та деталей машини
+    public class VehicleComponents
     {
-        public Guid Id { get; init; } = Guid.NewGuid(); // унікальний ідентифікатор компонента транспортного засобу
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         private string _customPartName;
-        public string CustomPartName // Назва компонента, якщо вибрано "Other"
+        public string CustomPartName
         {
             get => _customPartName;
             private set
@@ -19,12 +19,12 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public bool IsReplaced { get; private set; } // Чи був компонент замінений
+        public bool IsReplaced { get; private set; }
 
-        public bool IsBeInNormalCondition { get; private set; } // Чи знаходиться компонент в нормальному стані
+        public bool IsBeInNormalCondition { get; private set; }
 
         private string _notesComponents;
-        public string NotesComponents // Додаткові нотатки або коментарі щодо компонента (наприклад, причина заміни)
+        public string NotesComponents
         {
             get => _notesComponents;
             private set
@@ -36,8 +36,8 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public VehicleComponents(string customPartName,
-                                  bool isReplaced, bool isBeInNormalCondition, string notesComponents) // конструктор для створення запису про компонент транспортного засобу
+        public VehicleComponents(string customPartName, bool isReplaced,
+                                  bool isBeInNormalCondition, string notesComponents)
         {
             CustomPartName = customPartName;
             IsReplaced = isReplaced;

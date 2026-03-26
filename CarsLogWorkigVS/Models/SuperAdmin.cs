@@ -1,12 +1,11 @@
 using System;
-using CarsLogWorkig.Models;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : User, ISuperAdmin // клас супер-адміністратора
+    public class SuperAdmin : User, ISuperAdmin
     {
         private string _nameSuperAdmin;
-        public string NameSuperAdmin // властивість для зберігання імені супер-адміністратора
+        public string NameSuperAdmin
         {
             get => _nameSuperAdmin;
             private set
@@ -19,7 +18,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _lastNameSuperAdmin;
-        public string LastNameSuperAdmin // властивість для зберігання прізвища супер-адміністратора
+        public string LastNameSuperAdmin
         {
             get => _lastNameSuperAdmin;
             private set
@@ -31,60 +30,69 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public SuperAdmin(string nameSuperAdmin, string lastNameSuperAdmin) // конструктор для створення супер-адміністратора
+        public SuperAdmin(string nameSuperAdmin, string lastNameSuperAdmin)
         {
             NameSuperAdmin = nameSuperAdmin;
             LastNameSuperAdmin = lastNameSuperAdmin;
-            this.ChangeRole(UserRole.Admin); // SuperAdmin отримує найвищий наявний рівень ролі
+            this.ChangeRole(UserRole.Admin);
         }
 
-       
-        
-        
-        
-        
-        // Управління 
 
-        public void CreateAdmin(User user) // Призначити користувача адміністратором
+        // Методи для управління адміністраторами
+        public void CreateAdmin(User user)
         {
-            if (user != null && user.Role != UserRole.Admin)
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            if (user.Role != UserRole.Admin)
                 user.ChangeRole(UserRole.Admin);
         }
 
-        public void RemoveAdmin(User user) // Зняти права адміністратора — понизити до Driver
+
+        // Методи для управління користувачами
+        public void RemoveAdmin(User user)
         {
-            if (user != null && user.Role == UserRole.Admin)
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            if (user.Role == UserRole.Admin)
                 user.ChangeRole(UserRole.Driver);
         }
 
-        public void DeactivateAdmin(User user) // Деактивувати адміністратора
+
+        // Методи для управління користувачами
+        public void DeactivateAdmin(User user)
         {
-            if (user != null && user.Role == UserRole.Admin)
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            if (user.Role == UserRole.Admin)
                 user.IsActive = false;
         }
 
-       
-        
-        
-        
-        
-        // Управління автомобілями 
+
+        // Методи для управління користувачами
+        public void DeactivateUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            user.IsActive = false;
+        }
 
 
-        public void AddVehicle(Vehicle vehicle){   }// Додати автомобіль
-       
+        // Методи для управління користувачами
+        public void ActivateUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            user.IsActive = true;
+        }
 
-        public void RemoveVehicle(Vehicle vehicle) { } // Видалити автомобіль
-        
+        public void AssignRole(User user, UserRole role) // Метод для призначення ролі користувачу
+        {
+            if (user == null)
+                throw new ArgumentNullException("Користувач не може бути порожнім.");
+            user.ChangeRole(role);
+        }
 
-
-
-
-
-
-
-
-        public bool IsSuperAdmin() // Перевірити чи є супер-адміном
+        public bool IsSuperAdmin() //Метод для перевірки, чи є користувач супер-адміністратором
         {
             return this is SuperAdmin;
         }

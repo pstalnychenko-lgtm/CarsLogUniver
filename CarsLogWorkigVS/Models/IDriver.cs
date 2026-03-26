@@ -3,26 +3,20 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-        
-    public interface IDriver : IUser // Інтерфейс для водія: доступ до власних даних посвідчення, категорій, медичної довідки
+    public interface IDriver : IUser
     {
-        
-        string FullNameByDriver { get; }      // Переглянути повне ім'я
-        string PhoneByDriver { get; }         // Переглянути номер телефону
-        BloodType BloodType { get; }          // Переглянути групу крові
+        string FullNameByDriver { get; }
+        string PhoneByDriver { get; }
+        BloodType BloodType { get; }
+        string LicenseNumber { get; }
+        string LicenseIssuedBy { get; } // Орган, що видав водійське посвідчення
+        DateTime LicenseExpiryDate { get; } // Дата закінчення терміну дії водійського посвідчення
+        string DateOfLicenseFormatted { get; }
+        bool MedicalCertStatus { get; } // Статус медичної довідки (true - дійсна, false - недійсна)
+        List<LicenseCategory> LicenseCategories { get; } // Категорії водійських прав, які має водій
 
-        
-        string LicenseNumber { get; }         // Переглянути номер посвідчення
-        string LicenseIssuedBy { get; }       // Переглянути орган, що видав
-        DateTime LicenseExpiryDate { get; }   // Переглянути дату закінчення
-        string DateOfLicenseFormatted { get; }// Відформатована дата закінчення посвідчення
-
-        
-        bool MedicalCertStatus { get; }       // Переглянути статус медичної довідки
-        List<LicenseCategory> LicenseCategories { get; } // Переглянути категорії посвідчення
-
-        
-        void AddLicenseCategory(LicenseCategory category); // Додати категорію до посвідчення
-        bool IsLicenseValid();                             // Перевірити чи посвідчення дійсне
+        void AddLicenseCategory(LicenseCategory category); // Метод для додавання категорії водійських прав
+        bool IsLicenseValid(); // Метод для перевірки дійсності водійських прав
+                               // (перевіряє, чи не закінчився термін дії та чи є медична довідка дійсною)
     }
 }

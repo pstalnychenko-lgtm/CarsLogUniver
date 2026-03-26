@@ -2,32 +2,25 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    // Інтерфейс для супер-адміністратора: повний контроль над системою
     public interface ISuperAdmin : IUser
     {
-        //Особисті дані
-        string NameSuperAdmin { get; }      // Переглянути ім'я супер-адміна
-        string LastNameSuperAdmin { get; }  // Переглянути прізвище супер-адміна
+        string NameSuperAdmin { get; }
+        string LastNameSuperAdmin { get; }
 
 
+        // Методи для управління адміністраторами
+        void CreateAdmin(User user);
+        void RemoveAdmin(User user);
+        void DeactivateAdmin(User user);
 
 
-
-        //Управління
-        void CreateAdmin(User user);        // Призначити користувача адміністратором
-        void RemoveAdmin(User user);        // Зняти права адміністратора
-        void DeactivateAdmin(User user);    // Деактивувати адміністратора
-
-        
-
-        //Управління автомобілями 
-        void AddVehicle(Vehicle vehicle);    // Додати автомобіль
-        void RemoveVehicle(Vehicle vehicle); // Видалити автомобіль
-
-        
+        // Методи для управління користувачами
+        void DeactivateUser(User user);
+        void ActivateUser(User user);
+        void AssignRole(User user, UserRole role);
 
 
-
-        bool IsSuperAdmin();  // Перевірити чи є супер-адміном
+        // Метод для перевірки, чи є користувач супер-адміністратором
+        bool IsSuperAdmin();
     }
 }

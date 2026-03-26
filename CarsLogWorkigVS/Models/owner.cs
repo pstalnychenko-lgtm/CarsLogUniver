@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User, IOwner // клас для зберігання інформації про власника автомобіля, успадковує від класу User
+    public class Owner : User, IOwner
     {
         private string _firstNameByOwner;
-        public string FirstNameByOwner // властивість для зберігання імені власника автомобіля
+        public string FirstNameByOwner
         {
             get => _firstNameByOwner;
             private set
@@ -17,7 +17,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _lastNameByOwner;
-        public string LastNameByOwner // властивість для зберігання прізвища власника автомобіля
+        public string LastNameByOwner
         {
             get => _lastNameByOwner;
             private set
@@ -28,7 +28,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _phoneByOwner;
-        public string PhoneByOwner // властивість для зберігання номера телефону власника автомобіля
+        public string PhoneByOwner
         {
             get => _phoneByOwner;
             private set
@@ -39,7 +39,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _addressByOwner;
-        public string AddressByOwner // властивість для зберігання адреси власника автомобіля
+        public string AddressByOwner
         {
             get => _addressByOwner;
             private set
@@ -50,10 +50,12 @@ namespace CarsLogWorkig.Models
         }
 
         public DateTime DateOfPurchaseTheCar { get; private set; }
-        public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy"); // дата покупки автомобіля
+        public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy");
 
-        public Owner(string firstNameByOwner, string lastNameByOwner, string phoneByOwner, string addressByOwner,
-            DateTime dateOfPurchaseTheCar) // конструктор для створення запису про власника автомобіля
+        public List<Vehicle> Vehicles { get; private set; } = new List<Vehicle>();
+
+        public Owner(string firstNameByOwner, string lastNameByOwner, string phoneByOwner,
+                     string addressByOwner, DateTime dateOfPurchaseTheCar)
         {
             FirstNameByOwner = firstNameByOwner;
             LastNameByOwner = lastNameByOwner;
@@ -62,45 +64,122 @@ namespace CarsLogWorkig.Models
             DateOfPurchaseTheCar = dateOfPurchaseTheCar;
         }
 
-        // Дії власника 
 
-        public void AddDriverToVehicle(Vehicle vehicle, Driver driver) // Додати водія до автомобіля
+
+        // Методи для управління транспортними засобами власника
+        public void AddVehicle(Vehicle vehicle) 
         {
-            if (vehicle != null && driver != null && !vehicle.Drivers.Contains(driver))
+            if (vehicle == null)
+                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+            if (vehicle.Owner.Id != this.Id)
+                throw new InvalidOperationException("Цей автомобіль належить іншому власнику.");
+            if (!Vehicles.Contains(vehicle))
+                Vehicles.Add(vehicle);
+        }
+
+
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void RemoveVehicle(Vehicle vehicle)
+        {
+            if (vehicle == null)
+                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            Vehicles.Remove(vehicle);
+        }
+
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AssignDriverToVehicle(Vehicle vehicle, Driver driver)
+        {
+            if (vehicle == null)
+                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+            if (driver == null)
+                throw new ArgumentNullException("Водій не може бути порожнім.");
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            if (!driver.IsLicenseValid())
+                throw new InvalidOperationException("Посвідчення водія прострочене.");
+            if (!vehicle.Drivers.Contains(driver))
                 vehicle.Drivers.Add(driver);
         }
 
-        public void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver) // Видалити водія з автомобіля
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver)
         {
-            if (vehicle != null && driver != null)
-                vehicle.Drivers.Remove(driver);
+            if (vehicle == null)
+                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+            if (driver == null)
+                throw new ArgumentNullException("Водій не може бути порожнім.");
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.Drivers.Remove(driver);
         }
 
-        public void AddNoteToVehicle(Vehicle vehicle, Note note) // Додати нотатку до автомобіля
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddNoteToVehicle(Vehicle vehicle, Note note)
         {
-            if (vehicle != null && note != null)
-                vehicle.Notess.Add(note);
+            if (vehicle == null || note == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.Notess.Add(note);
         }
 
-        public void AddExpenseToVehicle(Vehicle vehicle, Expense expense) // Додати витрату до автомобіля
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddExpenseToVehicle(Vehicle vehicle, Expense expense)
         {
-            if (vehicle != null && expense != null)
-                vehicle.Expenses.Add(expense);
+            if (vehicle == null || expense == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.Expenses.Add(expense);
         }
 
-        public void AddDocumentToVehicle(Vehicle vehicle, Document document) // Додати документ до автомобіля
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddDocumentToVehicle(Vehicle vehicle, Document document)
         {
-            if (vehicle != null && document != null)
-                vehicle.Documents.Add(document);
+            if (vehicle == null || document == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.Documents.Add(document);
         }
 
-        public void AddServiceRecord(Vehicle vehicle, ServiceRecord record) // Додати запис про сервісне обслуговування
+
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddServiceRecord(Vehicle vehicle, ServiceRecord record)
         {
-            if (vehicle != null && record != null)
-                vehicle.ServiceRecords.Add(record);
+            if (vehicle == null || record == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.ServiceRecords.Add(record);
         }
 
-        public bool IsVehicleOwner(Vehicle vehicle) // Перевірити, чи є власником конкретного авто
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddFuelEntry(Vehicle vehicle, FuelEntry entry)
+        {
+            if (vehicle == null || entry == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.FuelEntries.Add(entry);
+        }
+
+
+        // Методи для управління водіями, нотатками, витратами, документами та іншими аспектами автомобіля
+        public void AddTripLog(Vehicle vehicle, TripLog tripLog)
+        {
+            if (vehicle == null || tripLog == null) return;
+            if (!IsVehicleOwner(vehicle))
+                throw new InvalidOperationException("Ви не є власником цього автомобіля.");
+            vehicle.TripLogs.Add(tripLog);
+        }
+
+        public bool IsVehicleOwner(Vehicle vehicle) // Метод для перевірки, чи є власником конкретного автомобіля
         {
             if (vehicle == null) return false;
             return vehicle.Owner.Id == this.Id;
