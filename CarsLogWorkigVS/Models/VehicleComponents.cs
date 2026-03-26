@@ -2,11 +2,9 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class VehicleComponents
+    public class VehicleComponents // клас базових компонентів та деталей машини
     {
         public Guid Id { get; init; } = Guid.NewGuid(); // унікальний ідентифікатор компонента транспортного засобу
-
-        public ComponentType ComponentType { get; private set; } // Тип компонента (наприклад, масло, фільтр, шини тощо)
 
         private string _customPartName;
         public string CustomPartName // Назва компонента, якщо вибрано "Other"
@@ -38,29 +36,13 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public VehicleComponents(ComponentType componentType, string customPartName,
-                                  bool isReplaced, bool isBeInNormalCondition, string notesComponents) /* конструктор для створення запису про компонент транспортного засобу*/
+        public VehicleComponents(string customPartName,
+                                  bool isReplaced, bool isBeInNormalCondition, string notesComponents) // конструктор для створення запису про компонент транспортного засобу
         {
-            ComponentType = componentType;
             CustomPartName = customPartName;
             IsReplaced = isReplaced;
             IsBeInNormalCondition = isBeInNormalCondition;
             NotesComponents = notesComponents;
         }
-    }
-    
-    public enum ComponentType // Перелік типів компонентів, які можуть бути відстежені
-    {
-        OilFilter,      // Масляний фільтр
-        AirFilter,      // Повітряний фільтр
-        FuelFilter,     // Паливний фільтр
-        Tires,          // Шини
-        Brakes,         // Гальма
-        TimingBelt,     // Ремінь ГРМ
-        Battery,        // Акумулятор
-        SparkPlugs,     // Свічки запалювання
-        CoolantFluid,   // Охолоджуюча рідина
-        BrakeFluid,     // Гальмівна рідина
-        Other           // Інший компонент
     }
 }

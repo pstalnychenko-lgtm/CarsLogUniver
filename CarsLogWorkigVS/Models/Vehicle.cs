@@ -109,6 +109,12 @@ namespace CarsLogWorkig.Models
             }
         }
 
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
         public Owner Owner { get; private set; }// Навігаційна властивість для власника транспортного засобу
 
         public List<Driver> Drivers { get; private set; } = new List<Driver>(); // Навігаційна властивість для водіїв,
@@ -120,7 +126,8 @@ namespace CarsLogWorkig.Models
         public List<FuelEntry> FuelEntries { get; private set; } = new List<FuelEntry>();// Навігаційна властивість для записів про
                                                                                          // заправки транспортного засобу
 
-        public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();// Навігаційна властивість для записів про сервісне
+        public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();// Навігаційна властивість
+                                                                                                    // для записів про сервісне
                                                                                                     // обслуговування транспортного засобу
 
         public List<VehicleComponent> Components { get; private set; } = new List<VehicleComponent>();// Навігаційна властивість для
@@ -134,6 +141,13 @@ namespace CarsLogWorkig.Models
         public List<TripLog> TripLogs { get; private set; } = new List<TripLog>();
 
         public List<Expense> Expenses { get; private set; } = new List<Expense>();
+
+
+
+
+        // ---------------------------------------------------------------------------------------------------------------------------------------------------  
+
+
 
         public Vehicle(string plateNumber, string vin, string brand, string model, string color,
                         string bodyType, uint engineVolumeCc, FuelsType fuelType, decimal fuelTankCapacity,

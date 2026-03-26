@@ -20,7 +20,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _serviseAddress;
-        public string ServiseAddress
+        public string ServiseAddress //сервісний адрес
         {
             get => _serviseAddress;
             private set
@@ -33,7 +33,7 @@ namespace CarsLogWorkig.Models
         }
 
         private string _workingHours;
-        public string WorkingHours
+        public string WorkingHours // час роботи
         {
             get => _workingHours;
             private set
@@ -45,7 +45,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public ServiceStation(string serviseName, string serviseAddress, string workingHours)
+        public ServiceStation(string serviseName, string serviseAddress, string workingHours) // категорії сервісної станції
         {
             ServiseName = serviseName;
             ServiseAddress = serviseAddress;

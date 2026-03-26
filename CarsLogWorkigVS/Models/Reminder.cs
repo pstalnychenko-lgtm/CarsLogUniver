@@ -4,8 +4,8 @@ namespace CarsLogWorkig.Models
 {
     public class VehicleComponent // Клас для зберігання інформації про компоненти автомобіля, які потребують заміни або обслуговування
     {
-        private string _partName;// Назва компонента (наприклад, "Гальмівні колодки", "Масляний фільтр" тощо)
-        public string PartName
+        private string _partName;
+        public string PartName// Назва компонента (наприклад, "Гальмівні колодки", "Масляний фільтр" тощо)
         {
             get => _partName;
             private set
@@ -17,22 +17,22 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private uint _installationMileage;// Пробіг автомобіля на момент встановлення компонента
-        public uint InstallationMileage
+        private uint _installationMileage;
+        public uint InstallationMileage// Пробіг автомобіля на момент встановлення компонента
         {
             get => _installationMileage;
             private set => _installationMileage = value;
         }
 
-        private bool _isExpired; // Чи потребує заміни (t or f)
-        public bool IsExpired
+        private bool _isExpired; 
+        public bool IsExpired// Чи потребує заміни (t or f)
         {
             get => _isExpired;
             private set => _isExpired = value;
         }
 
-        private DateTime _installationDate;// Дата встановлення компонента
-        public DateTime InstallationDate
+        private DateTime _installationDate;
+        public DateTime InstallationDate// Дата встановлення компонента
         {
             get => _installationDate;
             private set => _installationDate = value;

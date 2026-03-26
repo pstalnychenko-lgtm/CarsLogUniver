@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public FuelsType FuelType { get; private set; }
+        public FuelsType FuelType { get; private set; } // тип палива
 
         public DateTime FuelDate { get; private set; } // дата заправки
 

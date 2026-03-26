@@ -16,7 +16,7 @@ namespace CarsLogWorkig.Models
 
 
         private string _cityOfIssue;
-        public string CityOfIssue
+        public string CityOfIssue // місто в якому видано
         {
             get => _cityOfIssue;
             private set

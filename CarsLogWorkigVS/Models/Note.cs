@@ -6,38 +6,38 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор нотатки
 
-        private string _title;
-        public string Title
+        private string _titleNote;
+        public string TitleNote  // назва нотатки
         {
-            get => _title;
+            get => _titleNote;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _title = value;
+                    _titleNote = value;
             }
         }
 
-        private string _content;// зміст нотатки
-        public string Content
+        private string _noteContent;// зміст нотатки
+        public string NoteContent
         {
-            get => _content;
+            get => _noteContent;
             private set
             {
                 if (string.IsNullOrEmpty(value))
                     return;
                 else
-                    _content = value;
+                    _noteContent = value;
             }
         }
 
         public NoteCategory Category { get; private set; }// категорія нотатки
 
-        public Note(string title, string content, NoteCategory category)// конструктор для створення запису про нотатку
+        public Note(string titleNote, string noteContent, NoteCategory category)// конструктор для створення запису про нотатку
         {
-            Title = title;
-            Content = content;
+            TitleNote = titleNote;
+            NoteContent = noteContent;
             Category = category;
         }
     }

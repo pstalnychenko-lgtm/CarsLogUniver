@@ -3,7 +3,7 @@ using System.Data;
 
 namespace CarsLogWorkig.Models
 {
-    public class Document
+    public class Document // клас документації
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор документа
 
