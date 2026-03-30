@@ -88,6 +88,23 @@ namespace CarsLogWorkig.Models
         {
             return LicenseExpiryDate > DateTime.Now;
         }
+
+        public string GetDriverInfo() // метод для отримання інформації про водія у вигляді рядка
+        {
+            return $"Driver: {FullNameByDriver}, Phone: {PhoneByDriver}, License: {LicenseNumber}, " +
+                   $"Issued By: {LicenseIssuedBy}, Expiry Date: {DateOfLicenseFormatted}, " +
+                   $"Medical Cert Valid: {MedicalCertStatus}, Blood Type: {BloodType}";
+        }
+
+        public string GetBloodType() // метод для отримання типа крові водія
+        {
+            return BloodType.ToString();
+        }
+
+        string IDriver.GetBloodType()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum BloodType //перелік груп крові для водія
