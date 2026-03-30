@@ -7,7 +7,7 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        private string _login;
+        private string _login = string.Empty;
         public string Login
         {
             get => _login;
@@ -20,9 +20,47 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _passwordHash;
 
-        private string _email;
+
+        // Зберігаємо пароль у вигляді хешу для безпеки
+        private string _passwordHash = string.Empty;
+
+        public string PasswordHash
+        {
+            get => _passwordHash;
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Пароль не може бути порожнім.");
+                }
+
+                if (value.Length < 8)
+                {
+                    throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
+                }
+
+                if (!value.Any(char.IsUpper))
+                {
+                    throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
+                }
+
+                if (!value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Пароль має містити хоча б одну цифру.");
+                }
+
+               
+                if (!value.All(char.IsLetterOrDigit))
+                {
+                    throw new ArgumentException("Пароль не повинен містити спеціальних символів.");
+                }
+
+                _passwordHash = value;
+            }
+        }
+
+        private string _email = string.Empty;
 
         public User()
         {
@@ -50,7 +88,7 @@ namespace CarsLogWorkig.Models
 
         public bool IsActive { get; set; } = true;
 
-        private string _userFirstName { get; set; }
+        private string _userFirstName { get; set; } = string.Empty;
         public string UserFirstName
         {
             get => _userFirstName;
@@ -71,6 +109,19 @@ namespace CarsLogWorkig.Models
         {
             this.Role = role;
         }
+
+        public string UserRights => Role switch
+        {
+            UserRole.Owner => "Owner: Full access to all features and settings.",
+            UserRole.Driver => "Driver: Access to driving-related features and logs.",
+            UserRole.Admin => "Admin: Access to user management and system settings.",
+            _ => "Unknown role."
+        };
+
+        public bool IsUserAgreedToRights { get; private set; }
+
+        // Implemented as a property to satisfy IUser interface
+        public bool CheckUserAgreement => IsUserAgreedToRights;
     }
 
     public enum UserRole

@@ -6,7 +6,7 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор нотатки
 
-        private string _titleNote;
+        private string _titleNote = string.Empty;
         public string TitleNote  // назва нотатки
         {
             get => _titleNote;
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _noteContent;// зміст нотатки
+        private string _noteContent = string.Empty;// зміст нотатки
         public string NoteContent
         {
             get => _noteContent;

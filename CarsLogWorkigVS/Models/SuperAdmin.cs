@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class SuperAdmin : User, ISuperAdmin
     {
-        private string _nameSuperAdmin;
+        private string _nameSuperAdmin = string.Empty;
         public string NameSuperAdmin
         {
             get => _nameSuperAdmin;
@@ -17,7 +17,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _lastNameSuperAdmin;
+        private string _lastNameSuperAdmin = string.Empty;
         public string LastNameSuperAdmin
         {
             get => _lastNameSuperAdmin;

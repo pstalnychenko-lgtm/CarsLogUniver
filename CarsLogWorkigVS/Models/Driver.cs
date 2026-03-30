@@ -5,7 +5,7 @@ namespace CarsLogWorkig.Models
 {
     public class Driver : User, IDriver
     {
-        private string _fullNameByDriver;
+        private string _fullNameByDriver = string.Empty;
         public string FullNameByDriver
         {
             get => _fullNameByDriver;
@@ -18,7 +18,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _phoneByDriver;
+        private string _phoneByDriver = string.Empty;
         public string PhoneByDriver
         {
             get => _phoneByDriver;
@@ -31,7 +31,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _licenseNumber;
+        private string _licenseNumber = string.Empty;
         public string LicenseNumber
         {
             get => _licenseNumber;
@@ -44,7 +44,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _licenseIssuedBy;
+        private string _licenseIssuedBy = string.Empty;
         public string LicenseIssuedBy
         {
             get => _licenseIssuedBy;

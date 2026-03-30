@@ -7,7 +7,7 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        private string _plateNumber;
+        private string _plateNumber = string.Empty;
         public string PlateNumber
         {
             get => _plateNumber;
@@ -20,7 +20,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _vin;
+        private string _vin = string.Empty;
         public string Vin
         {
             get => _vin;
@@ -33,7 +33,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _brand;
+        private string _brand = string.Empty;
         public string Brand
         {
             get => _brand;
@@ -46,7 +46,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _model;
+        private string _model = string.Empty;
         public string Model
         {
             get => _model;
@@ -59,7 +59,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _color;
+        private string _color = string.Empty;
         public string Color
         {
             get => _color;
@@ -72,7 +72,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _bodyType;
+        private string _bodyType = string.Empty;
         public string BodyType
         {
             get => _bodyType;
@@ -97,7 +97,7 @@ namespace CarsLogWorkig.Models
 
         public uint CurrentMileage { get; set; }
 
-        private string _notes;
+        private string _notes = string.Empty;
         public string Notes
         {
             get => _notes;

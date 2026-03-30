@@ -10,12 +10,19 @@ namespace CarsLogWorkig.Models
         public DateTime DateOfIssue { get; private set; } // Дата видачі категорії
         public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy");
 
-
+        public void VerifyCanDrive(CategoryName vehicleCategory)
+        {
+            if (this.CategoryName != vehicleCategory)
+            {
+                throw new InvalidOperationException($"У вас немає права керувати транспортом категорії {vehicleCategory}");
+            }
+        }
         public DateTime ExpirationDate { get; private set; }// Дата закінчення терміну дії категорії
         public string ExpirationDateFormatted => ExpirationDate.ToString("dd.MM.yyyy");
 
 
-        private string _cityOfIssue;
+        // Initialize backing fields to non-null defaults to satisfy nullable analysis
+        private string _cityOfIssue = string.Empty;
         public string CityOfIssue // місто в якому видано
         {
             get => _cityOfIssue;
@@ -28,7 +35,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _serialNumber;
+        private string _serialNumber = string.Empty;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -41,7 +48,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _trafficPoliceCenter;
+        private string _trafficPoliceCenter = string.Empty;
         public string TrafficPoliceCenter // Центр ДАІ, який видав категорію
         {
             get => _trafficPoliceCenter;
@@ -53,6 +60,8 @@ namespace CarsLogWorkig.Models
                     _trafficPoliceCenter = value;
             }
         }
+
+        public CategoryName CategoryName { get; private set; }
 
         public LicenseCategory(DateTime dateOfIssue, DateTime expirationDate,
                                 string cityOfIssue, string serialNumber, string trafficPoliceCenter)/* конструктор для створення
@@ -68,18 +77,18 @@ namespace CarsLogWorkig.Models
 
     public enum CategoryName
     {
-        A,
-        A1,
-        B,
-        B1,
-        C,
-        C1,
-        D,
-        D1,
-        CE,
-        C1E,
-        BE,
-        T1,
-        T2
+        A=1,
+        A1=2,
+        B=3,
+        B1=4,
+        C=5,
+        C1=6,
+        D=7,
+        D1=8,
+        CE=9,
+        C1E=10,
+        BE=11,
+        T1=12,
+        T2=13
     }
 }
