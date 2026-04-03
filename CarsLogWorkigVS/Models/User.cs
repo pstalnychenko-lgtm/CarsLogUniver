@@ -90,7 +90,8 @@ namespace CarsLogWorkig.Models
         public DateTime DateOfBirth { get; set; }
         public string DateOfBirthFormatted => DateOfBirth.ToString("dd.MM.yyyy");
 
-        public IsActiveUser IsActive { get;private set; }
+        // Make setter public to implement IUser.IsActive { get; set; }
+        public IsActiveUser IsActive { get; set; }
 
         public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
         public DateTime DateOfLastActivity { get; set; }

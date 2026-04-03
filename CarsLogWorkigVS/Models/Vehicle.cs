@@ -85,7 +85,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public uint EngineVolumeCc { get; private set; }
+        public uint EngineVolumeCc { get; private set; } 
 
         public FuelsType FuelType { get; private set; }
 
