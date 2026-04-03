@@ -10,7 +10,7 @@ namespace CarsLogWorkig.Models
         UserRole Role { get; }
         string PasswordHash { get; }
         UserSex Sex { get; }
-        bool IsActive { get; set; }
+        IsActiveUser IsActive { get; set; }
         DateTime DateOfBirth { get; set; }
         string DateOfBirthFormatted { get; }
         DateTime DateOfRegistration { get; }

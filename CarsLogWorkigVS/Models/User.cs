@@ -90,7 +90,7 @@ namespace CarsLogWorkig.Models
         public DateTime DateOfBirth { get; set; }
         public string DateOfBirthFormatted => DateOfBirth.ToString("dd.MM.yyyy");
 
-        public bool IsActive { get; set; } = true;
+        public IsActiveUser IsActive { get;private set; }
 
         public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
         public DateTime DateOfLastActivity { get; set; }
@@ -120,7 +120,7 @@ namespace CarsLogWorkig.Models
         public string FullName => $"{FirstName} {LastName}".Trim();
 
         public override string ToString() =>
-            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}";
+            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}".Trim();
     }
 
     public enum UserRole
@@ -134,5 +134,17 @@ namespace CarsLogWorkig.Models
     {
         Male,
         Female
+    }
+
+    public enum IsActiveUser
+    {
+        Online,
+        Ofline,
+        OutOfPlace,
+        ComingSoon,
+        DontDisturb,
+        Invisible
+       
+        
     }
 }
