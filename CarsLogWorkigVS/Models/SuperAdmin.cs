@@ -32,21 +32,21 @@ namespace CarsLogWorkig.Models
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             if (user.Role == UserRole.Admin)
-                user.IsActive = false;
+                user.IsActive = IsActiveUser.Ofline;
         }
 
         public void DeactivateUser(User user)
         {
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = false;
+            user.IsActive = IsActiveUser.Ofline;
         }
 
         public void ActivateUser(User user)
         {
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = true;
+            user.IsActive = IsActiveUser.Online;
         }
 
         public void AssignRole(User user, UserRole role)

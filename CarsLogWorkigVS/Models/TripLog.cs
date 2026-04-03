@@ -8,7 +8,7 @@ namespace CarsLogWorkig.Models
 
         public DateTime TripDate { get; private set; }
 
-        private string _departurePoint;
+        private string _departurePoint = string.Empty;
         public string DeparturePoint // Можна додати окремо місто та адресу, якщо потрібно
         {
             get => _departurePoint;
@@ -21,7 +21,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _destination; 
+        private string _destination = string.Empty; 
         public string Destination// Можна додати окремо місто та адресу, якщо потрібно
         {
             get => _destination;

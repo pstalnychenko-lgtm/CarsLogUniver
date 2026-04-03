@@ -8,7 +8,7 @@ namespace CarsLogWorkig.Models
 
         public DateTime DateOfService { get; private set; }// Дата проведення сервісного обслуговування
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description //    Опис проведеного сервісного обслуговування
         {
             get => _description;

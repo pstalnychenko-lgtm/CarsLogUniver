@@ -11,14 +11,14 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             if (user.Role == UserRole.Admin)
                 throw new InvalidOperationException("Адмін не може деактивувати іншого адміна.");
-            user.IsActive = false;
+            user.IsActive = IsActiveUser.Ofline;
         }
 
         public void ActivateUser(User user)
         {
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = true;
+            user.IsActive = IsActiveUser.Online;
         }
 
         public void AssignRole(User user, UserRole role)

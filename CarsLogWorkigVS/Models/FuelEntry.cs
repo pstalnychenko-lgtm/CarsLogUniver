@@ -5,8 +5,7 @@ namespace CarsLogWorkig.Models
     public class FuelEntry // Клас для запису інформації про заправку автомобіля
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про заправку
-
-        private string _gasStation;
+        private string _gasStation = string.Empty;
         public string GasStation // назва заправки
         {
             get => _gasStation;

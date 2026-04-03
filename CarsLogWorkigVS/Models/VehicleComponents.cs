@@ -6,7 +6,7 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        private string _customPartName;
+        private string _customPartName = string.Empty;
         public string CustomPartName
         {
             get => _customPartName;
@@ -23,7 +23,7 @@ namespace CarsLogWorkig.Models
 
         public bool IsBeInNormalCondition { get; private set; }
 
-        private string _notesComponents;
+        private string _notesComponents = string.Empty;
         public string NotesComponents
         {
             get => _notesComponents;

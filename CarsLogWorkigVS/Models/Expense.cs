@@ -10,7 +10,7 @@ namespace CarsLogWorkig.Models
 
         public decimal Amount { get; private set; } // Сума витрат
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -27,7 +27,7 @@ namespace CarsLogWorkig.Models
         public Guid VehicleId { get; private set; }// Ідентифікатор автомобіля, до якого належить витрата
 
         public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)/*конструктор для створення
-                                                                                                                     запису про витрати*/
+                                                                                                                         запису про витрати*/
         {
             Category = category;
             Amount = amount;

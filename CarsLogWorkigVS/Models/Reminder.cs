@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class VehicleComponent // Клас для зберігання інформації про компоненти автомобіля, які потребують заміни або обслуговування
     {
-        private string _partName;
+        private string _partName = string.Empty;
         public string PartName// Назва компонента (наприклад, "Гальмівні колодки", "Масляний фільтр" тощо)
         {
             get => _partName;

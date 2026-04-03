@@ -6,7 +6,7 @@ namespace CarsLogWorkig.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор сервісної станції
 
-        private string _serviseName;// назва сервісної станції
+        private string _serviseName = string.Empty;// назва сервісної станції
         public string ServiseName
         {
             get => _serviseName;
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _serviseAddress;
+        private string _serviseAddress = string.Empty;
         public string ServiseAddress //сервісний адрес
         {
             get => _serviseAddress;
@@ -32,7 +32,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        private string _workingHours;
+        private string _workingHours = string.Empty;
         public string WorkingHours // час роботи
         {
             get => _workingHours;
