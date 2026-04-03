@@ -4,41 +4,13 @@ namespace CarsLogWorkig.Models
 {
     public class SuperAdmin : User, ISuperAdmin
     {
-        private string _nameSuperAdmin = string.Empty;
-        public string NameSuperAdmin
+        public SuperAdmin(string firstName, string lastName)
         {
-            get => _nameSuperAdmin;
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _nameSuperAdmin = value;
-            }
-        }
-
-        private string _lastNameSuperAdmin = string.Empty;
-        public string LastNameSuperAdmin
-        {
-            get => _lastNameSuperAdmin;
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _lastNameSuperAdmin = value;
-            }
-        }
-
-        public SuperAdmin(string nameSuperAdmin, string lastNameSuperAdmin)
-        {
-            NameSuperAdmin = nameSuperAdmin;
-            LastNameSuperAdmin = lastNameSuperAdmin;
+            FirstName = firstName;
+            LastName = lastName;
             this.ChangeRole(UserRole.Admin);
         }
 
-
-        // Методи для управління адміністраторами
         public void CreateAdmin(User user)
         {
             if (user == null)
@@ -47,8 +19,6 @@ namespace CarsLogWorkig.Models
                 user.ChangeRole(UserRole.Admin);
         }
 
-
-        // Методи для управління користувачами
         public void RemoveAdmin(User user)
         {
             if (user == null)
@@ -57,8 +27,6 @@ namespace CarsLogWorkig.Models
                 user.ChangeRole(UserRole.Driver);
         }
 
-
-        // Методи для управління користувачами
         public void DeactivateAdmin(User user)
         {
             if (user == null)
@@ -67,8 +35,6 @@ namespace CarsLogWorkig.Models
                 user.IsActive = false;
         }
 
-
-        // Методи для управління користувачами
         public void DeactivateUser(User user)
         {
             if (user == null)
@@ -76,8 +42,6 @@ namespace CarsLogWorkig.Models
             user.IsActive = false;
         }
 
-
-        // Методи для управління користувачами
         public void ActivateUser(User user)
         {
             if (user == null)
@@ -85,14 +49,14 @@ namespace CarsLogWorkig.Models
             user.IsActive = true;
         }
 
-        public void AssignRole(User user, UserRole role) // Метод для призначення ролі користувачу
+        public void AssignRole(User user, UserRole role)
         {
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             user.ChangeRole(role);
         }
 
-        public bool IsSuperAdmin() //Метод для перевірки, чи є користувач супер-адміністратором
+        public bool IsSuperAdmin()
         {
             return this is SuperAdmin;
         }

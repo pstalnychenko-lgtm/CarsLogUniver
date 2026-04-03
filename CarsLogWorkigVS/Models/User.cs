@@ -13,60 +13,66 @@ namespace CarsLogWorkig.Models
             get => _login;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
+                if (!string.IsNullOrEmpty(value))
                     _login = value;
             }
         }
 
+        private string _firstName = string.Empty;
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _firstName = value;
+            }
+        }
 
+        private string _lastName = string.Empty;
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _lastName = value;
+            }
+        }
 
-        // Зберігаємо пароль у вигляді хешу для безпеки
+        private string _phone = string.Empty;
+        public string Phone
+        {
+            get => _phone;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _phone = value;
+            }
+        }
+
+        // Зберігаємо пароль 
         private string _passwordHash = string.Empty;
-
         public string PasswordHash
         {
             get => _passwordHash;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                {
                     throw new ArgumentException("Пароль не може бути порожнім.");
-                }
-
                 if (value.Length < 8)
-                {
                     throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
-                }
-
                 if (!value.Any(char.IsUpper))
-                {
                     throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
-                }
-
                 if (!value.Any(char.IsDigit))
-                {
                     throw new ArgumentException("Пароль має містити хоча б одну цифру.");
-                }
-
-               
                 if (!value.All(char.IsLetterOrDigit))
-                {
                     throw new ArgumentException("Пароль не повинен містити спеціальних символів.");
-                }
-
                 _passwordHash = value;
             }
         }
 
         private string _email = string.Empty;
-
-        public User()
-        {
-            this.Role = UserRole.Driver;
-        }
-
         public string Email
         {
             get => _email;
@@ -74,13 +80,11 @@ namespace CarsLogWorkig.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Email не може бути порожнім.");
-                else
-                    _email = value;
+                _email = value;
             }
         }
 
         public UserRole Role { get; private set; }
-
         public UserSex Sex { get; private set; }
 
         public DateTime DateOfBirth { get; set; }
@@ -88,22 +92,16 @@ namespace CarsLogWorkig.Models
 
         public bool IsActive { get; set; } = true;
 
-        private string _userFirstName { get; set; } = string.Empty;
-        public string UserFirstName
-        {
-            get => _userFirstName;
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _userFirstName = value;
-            }
-        }
-
         public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
-
         public DateTime DateOfLastActivity { get; set; }
+
+        public bool IsUserAgreedToRights { get; private set; }
+        public bool CheckUserAgreement => IsUserAgreedToRights;
+
+        public User()
+        {
+            this.Role = UserRole.Driver;
+        }
 
         public void ChangeRole(UserRole role)
         {
@@ -118,10 +116,11 @@ namespace CarsLogWorkig.Models
             _ => "Unknown role."
         };
 
-        public bool IsUserAgreedToRights { get; private set; }
+        // Зручний метод для відображення повного імені
+        public string FullName => $"{FirstName} {LastName}".Trim();
 
-        // Implemented as a property to satisfy IUser interface
-        public bool CheckUserAgreement => IsUserAgreedToRights;
+        public override string ToString() =>
+            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}";
     }
 
     public enum UserRole

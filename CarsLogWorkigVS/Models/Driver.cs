@@ -3,43 +3,16 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
+    
     public class Driver : User, IDriver
     {
-        private string _fullNameByDriver = string.Empty;
-        public string FullNameByDriver
-        {
-            get => _fullNameByDriver;
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _fullNameByDriver = value;
-            }
-        }
-
-        private string _phoneByDriver = string.Empty;
-        public string PhoneByDriver
-        {
-            get => _phoneByDriver;
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _phoneByDriver = value;
-            }
-        }
-
         private string _licenseNumber = string.Empty;
         public string LicenseNumber
         {
             get => _licenseNumber;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
+                if (!string.IsNullOrEmpty(value))
                     _licenseNumber = value;
             }
         }
@@ -50,27 +23,24 @@ namespace CarsLogWorkig.Models
             get => _licenseIssuedBy;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
+                if (!string.IsNullOrEmpty(value))
                     _licenseIssuedBy = value;
             }
         }
 
         public BloodType BloodType { get; private set; }
-
         public DateTime LicenseExpiryDate { get; private set; }
         public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
-
         public bool MedicalCertStatus { get; private set; }
-
         public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>();
 
-        public Driver(string fullName, string phone, string licenseNumber, string licenseIssuedBy,
+        public Driver(string firstName, string lastName, string phone,
+                      string licenseNumber, string licenseIssuedBy,
                       DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType)
         {
-            FullNameByDriver = fullName;
-            PhoneByDriver = phone;
+            FirstName = firstName;
+            LastName = lastName;
+            Phone = phone;
             LicenseNumber = licenseNumber;
             LicenseIssuedBy = licenseIssuedBy;
             LicenseExpiryDate = licenseExpiryDate;
@@ -78,36 +48,31 @@ namespace CarsLogWorkig.Models
             BloodType = bloodType;
         }
 
-        public void AddLicenseCategory(LicenseCategory category) // метод для додавання категорії водійських прав
+        public void AddLicenseCategory(LicenseCategory category)
         {
             if (category != null && !LicenseCategories.Contains(category))
                 LicenseCategories.Add(category);
         }
 
-        public bool IsLicenseValid() // метод для перевірки дійсності водійських прав
+        public bool IsLicenseValid()
         {
             return LicenseExpiryDate > DateTime.Now;
         }
 
-        public string GetDriverInfo() // метод для отримання інформації про водія у вигляді рядка
+        public string GetDriverInfo()
         {
-            return $"Driver: {FullNameByDriver}, Phone: {PhoneByDriver}, License: {LicenseNumber}, " +
+            return $"Driver: {FullName}, Phone: {Phone}, License: {LicenseNumber}, " +
                    $"Issued By: {LicenseIssuedBy}, Expiry Date: {DateOfLicenseFormatted}, " +
                    $"Medical Cert Valid: {MedicalCertStatus}, Blood Type: {BloodType}";
         }
 
-        public string GetBloodType() // метод для отримання типа крові водія
+        public string GetBloodType()
         {
             return BloodType.ToString();
         }
-
-        string IDriver.GetBloodType()
-        {
-            throw new NotImplementedException();
-        }
     }
 
-    public enum BloodType //перелік груп крові для водія
+    public enum BloodType
     {
         A_Positive,
         A_Negative,

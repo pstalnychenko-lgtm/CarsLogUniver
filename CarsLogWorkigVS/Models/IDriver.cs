@@ -5,22 +5,17 @@ namespace CarsLogWorkig.Models
 {
     public interface IDriver : IUser
     {
-        string FullNameByDriver { get; }
-        string PhoneByDriver { get; }
         BloodType BloodType { get; }
         string LicenseNumber { get; }
-        string LicenseIssuedBy { get; } // Орган, що видав водійське посвідчення
-        DateTime LicenseExpiryDate { get; } // Дата закінчення терміну дії водійського посвідчення
+        string LicenseIssuedBy { get; }
+        DateTime LicenseExpiryDate { get; }
         string DateOfLicenseFormatted { get; }
-        bool MedicalCertStatus { get; } // Статус медичної довідки (true - дійсна, false - недійсна)
-        List<LicenseCategory> LicenseCategories { get; } // Категорії водійських прав, які має водій
+        bool MedicalCertStatus { get; }
+        List<LicenseCategory> LicenseCategories { get; }
 
-        void AddLicenseCategory(LicenseCategory category); // Метод для додавання категорії водійських прав
-        bool IsLicenseValid(); // Метод для перевірки дійсності водійських прав
-                               // (перевіряє, чи не закінчився термін дії та чи є медична довідка дійсною)
-
-        string GetDriverInfo(); // Метод для отримання інформації про водія у вигляді рядка
-
-        string GetBloodType();  // Метод для отримання типа крові водія
+        void AddLicenseCategory(LicenseCategory category);
+        bool IsLicenseValid();
+        string GetDriverInfo();
+        string GetBloodType();
     }
 }
