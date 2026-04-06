@@ -11,8 +11,11 @@ namespace CarsLogWorkig.Models
             get => _addressByOwner;
             private set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _addressByOwner = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Адреса не може бути порожньою.");
+                if (value.Trim().Length > 200)
+                    throw new ArgumentException("Адреса не може перевищувати 200 символів.");
+                _addressByOwner = value.Trim();
             }
         }
 
@@ -28,6 +31,9 @@ namespace CarsLogWorkig.Models
             LastName = lastName;
             Phone = phone;
             AddressByOwner = addressByOwner;
+
+            if (dateOfPurchaseTheCar > DateTime.Now)
+                throw new ArgumentException("Дата купівлі авто не може бути в майбутньому.");
             DateOfPurchaseTheCar = dateOfPurchaseTheCar;
         }
 
@@ -128,5 +134,8 @@ namespace CarsLogWorkig.Models
             if (vehicle == null) return false;
             return vehicle.Owner.Id == this.Id;
         }
+
+        public override string ToString() =>
+            $"[Власник] {FullName} | Адреса: {_addressByOwner} | Авто: {Vehicles.Count} шт.";
     }
 }

@@ -2,13 +2,23 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Expense // Клас для запису витрат, пов'язаних з автомобілем
+    public class Expense
     {
-        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про витрати
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        public ExpenseCategory Category { get; private set; } // Категорія витрат
+        public ExpenseCategory Category { get; private set; }
 
-        public decimal Amount { get; private set; } // Сума витрат
+        private decimal _amount;
+        public decimal Amount
+        {
+            get => _amount;
+            private set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Сума витрат не може бути від'ємною.");
+                _amount = value;
+            }
+        }
 
         private string _description = string.Empty;
         public string Description
@@ -16,35 +26,33 @@ namespace CarsLogWorkig.Models
             get => _description;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _description = value;
+                if (value != null && value.Trim().Length > 1000)
+                    throw new ArgumentException("Опис не може перевищувати 1000 символів.");
+                _description = value?.Trim() ?? string.Empty;
             }
         }
 
-        // Навігаційна властивість
-        public Guid VehicleId { get; private set; }// Ідентифікатор автомобіля, до якого належить витрата
+        public DateTime ExpenseDate { get; private set; }
 
-        public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)/*конструктор для створення
-                                                                                                                         запису про витрати*/
+        public Guid VehicleId { get; private set; }
+
+        public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)
         {
             Category = category;
             Amount = amount;
+            ExpenseDate = date;
             Description = description;
             VehicleId = vehicleId;
         }
+
+        public string GetFormattedAmount() => $"{_amount:N2} грн";
+
+        public override string ToString() =>
+            $"[{Category}] {GetFormattedAmount()} | {ExpenseDate:dd.MM.yyyy} | {_description}";
     }
 
-    public enum ExpenseCategory// Категорії витрат
+    public enum ExpenseCategory
     {
-        Fuel,
-        Service,
-        Insurance,
-        Fine,
-        Parking,
-        Washing,
-        TireChange,
-        Other
+        Fuel, Service, Insurance, Fine, Parking, Washing, TireChange, Other
     }
 }

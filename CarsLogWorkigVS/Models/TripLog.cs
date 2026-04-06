@@ -2,62 +2,77 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class TripLog // Клас для запису поїздок
+    public class TripLog
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
         public DateTime TripDate { get; private set; }
 
         private string _departurePoint = string.Empty;
-        public string DeparturePoint // Можна додати окремо місто та адресу, якщо потрібно
+        public string DeparturePoint
         {
             get => _departurePoint;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _departurePoint = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Точка відправлення не може бути порожньою.");
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Точка відправлення не може перевищувати 100 символів.");
+                _departurePoint = value.Trim();
             }
         }
 
-        private string _destination = string.Empty; 
-        public string Destination// Можна додати окремо місто та адресу, якщо потрібно
+        private string _destination = string.Empty;
+        public string Destination
         {
             get => _destination;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _destination = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Пункт призначення не може бути порожнім.");
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Пункт призначення не може перевищувати 100 символів.");
+                _destination = value.Trim();
             }
         }
 
-        public TripPurpose Purpose { get; private set; } // Мета поїздки (наприклад, особиста, службова, обслуговування тощо)
+        public TripPurpose Purpose { get; private set; }
 
-        public uint StartMileage { get; private set; }// Пробіг на початку поїздки 
-
-        public uint EndMileage { get; private set; }// Пробіг в кінці поїздки
-
-
-
-        private uint _distanceKm; //додаткова змінна для зберігання відстані
-
-        public uint DistanceKm// Обчислювана відстань поїздкb
+        private uint _startMileage;
+        public uint StartMileage
         {
-            get => _distanceKm;
+            get => _startMileage;
+            private set => _startMileage = value;
+        }
+
+        private uint _endMileage;
+        public uint EndMileage
+        {
+            get => _endMileage;
             private set
             {
-                if (value == 0)
-                    return;
-                else
-                    _distanceKm = value;
+                if (value < _startMileage)
+                    throw new ArgumentException("Кінцевий пробіг не може бути меншим за початковий.");
+                _endMileage = value;
+            }
+        }
+
+        public uint DistanceKm => _endMileage - _startMileage;
+
+        private string _notes = string.Empty;
+        public string Notes
+        {
+            get => _notes;
+            private set
+            {
+                if (value != null && value.Trim().Length > 1000)
+                    throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів.");
+                _notes = value?.Trim() ?? string.Empty;
             }
         }
 
         public TripLog(DateTime tripDate, string departurePoint, string destination,
-                        TripPurpose purpose, uint startMileage, uint endMileage, string notes) // канструктор для створення запису про поїздку
+                       TripPurpose purpose, uint startMileage, uint endMileage, string notes)
         {
             TripDate = tripDate;
             DeparturePoint = departurePoint;
@@ -65,15 +80,12 @@ namespace CarsLogWorkig.Models
             Purpose = purpose;
             StartMileage = startMileage;
             EndMileage = endMileage;
-            
+            Notes = notes;
         }
+
+        public override string ToString() =>
+            $"[{Purpose}] {_departurePoint} → {_destination} | {DistanceKm} км | {TripDate:dd.MM.yyyy}";
     }
 
-    public enum TripPurpose// Перелік можливих цілей поїздки
-    {
-        Personal,
-        Business,
-        Service,
-        Other
-    }
+    public enum TripPurpose { Personal, Business, Service, Other }
 }

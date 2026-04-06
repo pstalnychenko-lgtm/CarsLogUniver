@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
@@ -13,8 +13,9 @@ namespace CarsLogWorkig.Models
             get => _login;
             private set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _login = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Логін не може бути порожнім.");
+                _login = value.Trim();
             }
         }
 
@@ -24,8 +25,11 @@ namespace CarsLogWorkig.Models
             get => _firstName;
             set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _firstName = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Ім'я не може бути порожнім.");
+                if (value.Trim().Length > 50)
+                    throw new ArgumentException("Ім'я не може перевищувати 50 символів.");
+                _firstName = value.Trim();
             }
         }
 
@@ -35,8 +39,11 @@ namespace CarsLogWorkig.Models
             get => _lastName;
             set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _lastName = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Прізвище не може бути порожнім.");
+                if (value.Trim().Length > 50)
+                    throw new ArgumentException("Прізвище не може перевищувати 50 символів.");
+                _lastName = value.Trim();
             }
         }
 
@@ -46,12 +53,12 @@ namespace CarsLogWorkig.Models
             get => _phone;
             set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _phone = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Телефон не може бути порожнім.");
+                _phone = value.Trim();
             }
         }
 
-        // Зберігаємо пароль 
         private string _passwordHash = string.Empty;
         public string PasswordHash
         {
@@ -66,8 +73,6 @@ namespace CarsLogWorkig.Models
                     throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
                 if (!value.Any(char.IsDigit))
                     throw new ArgumentException("Пароль має містити хоча б одну цифру.");
-                if (!value.All(char.IsLetterOrDigit))
-                    throw new ArgumentException("Пароль не повинен містити спеціальних символів.");
                 _passwordHash = value;
             }
         }
@@ -80,34 +85,33 @@ namespace CarsLogWorkig.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Email не може бути порожнім.");
-                _email = value;
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Email не може перевищувати 100 символів.");
+                _email = value.Trim();
             }
         }
 
+        private DateTime _dateOfBirth;
+        public DateTime DateOfBirth
+        {
+            get => _dateOfBirth;
+            set
+            {
+                if (value > DateTime.Now)
+                    throw new ArgumentException("Дата народження не може бути в майбутньому.");
+                _dateOfBirth = value;
+            }
+        }
+        public string DateOfBirthFormatted => _dateOfBirth.ToString("dd.MM.yyyy");
+
         public UserRole Role { get; private set; }
         public UserSex Sex { get; private set; }
-
-        public DateTime DateOfBirth { get; set; }
-        public string DateOfBirthFormatted => DateOfBirth.ToString("dd.MM.yyyy");
-
-
-        public IsActiveUser IsActive { get; set; }
-
+        public IsActiveUser IsActive { get; set; } = IsActiveUser.Ofline;
         public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
-        public DateTime DateOfLastActivity { get; set; }
-
+        public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
         public bool IsUserAgreedToRights { get; private set; }
         public bool CheckUserAgreement => IsUserAgreedToRights;
-
-        public User()
-        {
-            this.Role = UserRole.Driver;
-        }
-
-        public void ChangeRole(UserRole role)
-        {
-            this.Role = role;
-        }
+        public string FullName => $"{_firstName} {_lastName}".Trim();
 
         public string UserRights => Role switch
         {
@@ -117,32 +121,26 @@ namespace CarsLogWorkig.Models
             _ => "Unknown role."
         };
 
-        // Зручний метод для відображення повного імені
-        public string FullName => $"{FirstName} {LastName}".Trim();
+        public User()
+        {
+            Role = UserRole.Driver;
+        }
+
+        public void ChangeRole(UserRole role)
+        {
+            Role = role;
+        }
 
         public override string ToString() =>
-            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}".Trim();
-    }
-    public enum UserRole
-    {
-        Owner,
-        Driver,
-        Admin
+            $"[{Role}] {FullName} | Email: {_email} | Active: {IsActive}";
     }
 
-    public enum UserSex
-    {
-        Male,
-        Female
-    }
+    public enum UserRole { Owner, Driver, Admin }
+
+    public enum UserSex { Male, Female }
 
     public enum IsActiveUser
     {
-        Online,
-        Ofline,
-        OutOfPlace,
-        ComingSoon,
-        DontDisturb,
-        Invisible
+        Online, Ofline, OutOfPlace, ComingSoon, DontDisturb, Invisible
     }
 }

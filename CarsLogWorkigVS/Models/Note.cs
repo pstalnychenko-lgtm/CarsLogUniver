@@ -2,52 +2,51 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Note // Клас для запису нотаток, пов'язаних з автомобілем
+    public class Note
     {
-        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор нотатки
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         private string _titleNote = string.Empty;
-        public string TitleNote  // назва нотатки
+        public string TitleNote
         {
             get => _titleNote;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _titleNote = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Назва нотатки не може бути порожньою.");
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Назва нотатки не може перевищувати 100 символів.");
+                _titleNote = value.Trim();
             }
         }
 
-        private string _noteContent = string.Empty;// зміст нотатки
+        private string _noteContent = string.Empty;
         public string NoteContent
         {
             get => _noteContent;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _noteContent = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Зміст нотатки не може бути порожнім.");
+                if (value.Trim().Length > 1000)
+                    throw new ArgumentException("Зміст нотатки не може перевищувати 1000 символів.");
+                _noteContent = value.Trim();
             }
         }
 
-        public NoteCategory Category { get; private set; }// категорія нотатки
+        public NoteCategory Category { get; private set; }
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
-        public Note(string titleNote, string noteContent, NoteCategory category)// конструктор для створення запису про нотатку
+        public Note(string titleNote, string noteContent, NoteCategory category)
         {
             TitleNote = titleNote;
             NoteContent = noteContent;
             Category = category;
         }
+
+        public override string ToString() =>
+            $"[{Category}] {_titleNote} | {CreatedAt:dd.MM.yyyy HH:mm}";
     }
 
-    public enum NoteCategory
-    {
-        General,
-        Fuel,
-        Service,
-        Finance,
-        Reminder
-    }
+    public enum NoteCategory { General, Fuel, Service, Finance, Reminder }
 }

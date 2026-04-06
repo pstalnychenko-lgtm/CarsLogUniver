@@ -2,38 +2,51 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class ServiceRecord // Клас для зберігання інформації про сервісне обслуговування автомобіля
+    public class ServiceRecord
     {
-        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про сервісне обслуговування
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        public DateTime DateOfService { get; private set; }// Дата проведення сервісного обслуговування
+        public DateTime DateOfService { get; private set; }
 
         private string _description = string.Empty;
-        public string Description //    Опис проведеного сервісного обслуговування
+        public string Description
         {
             get => _description;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _description = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Опис сервісного обслуговування не може бути порожнім.");
+                if (value.Trim().Length > 1000)
+                    throw new ArgumentException("Опис не може перевищувати 1000 символів.");
+                _description = value.Trim();
             }
         }
 
         private decimal _cost;
-        public decimal Cost //  Вартість сервісного обслуговування
+        public decimal Cost
         {
             get => _cost;
-            set => _cost = value < 0 ? 0 : value;
-        } // Вартість сервісного обслуговування не може бути від'ємною
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Вартість обслуговування не може бути від'ємною.");
+                _cost = value;
+            }
+        }
 
-        public ServiceRecord(DateTime dateOfService, string description, uint mileageAtService,
-                               decimal cost)
+        public uint MileageAtService { get; private set; }
+
+        public ServiceRecord(DateTime dateOfService, string description, uint mileageAtService, decimal cost)
         {
             DateOfService = dateOfService;
             Description = description;
+            MileageAtService = mileageAtService;
             Cost = cost;
         }
+
+        public string GetFormattedCost() => $"{_cost:N2} грн";
+
+        public override string ToString() =>
+            $"[Сервіс] {DateOfService:dd.MM.yyyy} | {_description} | {GetFormattedCost()} | Пробіг: {MileageAtService} км";
     }
 }

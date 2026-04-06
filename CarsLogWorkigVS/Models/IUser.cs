@@ -15,13 +15,10 @@ namespace CarsLogWorkig.Models
         string DateOfBirthFormatted { get; }
         DateTime DateOfRegistration { get; }
         DateTime DateOfLastActivity { get; set; }
-
-        // Спільні поля для всіх користувачів
         string FirstName { get; set; }
         string LastName { get; set; }
         string Phone { get; set; }
         string FullName { get; }
-
         bool CheckUserAgreement { get; }
     }
 }

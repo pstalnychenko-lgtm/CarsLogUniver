@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    
     public class Driver : User, IDriver
     {
         private string _licenseNumber = string.Empty;
@@ -12,8 +11,9 @@ namespace CarsLogWorkig.Models
             get => _licenseNumber;
             private set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _licenseNumber = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Номер посвідчення не може бути порожнім.");
+                _licenseNumber = value.Trim();
             }
         }
 
@@ -23,8 +23,9 @@ namespace CarsLogWorkig.Models
             get => _licenseIssuedBy;
             private set
             {
-                if (!string.IsNullOrEmpty(value))
-                    _licenseIssuedBy = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
+                _licenseIssuedBy = value.Trim();
             }
         }
 
@@ -50,7 +51,9 @@ namespace CarsLogWorkig.Models
 
         public void AddLicenseCategory(LicenseCategory category)
         {
-            if (category != null && !LicenseCategories.Contains(category))
+            if (category == null)
+                throw new ArgumentNullException("Категорія не може бути порожньою.");
+            if (!LicenseCategories.Contains(category))
                 LicenseCategories.Add(category);
         }
 
@@ -61,26 +64,25 @@ namespace CarsLogWorkig.Models
 
         public string GetDriverInfo()
         {
-            return $"Driver: {FullName}, Phone: {Phone}, License: {LicenseNumber}, " +
-                   $"Issued By: {LicenseIssuedBy}, Expiry Date: {DateOfLicenseFormatted}, " +
-                   $"Medical Cert Valid: {MedicalCertStatus}, Blood Type: {BloodType}";
+            return $"Водій: {FullName}, Телефон: {Phone}, Посвідчення: {_licenseNumber}, " +
+                   $"Видане: {_licenseIssuedBy}, Дійсне до: {DateOfLicenseFormatted}, " +
+                   $"Мед. довідка: {MedicalCertStatus}, Група крові: {BloodType}";
         }
 
         public string GetBloodType()
         {
             return BloodType.ToString();
         }
+
+        public override string ToString() =>
+            $"[Водій] {FullName} | Посвідчення: {_licenseNumber} | Дійсне до: {DateOfLicenseFormatted} | Мед. довідка: {MedicalCertStatus}";
     }
 
     public enum BloodType
     {
-        A_Positive,
-        A_Negative,
-        B_Positive,
-        B_Negative,
-        AB_Positive,
-        AB_Negative,
-        O_Positive,
-        O_Negative
+        A_Positive, A_Negative,
+        B_Positive, B_Negative,
+        AB_Positive, AB_Negative,
+        O_Positive, O_Negative
     }
 }

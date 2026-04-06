@@ -1,27 +1,59 @@
 using System;
-using System.Data;
 
 namespace CarsLogWorkig.Models
 {
-    public class Document // клас документації 
+    public class Document
     {
-        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор документа
+        public Guid Id { get; init; } = Guid.NewGuid();
 
-        public string Title { get; set; } = string.Empty; // Назва документа 
+        private string _title = string.Empty;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Назва документа не може бути порожньою.");
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Назва документа не може перевищувати 100 символів.");
+                _title = value.Trim();
+            }
+        }
 
         public DateTime DateOfIssueDoc { get; private set; }
-        public string DateOfIssueDocFormatted => DateOfIssueDoc.ToString("dd.MM.yyyy");// Дата видачі документа
+        public string DateOfIssueDocFormatted => DateOfIssueDoc.ToString("dd.MM.yyyy");
 
-        public DocumentType DocumentType { get;private set; }// Тип документа (техпаспорт, страховий поліс, техогляд тощо)
+        public DocumentType DocumentType { get; private set; }
 
-        public string PolicyNumber { get; private set; } = string.Empty;// Номер поліса (для страхового полісу)
+        private string _policyNumber = string.Empty;
+        public string PolicyNumber
+        {
+            get => _policyNumber;
+            private set
+            {
+                if (value != null && value.Trim().Length > 50)
+                    throw new ArgumentException("Номер поліса не може перевищувати 50 символів.");
+                _policyNumber = value?.Trim() ?? string.Empty;
+            }
+        }
+
+        public Document(string title, DateTime dateOfIssueDoc, DocumentType documentType, string policyNumber = "")
+        {
+            Title = title;
+            DateOfIssueDoc = dateOfIssueDoc;
+            DocumentType = documentType;
+            PolicyNumber = policyNumber;
+        }
+
+        public override string ToString() =>
+            $"[{DocumentType}] {_title} | Видано: {DateOfIssueDocFormatted} | Номер: {_policyNumber}";
     }
 
     public enum DocumentType
     {
-        VehicleRegistration,  // Техпаспорт
-        Insurance,            // Страховий поліс
-        TechnicalInspection,  // Техогляд
+        VehicleRegistration,
+        Insurance,
+        TechnicalInspection,
         Other
     }
 }

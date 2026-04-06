@@ -2,52 +2,70 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry // Клас для запису інформації про заправку автомобіля
+    public class FuelEntry
     {
-        public Guid Id { get; init; } = Guid.NewGuid();// унікальний ідентифікатор запису про заправку
+        public Guid Id { get; init; } = Guid.NewGuid();
+
         private string _gasStation = string.Empty;
-        public string GasStation // назва заправки
+        public string GasStation
         {
             get => _gasStation;
             private set
             {
-                if (string.IsNullOrEmpty(value))
-                    return;
-                else
-                    _gasStation = value;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Назва заправки не може бути порожньою.");
+                if (value.Trim().Length > 100)
+                    throw new ArgumentException("Назва заправки не може перевищувати 100 символів.");
+                _gasStation = value.Trim();
             }
         }
 
-        public FuelsType FuelType { get; private set; } // тип палива
+        public FuelsType FuelType { get; private set; }
+        public DateTime FuelDate { get; private set; }
 
-        public DateTime FuelDate { get; private set; } // дата заправки
+        private decimal _pricePerLiter;
+        public decimal PricePerLiter
+        {
+            get => _pricePerLiter;
+            private set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Ціна за літр не може бути від'ємною.");
+                _pricePerLiter = value;
+            }
+        }
 
-        public decimal PricePerLiter { get; private set; } // ціна за літр
+        private decimal _liters;
+        public decimal Liters
+        {
+            get => _liters;
+            private set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Кількість літрів має бути більше нуля.");
+                _liters = value;
+            }
+        }
 
         public decimal TotalCost { get; private set; }
-        
-        /* загальна вартість заправки (розраховується як Liters * PricePerLiter)
- Обчислювана властивість: витрата л/100км
-
-           Розраховується відносно попереднього запису — заповнюється при збереженні */
-        public decimal? FuelConsumptionPer100Km { get; private set; }// палива на 100 км
+        public decimal? FuelConsumptionPer100Km { get; private set; }
 
         public FuelEntry(string gasStation, FuelsType fuelType, DateTime fuelDate,
-                         decimal liters, decimal pricePerLiter) // конструктор для створення запису про заправку
+                         decimal liters, decimal pricePerLiter)
         {
             GasStation = gasStation;
             FuelType = fuelType;
             FuelDate = fuelDate;
+            Liters = liters;
             PricePerLiter = pricePerLiter;
             TotalCost = liters * pricePerLiter;
         }
+
+        public string GetFormattedTotalCost() => $"{TotalCost:N2} грн";
+
+        public override string ToString() =>
+            $"[{FuelType}] {_gasStation} | {_liters} л × {_pricePerLiter:N2} грн = {GetFormattedTotalCost()} | {FuelDate:dd.MM.yyyy}";
     }
 
-    public enum FuelsType // тип палива
-    {
-        Petrol,
-        Diesel,
-        Electric,
-        Hybrid
-    }
+    public enum FuelsType { Petrol, Diesel, Electric, Hybrid }
 }

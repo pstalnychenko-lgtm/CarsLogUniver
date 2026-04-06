@@ -6,6 +6,11 @@ namespace CarsLogWorkig.Models
     {
         public SuperAdmin(string firstName, string lastName)
         {
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("Ім'я не може бути порожнім.");
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("Прізвище не може бути порожнім.");
+
             FirstName = firstName;
             LastName = lastName;
             this.ChangeRole(UserRole.Admin);
@@ -60,5 +65,8 @@ namespace CarsLogWorkig.Models
         {
             return this is SuperAdmin;
         }
+
+        public override string ToString() =>
+            $"[SuperAdmin] {FullName} | Email: {Email} | Active: {IsActive}";
     }
 }
