@@ -5,7 +5,8 @@ namespace CarsLogWorkig.Models
 {
     public class User
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid();
+        public Guid Id => _id;
 
         private string _login = string.Empty;
         public string Login
@@ -107,7 +108,7 @@ namespace CarsLogWorkig.Models
         public UserRole Role { get; private set; }
         public UserSex Sex { get; private set; }
         public IsActiveUser IsActive { get; set; } = IsActiveUser.Ofline;
-        public DateTime DateOfRegistration { get; init; } = DateTime.UtcNow;
+        public DateTime DateOfRegistration { get; private set; } = DateTime.UtcNow;
         public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
         public bool IsUserAgreedToRights { get; private set; }
         public bool CheckUserAgreement => IsUserAgreedToRights;

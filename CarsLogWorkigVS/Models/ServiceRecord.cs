@@ -4,7 +4,8 @@ namespace CarsLogWorkig.Models
 {
     public class ServiceRecord
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid();
+        public Guid Id => _id;
 
         public DateTime DateOfService { get; private set; }
 

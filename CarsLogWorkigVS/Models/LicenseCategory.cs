@@ -4,7 +4,8 @@ namespace CarsLogWorkig.Models
 {
     public class LicenseCategory
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid();
+        public Guid Id => _id;
 
         public DateTime DateOfIssue { get; private set; }
         public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy");

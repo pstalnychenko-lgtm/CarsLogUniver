@@ -4,7 +4,8 @@ namespace CarsLogWorkig.Models
 {
     public class FuelEntry
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid();
+        public Guid Id => _id;
 
         private string _gasStation = string.Empty;
         public string GasStation
