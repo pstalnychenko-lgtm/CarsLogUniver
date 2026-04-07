@@ -181,6 +181,13 @@ namespace CarsLogWorkig.Models
                 _dateOfBirth = value;
             }
         }
+        public void ChangeDateOfBirth(DateTime newDate)
+        {
+            if (DateOfBirth == newDate)
+                throw new ArgumentException("Ця дата народження вже встановлена.");
+
+            DateOfBirth = newDate;
+        }
         public string DateOfBirthFormatted => _dateOfBirth.ToString("dd.MM.yyyy");
 
         public UserRole Role { get; private set; }
@@ -195,8 +202,23 @@ namespace CarsLogWorkig.Models
 
                 CurrentSex = newSex;
           }
-        
+
         public IsActiveUser IsActive { get; set; } = IsActiveUser.Offline;
+
+        public void ChangeActivityStatus(IsActiveUser newStatus)
+        {
+            if (!Enum.IsDefined(typeof(IsActiveUser), newStatus))
+            {
+                throw new ArgumentException("Недопустиме значення статусу.");
+            }
+
+            if (IsActive == newStatus)
+            {
+                throw new ArgumentException("Цей статус вже встановлено.");
+            }
+
+            IsActive = newStatus;
+        }
         public DateTime DateOfRegistration { get; private set; } = DateTime.UtcNow;
         public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
         public bool IsUserAgreedToRights { get; private set; }

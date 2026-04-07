@@ -6,5 +6,6 @@ namespace CarsLogWorkigVS.Interfaces
     {
         DateTime DateOfBirth { get; set; }
         string DateOfBirthFormatted { get; }
+        void ChangeDateOfBirth(DateTime newDate);
     }
 }
