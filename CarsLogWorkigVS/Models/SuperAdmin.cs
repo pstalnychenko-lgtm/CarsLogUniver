@@ -10,10 +10,10 @@ namespace CarsLogWorkig.Models
         IAssignsRole,
         IViewsAsUser
     {
-        private UserViewSession _currentViewSession;
+        private UserViewSession? _currentViewSession;
 
         public bool IsInViewAsMode => _currentViewSession != null;
-        public UserViewSession CurrentViewSession => _currentViewSession;
+        public UserViewSession? CurrentViewSession => _currentViewSession;
 
         public SuperAdmin(string firstName, string lastName)
         {

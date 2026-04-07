@@ -23,7 +23,7 @@ namespace CarsLogWorkig.Models
         private readonly Guid _id = Guid.NewGuid();
 
         public Guid Id => _id;
-        public string Login { get; private set; }
+        public string Login { get; private set; } = string.Empty;
 
         public void ChangeLogin(string newLogin)
         {
@@ -39,7 +39,7 @@ namespace CarsLogWorkig.Models
 
             Login = newLogin;
         }
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
             public void ChangeAddress(string newAddress)
             {
@@ -56,8 +56,8 @@ namespace CarsLogWorkig.Models
                 Address = newAddress;
             }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
         public string FullName => $"{FirstName} {LastName}".Trim();
 
@@ -91,7 +91,7 @@ namespace CarsLogWorkig.Models
             LastName = newPatronymic;
         }
 
-        public string Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
 
         public void ChangePhone(string newPhone)
         {
@@ -148,7 +148,7 @@ namespace CarsLogWorkig.Models
 
         public bool VerePassword { get; set; }
 
-        public string Email { get; private set; }
+        public string Email { get; private set; } = string.Empty;
 
         public void ChangeEmail(string newEmail)
         {

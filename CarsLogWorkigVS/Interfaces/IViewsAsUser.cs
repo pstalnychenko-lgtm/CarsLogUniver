@@ -7,6 +7,6 @@ namespace CarsLogWorkigVS.Interfaces
         UserViewSession StartViewAs(User targetUser);
         void EndViewAs(UserViewSession session);
         bool IsInViewAsMode { get; }
-        UserViewSession CurrentViewSession { get; }
+        UserViewSession? CurrentViewSession { get; }
     }
 }
