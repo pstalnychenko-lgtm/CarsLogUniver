@@ -34,7 +34,6 @@ namespace CarsLogWorkig.Models
         }
 
         public DateTime ExpenseDate { get; private set; }
-
         public Guid VehicleId { get; private set; }
 
         public Expense(ExpenseCategory category, decimal amount, DateTime date, string description, Guid vehicleId)

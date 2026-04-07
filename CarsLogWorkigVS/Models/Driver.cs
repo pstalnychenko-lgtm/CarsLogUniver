@@ -1,9 +1,15 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Driver : User, IDriver
+    public class Driver : User,
+        IHasLicenseInfo,
+        IHasLicenseCategories,
+        IValidatesLicense,
+        IHasBloodType,
+        IProvidesDriverInfo
     {
         private string _licenseNumber = string.Empty;
         public string LicenseNumber

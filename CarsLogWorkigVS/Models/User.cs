@@ -1,66 +1,117 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class User
+    public class User :
+        IHasId,
+        IHasFullName,
+        IHasPhone,
+        IHasEmail,
+        IHasLogin,
+        IHasPasswordHash,
+        IHasRole,
+        IHasActivityStatus,
+        IHasDateOfBirth,
+        IHasRegistrationDates,
+        IHasSex,
+        IHasUserAgreement
+        
     {
+
         private readonly Guid _id = Guid.NewGuid();
+
         public Guid Id => _id;
+        public string Login { get; private set; }
 
-        private string _login = string.Empty;
-        public string Login
+        public void ChangeLogin(string newLogin)
         {
-            get => _login;
-            private set
+            if (string.IsNullOrWhiteSpace(newLogin))
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Логін не може бути порожнім.");
-                _login = value.Trim();
+                throw new ArgumentException("Логін не може бути порожнім.");
             }
+
+            if (Login == newLogin)
+            {
+                throw new ArgumentException("Цей логін вже встановлено.");
+            }
+
+            Login = newLogin;
+        }
+        public string Address { get; set; }
+
+            public void ChangeAddress(string newAddress)
+            {
+                if (string.IsNullOrWhiteSpace(newAddress))
+                {
+                    throw new ArgumentException("Адреса не може бути порожньою.");
+                }
+
+                if (Address == newAddress)
+                {
+                    throw new ArgumentException("Ця адреса вже встановлена.");
+                }
+
+                Address = newAddress;
+            }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}".Trim();
+
+        public void ChangeFirstName(string newFirstName)
+        {
+            if (string.IsNullOrWhiteSpace(newFirstName))
+            {
+                throw new ArgumentException("Ім'я не може бути порожнім.");
+            }
+
+            if (FirstName == newFirstName)
+            {
+                throw new ArgumentException("Це ім'я вже встановлено.");
+            }
+
+            FirstName = newFirstName;
         }
 
-        private string _firstName = string.Empty;
-        public string FirstName
+        public void ChangePatronymic(string newPatronymic)
         {
-            get => _firstName;
-            set
+            if (string.IsNullOrWhiteSpace(newPatronymic))
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Ім'я не може бути порожнім.");
-                if (value.Trim().Length > 50)
-                    throw new ArgumentException("Ім'я не може перевищувати 50 символів.");
-                _firstName = value.Trim();
+                throw new ArgumentException("По батькові не може бути порожнім.");
             }
+
+            if (LastName == newPatronymic)
+            {
+                throw new ArgumentException("Це по батькові вже встановлено.");
+            }
+
+            LastName = newPatronymic;
         }
 
-        private string _lastName = string.Empty;
-        public string LastName
+        public string Phone { get; set; }
+
+        public void ChangePhone(string newPhone)
         {
-            get => _lastName;
-            set
+            if (string.IsNullOrWhiteSpace(newPhone))
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Прізвище не може бути порожнім.");
-                if (value.Trim().Length > 50)
-                    throw new ArgumentException("Прізвище не може перевищувати 50 символів.");
-                _lastName = value.Trim();
+                throw new ArgumentException("Телефон не може бути порожнім.");
             }
+
+            if (Phone == newPhone)
+            {
+                throw new ArgumentException("Цей телефон вже встановлено.");
+            }
+
+            Phone = newPhone;
         }
 
-        private string _phone = string.Empty;
-        public string Phone
-        {
-            get => _phone;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Телефон не може бути порожнім.");
-                _phone = value.Trim();
-            }
-        }
+        
 
         private string _passwordHash = string.Empty;
+
         public string PasswordHash
         {
             get => _passwordHash;
@@ -68,28 +119,55 @@ namespace CarsLogWorkig.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Пароль не може бути порожнім.");
+
                 if (value.Length < 8)
                     throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
+
                 if (!value.Any(char.IsUpper))
                     throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
+
                 if (!value.Any(char.IsDigit))
                     throw new ArgumentException("Пароль має містити хоча б одну цифру.");
+
+                if (_passwordHash == value)
+                    throw new ArgumentException("Новий пароль не може збігатися зі старим.");
+
                 _passwordHash = value;
             }
         }
 
-        private string _email = string.Empty;
-        public string Email
+        public void ChangePassword(Guid requestingUserId, string newPassword)
         {
-            get => _email;
-            set
+            if (Id != requestingUserId)
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Email не може бути порожнім.");
-                if (value.Trim().Length > 100)
-                    throw new ArgumentException("Email не може перевищувати 100 символів.");
-                _email = value.Trim();
+                throw new UnauthorizedAccessException("Відмовлено в доступі. Невірний ідентифікатор користувача.");
             }
+
+            PasswordHash = newPassword;
+        }
+
+        public bool VerePassword { get; set; }
+
+        public string Email { get; private set; }
+
+        public void ChangeEmail(string newEmail)
+        {
+            if (string.IsNullOrWhiteSpace(newEmail))
+            {
+                throw new ArgumentException("Email не може бути порожнім.");
+            }
+
+            if (Email == newEmail)
+            {
+                throw new ArgumentException("Цей Email вже встановлено.");
+            }
+
+            if (!newEmail.Contains("@"))
+            {
+                throw new ArgumentException("Некоректний формат Email.");
+            }
+
+            Email = newEmail;
         }
 
         private DateTime _dateOfBirth;
@@ -106,13 +184,23 @@ namespace CarsLogWorkig.Models
         public string DateOfBirthFormatted => _dateOfBirth.ToString("dd.MM.yyyy");
 
         public UserRole Role { get; private set; }
-        public UserSex Sex { get; private set; }
-        public IsActiveUser IsActive { get; set; } = IsActiveUser.Ofline;
+        public UserSex CurrentSex { get; private set; }
+
+        public void ChangeSex(UserSex newSex)
+          {
+                if (CurrentSex == newSex)
+                {
+                    throw new ArgumentException("Вказане значення вже встановлено.");
+                }
+
+                CurrentSex = newSex;
+          }
+        
+        public IsActiveUser IsActive { get; set; } = IsActiveUser.Offline;
         public DateTime DateOfRegistration { get; private set; } = DateTime.UtcNow;
         public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
         public bool IsUserAgreedToRights { get; private set; }
         public bool CheckUserAgreement => IsUserAgreedToRights;
-        public string FullName => $"{_firstName} {_lastName}".Trim();
 
         public string UserRights => Role switch
         {
@@ -133,7 +221,7 @@ namespace CarsLogWorkig.Models
         }
 
         public override string ToString() =>
-            $"[{Role}] {FullName} | Email: {_email} | Active: {IsActive}";
+            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}";
     }
 
     public enum UserRole { Owner, Driver, Admin }
@@ -142,6 +230,6 @@ namespace CarsLogWorkig.Models
 
     public enum IsActiveUser
     {
-        Online, Ofline, OutOfPlace, ComingSoon, DontDisturb, Invisible
+        Online, Offline, OutOfPlace, ComingSoon, DontDisturb, Invisible
     }
 }

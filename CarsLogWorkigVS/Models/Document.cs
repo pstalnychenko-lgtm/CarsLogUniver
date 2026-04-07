@@ -23,7 +23,6 @@ namespace CarsLogWorkig.Models
 
         public DateTime DateOfIssueDoc { get; private set; }
         public string DateOfIssueDocFormatted => DateOfIssueDoc.ToString("dd.MM.yyyy");
-
         public DocumentType DocumentType { get; private set; }
 
         private string _policyNumber = string.Empty;

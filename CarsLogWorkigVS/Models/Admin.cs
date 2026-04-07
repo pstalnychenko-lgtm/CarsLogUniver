@@ -1,8 +1,13 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Admin : User, IAdmin
+    public class Admin : User,
+        IActivatesUser,
+        IDeactivatesUser,
+        IAssignsRole,
+        IViewsUserDetails
     {
         public void DeactivateUser(User user)
         {
@@ -10,7 +15,7 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             if (user.Role == UserRole.Admin)
                 throw new InvalidOperationException("Адмін не може деактивувати іншого адміна.");
-            user.IsActive = IsActiveUser.Ofline;
+            user.IsActive = IsActiveUser.Offline;
         }
 
         public void ActivateUser(User user)

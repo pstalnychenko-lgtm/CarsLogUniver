@@ -5,11 +5,8 @@ namespace CarsLogWorkig.Models
     public class LicenseCategory
     {
         private readonly Guid _id = Guid.NewGuid();
-        public Guid Id => _id;
-
         public DateTime DateOfIssue { get; private set; }
         public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy");
-
         public DateTime ExpirationDate { get; private set; }
         public string ExpirationDateFormatted => ExpirationDate.ToString("dd.MM.yyyy");
 

@@ -1,23 +1,22 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User, IOwner
+    public class Owner : User,
+        IHasAddress,
+        IHasPurchaseDate,
+        IManagesVehicles,
+        IManagesDriverAssignment,
+        IAddsVehicleNote,
+        IAddsVehicleExpense,
+        IAddsVehicleDocument,
+        IAddsServiceRecord,
+        IAddsFuelEntry,
+        IAddsTripLog
     {
-        private string _addressByOwner = string.Empty;
-        public string AddressByOwner
-        {
-            get => _addressByOwner;
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Адреса не може бути порожньою.");
-                if (value.Trim().Length > 200)
-                    throw new ArgumentException("Адреса не може перевищувати 200 символів.");
-                _addressByOwner = value.Trim();
-            }
-        }
+        
 
         public DateTime DateOfPurchaseTheCar { get; private set; }
         public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy");
@@ -30,7 +29,7 @@ namespace CarsLogWorkig.Models
             FirstName = firstName;
             LastName = lastName;
             Phone = phone;
-            AddressByOwner = addressByOwner;
+            Address = addressByOwner;
 
             if (dateOfPurchaseTheCar > DateTime.Now)
                 throw new ArgumentException("Дата купівлі авто не може бути в майбутньому.");
@@ -136,6 +135,6 @@ namespace CarsLogWorkig.Models
         }
 
         public override string ToString() =>
-            $"[Власник] {FullName} | Адреса: {_addressByOwner} | Авто: {Vehicles.Count} шт.";
+            $"[Власник] {FullName} | Адреса: {Address} | Авто: {Vehicles.Count} шт.";
     }
 }

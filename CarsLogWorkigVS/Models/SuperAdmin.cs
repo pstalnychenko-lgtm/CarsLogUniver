@@ -1,9 +1,20 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : User, ISuperAdmin
+    public class SuperAdmin : User,
+        IManagesAdmins,
+        IActivatesUser,
+        IDeactivatesUser,
+        IAssignsRole,
+        IViewsAsUser
     {
+        private UserViewSession _currentViewSession;
+
+        public bool IsInViewAsMode => _currentViewSession != null;
+        public UserViewSession CurrentViewSession => _currentViewSession;
+
         public SuperAdmin(string firstName, string lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName))
@@ -14,6 +25,29 @@ namespace CarsLogWorkig.Models
             FirstName = firstName;
             LastName = lastName;
             this.ChangeRole(UserRole.Admin);
+        }
+
+        public UserViewSession StartViewAs(User targetUser)
+        {
+            if (targetUser == null)
+                throw new ArgumentNullException(nameof(targetUser));
+            if (targetUser.Id == this.Id)
+                throw new InvalidOperationException("SuperAdmin не може переглядати систему від власного імені.");
+            if (IsInViewAsMode)
+                throw new InvalidOperationException("Сесія перегляду вже активна. Завершіть поточну перед початком нової.");
+
+            _currentViewSession = new UserViewSession(targetUser);
+            return _currentViewSession;
+        }
+
+        public void EndViewAs(UserViewSession session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (_currentViewSession == null || _currentViewSession.SessionId != session.SessionId)
+                throw new InvalidOperationException("Вказана сесія не є активною.");
+
+            _currentViewSession = null;
         }
 
         public void CreateAdmin(User user)
@@ -37,14 +71,14 @@ namespace CarsLogWorkig.Models
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             if (user.Role == UserRole.Admin)
-                user.IsActive = IsActiveUser.Ofline;
+                user.IsActive = IsActiveUser.Offline;
         }
 
         public void DeactivateUser(User user)
         {
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = IsActiveUser.Ofline;
+            user.IsActive = IsActiveUser.Offline;
         }
 
         public void ActivateUser(User user)
@@ -59,11 +93,6 @@ namespace CarsLogWorkig.Models
             if (user == null)
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             user.ChangeRole(role);
-        }
-
-        public bool IsSuperAdmin()
-        {
-            return this is SuperAdmin;
         }
 
         public override string ToString() =>
