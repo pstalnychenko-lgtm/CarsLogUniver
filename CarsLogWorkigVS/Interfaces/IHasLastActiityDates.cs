@@ -2,9 +2,9 @@ using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasRegistrationDates
+    public interface IHasLastActiityDates
     {
-        DateTime DateOfRegistration { get; }
         DateTime DateOfLastActivity { get; set; }
+        void UpdateDateOfLastActivity(DateTime newDate);
     }
 }

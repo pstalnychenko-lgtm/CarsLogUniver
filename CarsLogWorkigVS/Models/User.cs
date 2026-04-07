@@ -14,7 +14,7 @@ namespace CarsLogWorkig.Models
         IHasRole,
         IHasActivityStatus,
         IHasDateOfBirth,
-        IHasRegistrationDates,
+        IHasLastActiityDates,
         IHasSex,
         IHasUserAgreement
         
@@ -220,7 +220,24 @@ namespace CarsLogWorkig.Models
             IsActive = newStatus;
         }
         public DateTime DateOfRegistration { get; private set; } = DateTime.UtcNow;
-        public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
+        
+            public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
+
+            public void UpdateDateOfLastActivity(DateTime newDate)
+            {
+                if (newDate > DateTime.UtcNow)
+                {
+                    throw new ArgumentException("Дата останньої активності не може бути в майбутньому.");
+                }
+
+                if (DateOfLastActivity == newDate)
+                {
+                    throw new ArgumentException("Ця дата вже встановлена.");
+                }
+
+                DateOfLastActivity = newDate;
+            }
+        
         public bool IsUserAgreedToRights { get; private set; }
         public bool CheckUserAgreement => IsUserAgreedToRights;
 
