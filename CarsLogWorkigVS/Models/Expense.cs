@@ -48,7 +48,7 @@ namespace CarsLogWorkig.Models
         public string GetFormattedAmount() => $"{_amount:N2} грн";
 
         public override string ToString() =>
-            $"[{Category}] {GetFormattedAmount()} | {ExpenseDate:dd.MM.yyyy} | {_description}";
+            $"[{Category}] {GetFormattedAmount()} | {ExpenseDate:HH:mm:dd.MM.yyyy} | {_description}";
     }
 
     public enum ExpenseCategory
