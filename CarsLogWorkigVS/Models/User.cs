@@ -15,8 +15,7 @@ namespace CarsLogWorkig.Models
         IHasActivityStatus,
         IHasDateOfBirth,
         IHasLastActiityDates,
-        IHasSex,
-        IHasUserAgreement
+        IHasSex
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -127,15 +126,31 @@ namespace CarsLogWorkig.Models
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Пароль не може бути порожнім.");
-            if (value.Length < 8)
-                throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
+            if (value.Length < 8 || value.Length > 50)
+                throw new ArgumentException("Пароль має містити щонайменше 8 символів і не більше 50 символів.");
             if (!value.Any(char.IsUpper))
                 throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
             if (!value.Any(char.IsDigit))
                 throw new ArgumentException("Пароль має містити хоча б одну цифру.");
             if (_passwordHash == value)
                 throw new ArgumentException("Новий пароль не може збігатися зі старим.");
+            if (value.All(char.IsLetter))
+                throw new ArgumentException("Пароль має містить хоча б одне число і спеціальний символ.");
+            if (value.All(char.IsDigit))
+                throw new ArgumentException("Пароль не може складатися лише з цифр.");
+            if (value.All(char.IsPunctuation))
+                throw new ArgumentException("Пароль не може складатися лише зі спеціальних символів.");
+            if (value.Distinct().Count() < 4)
+                throw new ArgumentException("Пароль занадто одноманітний. Використовуйте більше різних символів.");
+            
+            var weakRoots = new[] { "password", "admin", "qwerty", "12345", "user", "root" };
+            string lowerValue = value.ToLower();
+           
+            if (weakRoots.Any(root => lowerValue.Contains(root)))
+                throw new ArgumentException("Пароль містить легко передбачувані слова або послідовності.");
             _passwordHash = value;
+            
+            
         }
 
         public void ChangePassword(Guid requestingUserId, string newPassword)
@@ -215,9 +230,9 @@ namespace CarsLogWorkig.Models
 
         public string UserRights => Role switch
         {
-            UserRole.Owner => "Owner: Full access to all features and settings.",
-            UserRole.Driver => "Driver: Access to driving-related features and logs.",
-            UserRole.Admin => "Admin: Access to user management and system settings.",
+            UserRole.Owner => "Owner: Повна доступність до всіх функцій та налаштувань.",
+            UserRole.Driver => "Driver: Доступ до функцій, пов'язаних з водінням, та журналів.",
+            UserRole.Admin => "Admin: Доступ до управління користувачами та налаштувань системи.",
             _ => "Unknown role."
         };
 

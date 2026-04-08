@@ -6,8 +6,7 @@ namespace CarsLogWorkig.Models
     public class Admin : User,
         IActivatesUser,
         IDeactivatesUser,
-        IAssignsRole,
-        IViewsUserDetails
+        IAssignsRole
     {
         public void DeactivateUser(User user)
         {
@@ -39,6 +38,8 @@ namespace CarsLogWorkig.Models
             if (user == null) return false;
             return user.Role != UserRole.Admin;
         }
+
+       
 
         public override string ToString() =>
             $"[Admin] {FullName} | Email: {Email} | Active: {IsActive}";

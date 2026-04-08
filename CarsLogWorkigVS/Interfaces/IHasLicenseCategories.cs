@@ -6,6 +6,7 @@ namespace CarsLogWorkigVS.Interfaces
     public interface IHasLicenseCategories
     {
         List<LicenseCategory> LicenseCategories { get; }
-        void AddLicenseCategory(LicenseCategory category);
+        void AddLicenseCategory(LicenseCategory category); 
+        void RemoveLicenseCategory(LicenseCategory category);
     }
 }
