@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : User,
+    public class SuperAdmin : User, 
         IManagesAdmins,
         IActivatesUser,
         IDeactivatesUser,

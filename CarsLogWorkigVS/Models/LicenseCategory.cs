@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class LicenseCategory
+    public class LicenseCategory 
     {
         private readonly Guid _id = Guid.NewGuid();
         public DateTime DateOfIssue { get; private set; }

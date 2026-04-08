@@ -2,11 +2,12 @@ using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasLicenseInfo
+    public interface ILicenseExpiryDate
     {
-        string LicenseNumber { get; }
-        string LicenseIssuedBy { get; }
         DateTime LicenseExpiryDate { get; }
         string DateOfLicenseFormatted { get; }
+
+        void SetLicenseExpiryDate(DateTime expiryDate);
+        void ChangeLicenseExpiryDate(DateTime newExpiryDate);
     }
 }
