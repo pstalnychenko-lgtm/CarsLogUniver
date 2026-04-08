@@ -7,7 +7,7 @@
         Text="Welcome to the СarsLog application"
         VerticalOptions="Center" 
         HorizontalOptions="Center" />
-    
+
 
 </ContentPage>
 

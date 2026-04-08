@@ -7,9 +7,7 @@ namespace CarsLogWorkig.Models
     public class Driver : User,
         IDriverLicenseNumber,
         ILicenseExpiryDate,
-        IValidatesLicense,
         IHasBloodType,
-        IProvidesDriverInfo,
         IHasLicenseCategories
     {
         private string _licenseNumber = string.Empty;
@@ -132,6 +130,13 @@ namespace CarsLogWorkig.Models
             return $"Водій: {FullName}, Телефон: {Phone}, Посвідчення: {_licenseNumber}, " +
                    $"Видане: {_licenseIssuedBy}, Дійсне до: {DateOfLicenseFormatted}, " +
                    $"Мед. довідка: {_medicalCertStatus}, Група крові: {_bloodType}";
+        }
+        public List<LicenseCategory> GetLicenseCategories() => LicenseCategories;
+        public void RemoveLicenseCategory(LicenseCategory category)
+        {
+            if (category == null)
+                throw new ArgumentNullException("Категорія не може бути порожньою.");
+            LicenseCategories.Remove(category);
         }
 
         public string GetBloodType() => _bloodType.ToString();

@@ -6,6 +6,7 @@ namespace CarsLogWorkigVS.Interfaces
     {
         DateTime LicenseExpiryDate { get; }
         string DateOfLicenseFormatted { get; }
+        bool IsLicenseValid();
 
         void SetLicenseExpiryDate(DateTime expiryDate);
         void ChangeLicenseExpiryDate(DateTime newExpiryDate);
