@@ -6,6 +6,6 @@ namespace CarsLogWorkigVS.Interfaces
     {
         DateTime DateOfPurchaseTheCar { get; }
         string DateOfPurchaseTheCarFormatted { get; }
-        void ChangeDateOfPurchaseTheCar(DateTime newDate);             
+        void ChangeDateOfPurchaseTheCar(DateTime newDate);
     }
 }

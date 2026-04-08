@@ -1,4 +1,4 @@
-﻿namespace CarsLogWorkigVS.Interfaces
+namespace CarsLogWorkigVS.Interfaces
 {
     public interface IHasLogin
     {

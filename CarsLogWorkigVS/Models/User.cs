@@ -17,229 +17,201 @@ namespace CarsLogWorkig.Models
         IHasLastActiityDates,
         IHasSex,
         IHasUserAgreement
-        
     {
-
         private readonly Guid _id = Guid.NewGuid();
-
         public Guid Id => _id;
-        public string Login { get; private set; } = string.Empty;
+
+        public string GetMaskedId()
+        {
+            var s = _id.ToString();
+            return s.Substring(0, 8) + "-****-****-****-" + s.Substring(s.Length - 12);
+        }
+
+        private string _login = string.Empty;
+        public string Login => _login;
 
         public void ChangeLogin(string newLogin)
         {
             if (string.IsNullOrWhiteSpace(newLogin))
-            {
                 throw new ArgumentException("Логін не може бути порожнім.");
-            }
-
-            if (Login == newLogin)
-            {
+            if (_login == newLogin.Trim())
                 throw new ArgumentException("Цей логін вже встановлено.");
-            }
-
-            Login = newLogin;
+            _login = newLogin.Trim();
         }
-        public string Address { get; set; } = string.Empty;
 
-            public void ChangeAddress(string newAddress)
+        private string _address = string.Empty;
+        public string Address => _address;
+
+        public void ChangeAddress(string newAddress)
+        {
+            if (string.IsNullOrWhiteSpace(newAddress))
+                throw new ArgumentException("Адреса не може бути порожньою.");
+            if (_address == newAddress.Trim())
+                throw new ArgumentException("Ця адреса вже встановлена.");
+            _address = newAddress.Trim();
+        }
+
+        private string _firstName = string.Empty;
+        public string FirstName
+        {
+            get => _firstName;
+            set
             {
-                if (string.IsNullOrWhiteSpace(newAddress))
-                {
-                    throw new ArgumentException("Адреса не може бути порожньою.");
-                }
-
-                if (Address == newAddress)
-                {
-                    throw new ArgumentException("Ця адреса вже встановлена.");
-                }
-
-                Address = newAddress;
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Ім'я не може бути порожнім.");
+                if (value.Trim().Length > 50)
+                    throw new ArgumentException("Ім'я не може перевищувати 50 символів.");
+                _firstName = value.Trim();
             }
+        }
 
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
+        private string _lastName = string.Empty;
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Прізвище не може бути порожнім.");
+                if (value.Trim().Length > 50)
+                    throw new ArgumentException("Прізвище не може перевищувати 50 символів.");
+                _lastName = value.Trim();
+            }
+        }
 
-        public string FullName => $"{FirstName} {LastName}".Trim();
+        public string FullName => $"{_firstName} {_lastName}".Trim();
 
         public void ChangeFirstName(string newFirstName)
         {
             if (string.IsNullOrWhiteSpace(newFirstName))
-            {
                 throw new ArgumentException("Ім'я не може бути порожнім.");
-            }
-
-            if (FirstName == newFirstName)
-            {
+            if (_firstName == newFirstName.Trim())
                 throw new ArgumentException("Це ім'я вже встановлено.");
-            }
-
             FirstName = newFirstName;
         }
 
-        public void ChangePatronymic(string newPatronymic)
+        public void ChangeLastName(string newLastName)
         {
-            if (string.IsNullOrWhiteSpace(newPatronymic))
-            {
-                throw new ArgumentException("По батькові не може бути порожнім.");
-            }
-
-            if (LastName == newPatronymic)
-            {
-                throw new ArgumentException("Це по батькові вже встановлено.");
-            }
-
-            LastName = newPatronymic;
+            if (string.IsNullOrWhiteSpace(newLastName))
+                throw new ArgumentException("Прізвище не може бути порожнім.");
+            if (_lastName == newLastName.Trim())
+                throw new ArgumentException("Це прізвище вже встановлено.");
+            LastName = newLastName;
         }
 
-        public string Phone { get; set; } = string.Empty;
+        private string _phone = string.Empty;
+        public string Phone
+        {
+            get => _phone;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Телефон не може бути порожнім.");
+                _phone = value.Trim();
+            }
+        }
 
         public void ChangePhone(string newPhone)
         {
             if (string.IsNullOrWhiteSpace(newPhone))
-            {
                 throw new ArgumentException("Телефон не може бути порожнім.");
-            }
-
-            if (Phone == newPhone)
-            {
+            if (_phone == newPhone.Trim())
                 throw new ArgumentException("Цей телефон вже встановлено.");
-            }
-
             Phone = newPhone;
         }
 
-        
-
         private string _passwordHash = string.Empty;
+        public string PasswordHash => _passwordHash;
 
-        public string PasswordHash
+        private void SetPasswordHash(string value)
         {
-            get => _passwordHash;
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Пароль не може бути порожнім.");
-
-                if (value.Length < 8)
-                    throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
-
-                if (!value.Any(char.IsUpper))
-                    throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
-
-                if (!value.Any(char.IsDigit))
-                    throw new ArgumentException("Пароль має містити хоча б одну цифру.");
-
-                if (_passwordHash == value)
-                    throw new ArgumentException("Новий пароль не може збігатися зі старим.");
-
-                _passwordHash = value;
-            }
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Пароль не може бути порожнім.");
+            if (value.Length < 8)
+                throw new ArgumentException("Пароль має містити щонайменше 8 символів.");
+            if (!value.Any(char.IsUpper))
+                throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
+            if (!value.Any(char.IsDigit))
+                throw new ArgumentException("Пароль має містити хоча б одну цифру.");
+            if (_passwordHash == value)
+                throw new ArgumentException("Новий пароль не може збігатися зі старим.");
+            _passwordHash = value;
         }
 
         public void ChangePassword(Guid requestingUserId, string newPassword)
         {
-            if (Id != requestingUserId)
-            {
+            if (_id != requestingUserId)
                 throw new UnauthorizedAccessException("Відмовлено в доступі. Невірний ідентифікатор користувача.");
-            }
-
-            PasswordHash = newPassword;
+            SetPasswordHash(newPassword);
         }
 
-        public bool VerePassword { get; set; }
-
-        public string Email { get; private set; } = string.Empty;
+        private string _email = string.Empty;
+        public string Email => _email;
 
         public void ChangeEmail(string newEmail)
         {
             if (string.IsNullOrWhiteSpace(newEmail))
-            {
                 throw new ArgumentException("Email не може бути порожнім.");
-            }
-
-            if (Email == newEmail)
-            {
-                throw new ArgumentException("Цей Email вже встановлено.");
-            }
-
+            if (newEmail.Trim().Length > 100)
+                throw new ArgumentException("Email не може перевищувати 100 символів.");
             if (!newEmail.Contains("@"))
-            {
                 throw new ArgumentException("Некоректний формат Email.");
-            }
-
-            Email = newEmail;
+            if (_email == newEmail.Trim())
+                throw new ArgumentException("Цей Email вже встановлено.");
+            _email = newEmail.Trim();
         }
 
         private DateTime _dateOfBirth;
-        public DateTime DateOfBirth
-        {
-            get => _dateOfBirth;
-            set
-            {
-                if (value > DateTime.Now)
-                    throw new ArgumentException("Дата народження не може бути в майбутньому.");
-                _dateOfBirth = value;
-            }
-        }
+        public DateTime DateOfBirth => _dateOfBirth;
+
         public void ChangeDateOfBirth(DateTime newDate)
         {
-            if (DateOfBirth == newDate)
+            if (newDate > DateTime.Now)
+                throw new ArgumentException("Дата народження не може бути в майбутньому.");
+            if (_dateOfBirth == newDate)
                 throw new ArgumentException("Ця дата народження вже встановлена.");
-
-            DateOfBirth = newDate;
+            _dateOfBirth = newDate;
         }
+
         public string DateOfBirthFormatted => _dateOfBirth.ToString("dd.MM.yyyy");
 
         public UserRole Role { get; private set; }
-        public UserSex CurrentSex { get; private set; }
+
+        private UserSex _currentSex;
+        public UserSex CurrentSex => _currentSex;
 
         public void ChangeSex(UserSex newSex)
-          {
-                if (CurrentSex == newSex)
-                {
-                    throw new ArgumentException("Вказане значення вже встановлено.");
-                }
-
-                CurrentSex = newSex;
-          }
+        {
+            if (_currentSex == newSex)
+                throw new ArgumentException("Вказане значення вже встановлено.");
+            _currentSex = newSex;
+        }
 
         public IsActiveUser IsActive { get; set; } = IsActiveUser.Offline;
 
         public void ChangeActivityStatus(IsActiveUser newStatus)
         {
             if (!Enum.IsDefined(typeof(IsActiveUser), newStatus))
-            {
                 throw new ArgumentException("Недопустиме значення статусу.");
-            }
-
             if (IsActive == newStatus)
-            {
                 throw new ArgumentException("Цей статус вже встановлено.");
-            }
-
             IsActive = newStatus;
         }
+
         public DateTime DateOfRegistration { get; private set; } = DateTime.UtcNow;
-        
-            public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
+        public DateTime DateOfLastActivity { get; set; } = DateTime.UtcNow;
 
-            public void UpdateDateOfLastActivity(DateTime newDate)
-            {
-                if (newDate > DateTime.UtcNow)
-                {
-                    throw new ArgumentException("Дата останньої активності не може бути в майбутньому.");
-                }
+        public void UpdateDateOfLastActivity(DateTime newDate)
+        {
+            if (newDate > DateTime.UtcNow)
+                throw new ArgumentException("Дата останньої активності не може бути в майбутньому.");
+            if (DateOfLastActivity == newDate)
+                throw new ArgumentException("Ця дата вже встановлена.");
+            DateOfLastActivity = newDate;
+        }
 
-                if (DateOfLastActivity == newDate)
-                {
-                    throw new ArgumentException("Ця дата вже встановлена.");
-                }
-
-                DateOfLastActivity = newDate;
-            }
-        
-        public bool IsUserAgreedToRights { get; private set; }
-        public bool CheckUserAgreement => IsUserAgreedToRights;
+        private bool _isUserAgreedToRights;
+        public bool CheckUserAgreement => _isUserAgreedToRights;
 
         public string UserRights => Role switch
         {
@@ -260,7 +232,7 @@ namespace CarsLogWorkig.Models
         }
 
         public override string ToString() =>
-            $"[{Role}] {FullName} | Email: {Email} | Active: {IsActive}";
+            $"[{Role}] {FullName} | Email: {_email} | Active: {IsActive}";
     }
 
     public enum UserRole { Owner, Driver, Admin }

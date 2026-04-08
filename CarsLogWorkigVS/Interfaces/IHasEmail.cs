@@ -1,8 +1,8 @@
-﻿namespace CarsLogWorkigVS.Interfaces
+namespace CarsLogWorkigVS.Interfaces
 {
     public interface IHasEmail
-{
-    string Email { get; }
-    void ChangeEmail(string newEmail);
-}
+    {
+        string Email { get; }
+        void ChangeEmail(string newEmail);
+    }
 }

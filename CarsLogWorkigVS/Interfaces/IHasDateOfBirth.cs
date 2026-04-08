@@ -4,7 +4,7 @@ namespace CarsLogWorkigVS.Interfaces
 {
     public interface IHasDateOfBirth
     {
-        DateTime DateOfBirth { get; set; }
+        DateTime DateOfBirth { get; }
         string DateOfBirthFormatted { get; }
         void ChangeDateOfBirth(DateTime newDate);
     }

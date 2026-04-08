@@ -4,10 +4,11 @@
     {
         string FirstName { get; }
         string LastName { get; }
-        void ChangeFirstName(string newFirstName);
-        void ChangePatronymic(string newPatronymic);
-
         string FullName { get; }
+        void ChangeFirstName(string newFirstName);
+        void ChangeLastName(string newLastName);
+
+        
 
 
     }

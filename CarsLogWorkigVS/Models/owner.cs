@@ -16,24 +16,15 @@ namespace CarsLogWorkig.Models
         IAddsFuelEntry,
         IAddsTripLog
     {
-
-
         public DateTime DateOfPurchaseTheCar { get; private set; }
-
         public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy");
 
         public void ChangeDateOfPurchaseTheCar(DateTime newDate)
         {
             if (newDate > DateTime.Now)
-            {
                 throw new ArgumentException("Дата покупки не може бути в майбутньому.");
-            }
-
             if (DateOfPurchaseTheCar == newDate)
-            {
                 throw new ArgumentException("Ця дата покупки вже встановлена.");
-            }
-
             DateOfPurchaseTheCar = newDate;
         }
 
@@ -45,7 +36,7 @@ namespace CarsLogWorkig.Models
             FirstName = firstName;
             LastName = lastName;
             Phone = phone;
-            Address = addressByOwner;
+            ChangeAddress(addressByOwner);
 
             if (dateOfPurchaseTheCar > DateTime.Now)
                 throw new ArgumentException("Дата купівлі авто не може бути в майбутньому.");

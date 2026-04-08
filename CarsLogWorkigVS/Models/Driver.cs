@@ -12,33 +12,34 @@ namespace CarsLogWorkig.Models
         IProvidesDriverInfo
     {
         private string _licenseNumber = string.Empty;
-        public string LicenseNumber
+        public string LicenseNumber => _licenseNumber;
+
+        private void SetLicenseNumber(string value)
         {
-            get => _licenseNumber;
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Номер посвідчення не може бути порожнім.");
-                _licenseNumber = value.Trim();
-            }
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Номер посвідчення не може бути порожнім.");
+            _licenseNumber = value.Trim();
         }
 
         private string _licenseIssuedBy = string.Empty;
-        public string LicenseIssuedBy
+        public string LicenseIssuedBy => _licenseIssuedBy;
+
+        private void SetLicenseIssuedBy(string value)
         {
-            get => _licenseIssuedBy;
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
-                _licenseIssuedBy = value.Trim();
-            }
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
+            _licenseIssuedBy = value.Trim();
         }
 
-        public BloodType BloodType { get; private set; }
+        private BloodType _bloodType;
+        public BloodType BloodType => _bloodType;
+
         public DateTime LicenseExpiryDate { get; private set; }
         public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
-        public bool MedicalCertStatus { get; private set; }
+
+        private bool _medicalCertStatus;
+        public bool MedicalCertStatus => _medicalCertStatus;
+
         public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>();
 
         public Driver(string firstName, string lastName, string phone,
@@ -48,11 +49,40 @@ namespace CarsLogWorkig.Models
             FirstName = firstName;
             LastName = lastName;
             Phone = phone;
-            LicenseNumber = licenseNumber;
-            LicenseIssuedBy = licenseIssuedBy;
+            SetLicenseNumber(licenseNumber);
+            SetLicenseIssuedBy(licenseIssuedBy);
             LicenseExpiryDate = licenseExpiryDate;
-            MedicalCertStatus = medicalCertStatus;
-            BloodType = bloodType;
+            _medicalCertStatus = medicalCertStatus;
+            _bloodType = bloodType;
+        }
+
+        public void ChangeBloodType(BloodType newBloodType)
+        {
+            if (_bloodType == newBloodType)
+                throw new ArgumentException("Ця група крові вже встановлена.");
+            _bloodType = newBloodType;
+        }
+
+        public List<BloodType> GetCompatibleDonorTypes()
+        {
+            return _bloodType switch
+            {
+                BloodType.O_Negative   => new List<BloodType> { BloodType.O_Negative },
+                BloodType.O_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive },
+                BloodType.A_Negative   => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative },
+                BloodType.A_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.A_Negative, BloodType.A_Positive },
+                BloodType.B_Negative   => new List<BloodType> { BloodType.O_Negative, BloodType.B_Negative },
+                BloodType.B_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.B_Negative, BloodType.B_Positive },
+                BloodType.AB_Negative  => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative, BloodType.B_Negative, BloodType.AB_Negative },
+                BloodType.AB_Positive  => new List<BloodType>
+                {
+                    BloodType.O_Negative, BloodType.O_Positive,
+                    BloodType.A_Negative, BloodType.A_Positive,
+                    BloodType.B_Negative, BloodType.B_Positive,
+                    BloodType.AB_Negative, BloodType.AB_Positive
+                },
+                _ => new List<BloodType>()
+            };
         }
 
         public void AddLicenseCategory(LicenseCategory category)
@@ -63,25 +93,19 @@ namespace CarsLogWorkig.Models
                 LicenseCategories.Add(category);
         }
 
-        public bool IsLicenseValid()
-        {
-            return LicenseExpiryDate > DateTime.Now;
-        }
+        public bool IsLicenseValid() => LicenseExpiryDate > DateTime.Now;
 
         public string GetDriverInfo()
         {
             return $"Водій: {FullName}, Телефон: {Phone}, Посвідчення: {_licenseNumber}, " +
                    $"Видане: {_licenseIssuedBy}, Дійсне до: {DateOfLicenseFormatted}, " +
-                   $"Мед. довідка: {MedicalCertStatus}, Група крові: {BloodType}";
+                   $"Мед. довідка: {_medicalCertStatus}, Група крові: {_bloodType}";
         }
 
-        public string GetBloodType()
-        {
-            return BloodType.ToString();
-        }
+        public string GetBloodType() => _bloodType.ToString();
 
         public override string ToString() =>
-            $"[Водій] {FullName} | Посвідчення: {_licenseNumber} | Дійсне до: {DateOfLicenseFormatted} | Мед. довідка: {MedicalCertStatus}";
+            $"[Водій] {FullName} | Посвідчення: {_licenseNumber} | Дійсне до: {DateOfLicenseFormatted} | Мед. довідка: {_medicalCertStatus}";
     }
 
     public enum BloodType

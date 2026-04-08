@@ -1,8 +1,10 @@
-﻿namespace CarsLogWorkig.Models
+using System;
+
+namespace CarsLogWorkigVS.Interfaces
 {
     public interface IHasPasswordHash
     {
         string PasswordHash { get; }
-        void ChangePassword(System.Guid requestingUserId, string newPassword);
+        void ChangePassword(Guid requestingUserId, string newPassword);
     }
 }

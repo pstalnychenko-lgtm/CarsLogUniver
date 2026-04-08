@@ -5,5 +5,6 @@ namespace CarsLogWorkigVS.Interfaces
     public interface IHasId
     {
         Guid Id { get; }
+        string GetMaskedId();
     }
 }
