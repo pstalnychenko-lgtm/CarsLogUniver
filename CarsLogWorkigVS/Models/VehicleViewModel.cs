@@ -9,8 +9,7 @@ namespace CarsLogWorkig.ViewModels
 {
     public class VehicleViewModel
     {
-        private const int MaxVehicles = 50;
-
+        private const int MaxVehicles = 64;
         private readonly List<Vehicle> _vehicles = new List<Vehicle>();
         private readonly List<string> _actionLog = new List<string>();
         private readonly Dictionary<string, string> _filterPresets = new Dictionary<string, string>();
@@ -20,18 +19,18 @@ namespace CarsLogWorkig.ViewModels
         private string _searchQuery = string.Empty;
         private string _lastError = string.Empty;
 
-        public bool IsBusy { get; private set; }
-        public bool IsEmpty => _vehicles.Count == 0;
-        public string LastError => _lastError;
-        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly();
+        public bool IsBusy { get; private set; } // Для блокування UI під час операцій
+        public bool IsEmpty => _vehicles.Count == 0; // Чи є автомобілі в списку    
+        public string LastError => _lastError; // Остання помилка для відображення користувачу
+        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly(); // Доступ до списку автомобілів для прив'язки до UI
 
-        public string SearchQuery
+        public string SearchQuery // Пошуковий запит для фільтрації автомобілів
         {
             get => _searchQuery;
             set { _searchQuery = value ?? string.Empty; }
         }
 
-        public bool TryAddVehicle(Vehicle vehicle)
+        public bool TryAddVehicle(Vehicle vehicle) // Спроба додати автомобіль з валідацією та обробкою помилок
         {
             try
             {

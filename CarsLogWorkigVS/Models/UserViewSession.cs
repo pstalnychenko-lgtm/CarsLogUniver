@@ -18,6 +18,6 @@ namespace CarsLogWorkig.Models
         }
 
         public override string ToString() =>
-            $"[ViewSession] Observing: {TargetUser.FullName} ({ObservedRole}) since {StartedAt:HH:mm:ss}";
+            $"[ViewSession] Observing: {TargetUser.FullName} ({ObservedRole}) since {StartedAt:dd:MM:yyyy:HH:mm:ss}";
     }
 }

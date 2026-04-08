@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class ServiceRecord
+    public class ServiceRecord 
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -35,7 +35,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public uint MileageAtService { get; private set; }
+        public uint MileageAtService { get; private set; } 
 
         public ServiceRecord(DateTime dateOfService, string description, uint mileageAtService, decimal cost)
         {
