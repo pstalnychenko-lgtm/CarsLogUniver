@@ -3,11 +3,8 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : User, 
+    public class SuperAdmin : Admin, 
         IManagesAdmins,
-        IActivatesUser,
-        IDeactivatesUser,
-        IAssignsRole,
         IViewsAsUser
     {
         private UserViewSession? _currentViewSession;
@@ -72,27 +69,6 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentNullException("Користувач не може бути порожнім.");
             if (user.Role == UserRole.Admin)
                 user.IsActive = IsActiveUser.Offline;
-        }
-
-        public void DeactivateUser(User user)
-        {
-            if (user == null)
-                throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = IsActiveUser.Offline;
-        }
-
-        public void ActivateUser(User user)
-        {
-            if (user == null)
-                throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.IsActive = IsActiveUser.Online;
-        }
-
-        public void AssignRole(User user, UserRole role)
-        {
-            if (user == null)
-                throw new ArgumentNullException("Користувач не може бути порожнім.");
-            user.ChangeRole(role);
         }
 
         public override string ToString() =>

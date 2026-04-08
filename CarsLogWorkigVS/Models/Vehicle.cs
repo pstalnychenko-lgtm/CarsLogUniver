@@ -1,9 +1,10 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle
+    public class Vehicle : IVehicle
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -177,5 +178,38 @@ namespace CarsLogWorkig.Models
 
         public override string ToString() =>
             $"{_brand} {_model} | Номер: {_plateNumber} | Пробіг: {CurrentMileage} км | Власник: {Owner.FullName}";
+
+        public void ChangePlateNumber(string newPlateNumber) => PlateNumber = newPlateNumber;
+
+        public void ChangeVin(string newVin) => Vin = newVin;
+
+        public void ChangeBrand(string newBrand) => Brand = newBrand;
+
+        public void ChangeModel(string newModel) => Model = newModel;
+
+        public void ChangeColor(string newColor) => Color = newColor;
+
+        public void ChangeBodyType(string newBodyType) => BodyType = newBodyType;
+
+        public void ChangeEngineVolumeCc(uint newEngineVolumeCc) => EngineVolumeCc = newEngineVolumeCc;
+
+        public void ChangeFuelTankCapacity(decimal newCapacity) => FuelTankCapacity = newCapacity;
+
+        public void ChangeFuelType(FuelsType newFuelType) => FuelType = newFuelType;
+
+        public void ChangeYearOfRelease(DateTime newYear) => YearOfRelease = newYear;
+
+        public void ChangeCarReleaseDate(DateTime newDate) => CarReleaseDate = newDate;
+
+        public void ChangeCurrentMileage(uint newMileage) => CurrentMileage = newMileage;
+
+        public void ChangeNotes(string newNotes) => Notes = newNotes;
+
+        public void ChangeOwner(Owner newOwner)
+        {
+            if (newOwner == null)
+                throw new ArgumentNullException("Власник не може бути порожнім.");
+            Owner = newOwner;
+        }
     }
 }

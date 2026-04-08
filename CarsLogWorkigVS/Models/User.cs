@@ -10,7 +10,7 @@ namespace CarsLogWorkig.Models
         IHasPhone,
         IHasEmail,
         IHasLogin,
-        IHasPasswordHash,
+        IHasPassword,
         IHasRole,
         IHasActivityStatus,
         IHasDateOfBirth,
@@ -119,10 +119,10 @@ namespace CarsLogWorkig.Models
             Phone = newPhone;
         }
 
-        private string _passwordHash = string.Empty;
-        public string PasswordHash => _passwordHash;
+        private string _password = string.Empty;
+        public string Password => _password;
 
-        private void SetPasswordHash(string value)
+        private void SetPassword(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Пароль не може бути порожнім.");
@@ -132,7 +132,7 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentException("Пароль має містити хоча б одну велику літеру.");
             if (!value.Any(char.IsDigit))
                 throw new ArgumentException("Пароль має містити хоча б одну цифру.");
-            if (_passwordHash == value)
+            if (_password == value)
                 throw new ArgumentException("Новий пароль не може збігатися зі старим.");
             if (value.All(char.IsLetter))
                 throw new ArgumentException("Пароль має містить хоча б одне число і спеціальний символ.");
@@ -148,7 +148,7 @@ namespace CarsLogWorkig.Models
            
             if (weakRoots.Any(root => lowerValue.Contains(root)))
                 throw new ArgumentException("Пароль містить легко передбачувані слова або послідовності.");
-            _passwordHash = value;
+            _password = value;
             
             
         }
@@ -157,7 +157,7 @@ namespace CarsLogWorkig.Models
         {
             if (_id != requestingUserId)
                 throw new UnauthorizedAccessException("Відмовлено в доступі. Невірний ідентифікатор користувача.");
-            SetPasswordHash(newPassword);
+            SetPassword(newPassword);
         }
 
         private string _email = string.Empty;

@@ -1,8 +1,9 @@
+using CarsLogWorkigVS.Interfaces;
 using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Note
+    public class Note : INoteManager
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -43,6 +44,37 @@ namespace CarsLogWorkig.Models
             TitleNote = titleNote;
             NoteContent = noteContent;
             Category = category;
+        }
+
+        private readonly List<Note> _notes = new List<Note>();
+
+        public void AddNote(string titleNote, string noteContent, NoteCategory category)
+        {
+            try
+            {
+                var newNote = new Note(titleNote, noteContent, category);
+
+                _notes.Add(newNote);
+                Console.WriteLine($"[Успіх] Нотатку додано: {newNote.TitleNote}");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"[Помилка додавання нотатки]: {ex.Message}");
+            }
+        }
+
+        public void DeleteNote(Guid noteId)
+        {
+            var noteToRemove = _notes.FirstOrDefault(n => n.Id == noteId);
+            if (noteToRemove != null)
+            {
+                _notes.Remove(noteToRemove);
+                Console.WriteLine($"[Успіх] Видалено нотатку: {noteToRemove.TitleNote}");
+            }
+            else
+            {
+                Console.WriteLine("[Помилка] Нотатку з таким ID не знайдено.");
+            }
         }
 
         public override string ToString() =>
