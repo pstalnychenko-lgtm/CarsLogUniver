@@ -19,18 +19,18 @@ namespace CarsLogWorkig.ViewModels
         private string _searchQuery = string.Empty;
         private string _lastError = string.Empty;
 
-        public bool IsBusy { get; private set; } // Для блокування UI під час операцій
-        public bool IsEmpty => _vehicles.Count == 0; // Чи є автомобілі в списку    
-        public string LastError => _lastError; // Остання помилка для відображення користувачу
-        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly(); // Доступ до списку автомобілів для прив'язки до UI
+        public bool IsBusy { get; private set; }
+        public bool IsEmpty => _vehicles.Count == 0;
+        public string LastError => _lastError;
+        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly();
 
-        public string SearchQuery // Пошуковий запит для фільтрації автомобілів
+        public string SearchQuery
         {
             get => _searchQuery;
             set { _searchQuery = value ?? string.Empty; }
         }
 
-        public bool TryAddVehicle(Vehicle vehicle) // Спроба додати автомобіль з валідацією та обробкою помилок
+        public bool TryAddVehicle(Vehicle vehicle)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace CarsLogWorkig.ViewModels
                 IsBusy = true;
 
                 if (vehicle == null)
-                    throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+                    throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
 
                 var brand = vehicle.Brand?.Trim();
                 var plateNumber = vehicle.PlateNumber?.Trim();
@@ -209,15 +209,15 @@ namespace CarsLogWorkig.ViewModels
             );
         }
 
-        public TripLog CreateDefaultTripLog()
+        public TripLog CreateDefaultTripLog(uint currentMileage)
         {
             return new TripLog(
                 tripDate: DateTime.Now,
-                departurePoint: string.Empty,
-                destination: string.Empty,
+                departurePoint: "Не вказано",
+                destination: "Не вказано",
                 purpose: TripPurpose.Personal,
-                startMileage: 0,
-                endMileage: 0,
+                startMileage: currentMileage,
+                endMileage: currentMileage,
                 notes: string.Empty
             );
         }

@@ -1,9 +1,11 @@
 using CarsLogWorkigVS.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class Note : INoteManager
+    public class Note
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -46,39 +48,32 @@ namespace CarsLogWorkig.Models
             Category = category;
         }
 
+        public override string ToString() =>
+            $"[{Category}] {_titleNote} | {CreatedAt:dd.MM.yyyy HH:mm}";
+    }
+
+    public class NoteManager : INoteManager
+    {
         private readonly List<Note> _notes = new List<Note>();
 
-        public void AddNote(string titleNote, string noteContent, NoteCategory category)
-        {
-            try
-            {
-                var newNote = new Note(titleNote, noteContent, category);
+        public List<Note> Notes => _notes;
 
-                _notes.Add(newNote);
-                Console.WriteLine($"[Успіх] Нотатку додано: {newNote.TitleNote}");
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"[Помилка додавання нотатки]: {ex.Message}");
-            }
+        public void AddNote(Note note)
+        {
+            if (note == null)
+                throw new ArgumentNullException(nameof(note), "Нотатка не може бути порожньою.");
+            if (_notes.Any(n => n.Id == note.Id))
+                throw new InvalidOperationException("Ця нотатка вже додана.");
+            _notes.Add(note);
         }
 
         public void DeleteNote(Guid noteId)
         {
-            var noteToRemove = _notes.FirstOrDefault(n => n.Id == noteId);
-            if (noteToRemove != null)
-            {
-                _notes.Remove(noteToRemove);
-                Console.WriteLine($"[Успіх] Видалено нотатку: {noteToRemove.TitleNote}");
-            }
-            else
-            {
-                Console.WriteLine("[Помилка] Нотатку з таким ID не знайдено.");
-            }
+            var note = _notes.FirstOrDefault(n => n.Id == noteId);
+            if (note == null)
+                throw new ArgumentException("Нотатку з таким ID не знайдено.");
+            _notes.Remove(note);
         }
-
-        public override string ToString() =>
-            $"[{Category}] {_titleNote} | {CreatedAt:dd.MM.yyyy HH:mm}";
     }
 
     public enum NoteCategory { General, Fuel, Service, Finance, Reminder }

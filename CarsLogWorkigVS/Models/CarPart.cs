@@ -22,7 +22,7 @@ namespace CarsLogWorkig.Models
         }
 
         public bool IsReplaced { get; private set; }
-        public bool IsBeInNormalCondition { get; private set; }
+        public bool IsInNormalCondition { get; private set; }
 
         private string _notesComponents = string.Empty;
         public string NotesComponents
@@ -37,21 +37,21 @@ namespace CarsLogWorkig.Models
         }
 
         public CarPart(string customPartName, bool isReplaced,
-                       bool isBeInNormalCondition, string notesComponents)
+                       bool isInNormalCondition, string notesComponents)
         {
             CustomPartName = customPartName;
             IsReplaced = isReplaced;
-            IsBeInNormalCondition = isBeInNormalCondition;
+            IsInNormalCondition = isInNormalCondition;
             NotesComponents = notesComponents;
         }
 
         public void MarkAsReplaced()
         {
             IsReplaced = true;
-            IsBeInNormalCondition = true;
+            IsInNormalCondition = true;
         }
 
         public override string ToString() =>
-            $"[{_customPartName}] Замінено: {IsReplaced} | В нормі: {IsBeInNormalCondition}";
+            $"[{_customPartName}] Замінено: {IsReplaced} | В нормі: {IsInNormalCondition}";
     }
 }

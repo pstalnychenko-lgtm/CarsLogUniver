@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
 using CarsLogWorkigVS.Interfaces;
-
+using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry :
-        ISetFuelType,
-        ICreateGasStation
+    public class FuelEntry : ISetFuelType, ICreateGasStation
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -16,7 +12,7 @@ namespace CarsLogWorkig.Models
         public string GasStationName
         {
             get => _gasStationName;
-            set
+            private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Назва заправки не може бути порожньою.");
@@ -24,13 +20,13 @@ namespace CarsLogWorkig.Models
                     throw new ArgumentException("Назва заправки не може перевищувати 100 символів.");
                 _gasStationName = value.Trim();
             }
-
         }
+
         private string _gasStationAddress = string.Empty;
         public string GasStationAddress
         {
             get => _gasStationAddress;
-            set
+            private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Адреса заправки не може бути порожньою.");
@@ -39,38 +35,28 @@ namespace CarsLogWorkig.Models
                 _gasStationAddress = value.Trim();
             }
         }
-        public void CreateGasStationAddress(string gasStationAddress)
-        {
-            GasStationAddress = gasStationAddress;
-        }
-        public void CreateGasStation(string gasStationName, string gasStationAddress)
+
+        public void SetGasStation(string gasStationName, string gasStationAddress)
         {
             GasStationName = gasStationName;
             GasStationAddress = gasStationAddress;
-        }   
-        
-        
-        void ICreateGasStation.CreateGasStationName()
-        {
-            throw new NotImplementedException("Use CreateGasStation(string gasStationName, string gasStationAddress) or set GasStationName property.");
         }
 
-        void ICreateGasStation.CreateGasStationAddress()
+        public void ChangeGasStationName(string newName)
         {
-            throw new NotImplementedException();
+            if (_gasStationName == newName?.Trim())
+                throw new ArgumentException("Ця назва заправки вже встановлена.");
+            GasStationName = newName;
         }
 
-        void ICreateGasStation.UpdateGasStationName()
+        public void ChangeGasStationAddress(string newAddress)
         {
-            throw new NotImplementedException();
+            if (_gasStationAddress == newAddress?.Trim())
+                throw new ArgumentException("Ця адреса заправки вже встановлена.");
+            GasStationAddress = newAddress;
         }
 
-        void ICreateGasStation.UpdateGasStationAddress()
-        {
-            throw new NotImplementedException();
-        }
-
-        public FuelsType FuelType { get; set; }
+        public FuelsType FuelType { get; private set; }
 
         public void SetFuelType(FuelsType fuelType)
         {
@@ -104,10 +90,11 @@ namespace CarsLogWorkig.Models
         public decimal TotalCost { get; private set; }
         public decimal? FuelConsumptionPer100Km { get; private set; }
 
-        public FuelEntry(string gasStationName, FuelsType fuelType,
-                         decimal liters, decimal pricePerLiter)
+        public FuelEntry(string gasStationName, string gasStationAddress,
+                         FuelsType fuelType, decimal liters, decimal pricePerLiter)
         {
             GasStationName = gasStationName;
+            GasStationAddress = gasStationAddress;
             FuelType = fuelType;
             Liters = liters;
             PricePerLiter = pricePerLiter;
