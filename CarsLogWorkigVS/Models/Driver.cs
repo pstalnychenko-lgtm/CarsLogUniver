@@ -8,7 +8,8 @@ namespace CarsLogWorkig.Models
         IDriverLicenseNumber,
         ILicenseExpiryDate,
         IHasBloodType,
-        IHasLicenseCategories
+        IHasLicenseCategories, 
+        IProvidesDriverInfo
     {
         private string _licenseNumber = string.Empty;
         public string LicenseNumber => _licenseNumber;
@@ -28,6 +29,10 @@ namespace CarsLogWorkig.Models
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
             _licenseIssuedBy = value.Trim();
+        }
+        public void UpdateDriverInfo(string info)
+        {
+            Console.WriteLine($"Оновлена інформація про водія: {info}");
         }
 
         public void ChangeLicenseNumber(string newLicenseNumber)
