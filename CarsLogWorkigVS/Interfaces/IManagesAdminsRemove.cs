@@ -2,8 +2,8 @@ using CarsLogWorkig.Models;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasVehicleOwner
+    public interface IManagesAdminsRemove
     {
-        void ChangeOwner(Owner newOwner);
+        void RemoveAdmin(User user);
     }
 }

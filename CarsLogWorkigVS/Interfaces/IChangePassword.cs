@@ -2,9 +2,8 @@ using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasPassword
+    public interface IChangePassword
     {
-        string Password { get; }
         void ChangePassword(Guid requestingUserId, string newPassword);
     }
 }

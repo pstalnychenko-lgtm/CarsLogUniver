@@ -2,10 +2,8 @@ using CarsLogWorkig.Models;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IManagesAdmins
+    public interface IManagesAdminsDeactivate
     {
-        void CreateAdmin(User user);
-        void RemoveAdmin(User user);
         void DeactivateAdmin(User user);
     }
 }

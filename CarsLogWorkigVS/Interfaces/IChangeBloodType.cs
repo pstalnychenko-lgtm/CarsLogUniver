@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasBloodType
+    public interface IChangeBloodType
     {
-        BloodType BloodType { get; }
-        string GetBloodType();
         void ChangeBloodType(BloodType newBloodType);
-        List<BloodType> GetCompatibleDonorTypes();
+
     }
 }

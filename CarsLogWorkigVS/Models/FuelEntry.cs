@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry : ISetFuelType, ICreateGasStation
+    public class FuelEntry : ISetFuelType, ICreateGasStation , ICreateGasStationChangeSomething
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -38,20 +38,25 @@ namespace CarsLogWorkig.Models
 
         public void SetGasStation(string gasStationName, string gasStationAddress)
         {
+            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName));
+            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress));
+
             GasStationName = gasStationName;
             GasStationAddress = gasStationAddress;
         }
 
         public void ChangeGasStationName(string newName)
         {
-            if (_gasStationName == newName?.Trim())
+            if (newName is null) throw new ArgumentNullException(nameof(newName));
+            if (_gasStationName == newName.Trim())
                 throw new ArgumentException("Ця назва заправки вже встановлена.");
             GasStationName = newName;
         }
 
         public void ChangeGasStationAddress(string newAddress)
         {
-            if (_gasStationAddress == newAddress?.Trim())
+            if (newAddress is null) throw new ArgumentNullException(nameof(newAddress));
+            if (_gasStationAddress == newAddress.Trim())
                 throw new ArgumentException("Ця адреса заправки вже встановлена.");
             GasStationAddress = newAddress;
         }
@@ -93,6 +98,9 @@ namespace CarsLogWorkig.Models
         public FuelEntry(string gasStationName, string gasStationAddress,
                          FuelsType fuelType, decimal liters, decimal pricePerLiter)
         {
+            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName));
+            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress));
+
             GasStationName = gasStationName;
             GasStationAddress = gasStationAddress;
             FuelType = fuelType;

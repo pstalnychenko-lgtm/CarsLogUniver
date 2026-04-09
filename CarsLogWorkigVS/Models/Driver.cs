@@ -5,9 +5,12 @@ using System.Collections.Generic;
 namespace CarsLogWorkig.Models
 {
     public class Driver : User,
-        IDriverLicenseNumber,
-        ILicenseExpiryDate,
-        IHasBloodType,
+        IDriverLicenseNumberSet,
+        IChangeBloodType,
+        IGetCompatibleDonorTypes,
+        IDriverLicenseNumberCreate,
+        ILicenseExpiryDateChange,
+        ILicenseExpiryDateSet,
         IHasLicenseCategories, 
         IProvidesDriverInfo
     {

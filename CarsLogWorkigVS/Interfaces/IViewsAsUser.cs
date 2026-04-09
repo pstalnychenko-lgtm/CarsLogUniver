@@ -4,9 +4,9 @@ namespace CarsLogWorkigVS.Interfaces
 {
     public interface IViewsAsUser
     {
-        UserViewSession StartViewAs(User targetUser);
-        void EndViewAs(UserViewSession session);
-        bool IsInViewAsMode { get; }
+        UserViewSession StartViewAs(User targetUser);        
         UserViewSession? CurrentViewSession { get; }
+        void EndViewAs(UserViewSession session);
+
     }
 }
