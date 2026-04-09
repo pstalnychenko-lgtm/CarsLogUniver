@@ -4,10 +4,39 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle : IVehicle
+    public class Vehicle :
+        IHasId,
+        IHasPlateNumber,
+        IHasVin,
+        IHasBrand,
+        IHasVehicleModel,
+        IHasColor,
+        IHasBodyType,
+        IHasEngineVolume,
+        IHasFuelTankCapacity,
+        IHasFuelType,
+        IHasYearOfRelease,
+        IHasCarReleaseDate,
+        IHasMileage,
+        IHasVehicleOwner,
+        IHasGeneralNotes,
+        IHasVehicleDrivers,
+        IHasVehicleDocuments,
+        IHasVehicleFuelEntries,
+        IHasVehicleServiceRecords,
+        IHasVehicleComponents,
+        IHasVehicleNotes,
+        IHasVehicleTripLogs,
+        IHasVehicleExpenses
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
+
+        public string GetMaskedId()
+        {
+            var s = _id.ToString();
+            return s.Substring(0, 8) + "-****-****-****-" + s.Substring(s.Length - 12);
+        }
 
         private string _plateNumber = string.Empty;
         public string PlateNumber
@@ -116,15 +145,15 @@ namespace CarsLogWorkig.Models
         public DateTime CarReleaseDate { get; private set; }
         public uint CurrentMileage { get; set; }
 
-        private string _notes = string.Empty;
-        public string Notes
+        private string _generalNotes = string.Empty;
+        public string GeneralNotes
         {
-            get => _notes;
+            get => _generalNotes;
             set
             {
                 if (value != null && value.Trim().Length > 1000)
                     throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів.");
-                _notes = value?.Trim() ?? string.Empty;
+                _generalNotes = value?.Trim() ?? string.Empty;
             }
         }
 
@@ -135,7 +164,7 @@ namespace CarsLogWorkig.Models
         public List<FuelEntry> FuelEntries { get; private set; } = new List<FuelEntry>();
         public List<ServiceRecord> ServiceRecords { get; private set; } = new List<ServiceRecord>();
         public List<VehicleComponent> Components { get; private set; } = new List<VehicleComponent>();
-        public List<Note> Notess { get; private set; } = new List<Note>();
+        public List<Note> Notes { get; private set; } = new List<Note>();
         public List<TripLog> TripLogs { get; private set; } = new List<TripLog>();
         public List<Expense> Expenses { get; private set; } = new List<Expense>();
 
@@ -144,7 +173,7 @@ namespace CarsLogWorkig.Models
                        DateTime yearOfRelease, DateTime carReleaseDate, Owner owner)
         {
             if (owner == null)
-                throw new ArgumentNullException("Власник не може бути порожнім.");
+                throw new ArgumentNullException(nameof(owner), "Власник не може бути порожнім.");
 
             PlateNumber = plateNumber;
             Vin = vin;
@@ -176,40 +205,28 @@ namespace CarsLogWorkig.Models
             return total;
         }
 
-        public override string ToString() =>
-            $"{_brand} {_model} | Номер: {_plateNumber} | Пробіг: {CurrentMileage} км | Власник: {Owner.FullName}";
-
         public void ChangePlateNumber(string newPlateNumber) => PlateNumber = newPlateNumber;
-
         public void ChangeVin(string newVin) => Vin = newVin;
-
         public void ChangeBrand(string newBrand) => Brand = newBrand;
-
         public void ChangeModel(string newModel) => Model = newModel;
-
         public void ChangeColor(string newColor) => Color = newColor;
-
         public void ChangeBodyType(string newBodyType) => BodyType = newBodyType;
-
         public void ChangeEngineVolumeCc(uint newEngineVolumeCc) => EngineVolumeCc = newEngineVolumeCc;
-
         public void ChangeFuelTankCapacity(decimal newCapacity) => FuelTankCapacity = newCapacity;
-
         public void ChangeFuelType(FuelsType newFuelType) => FuelType = newFuelType;
-
         public void ChangeYearOfRelease(DateTime newYear) => YearOfRelease = newYear;
-
         public void ChangeCarReleaseDate(DateTime newDate) => CarReleaseDate = newDate;
-
         public void ChangeCurrentMileage(uint newMileage) => CurrentMileage = newMileage;
-
-        public void ChangeNotes(string newNotes) => Notes = newNotes;
+        public void ChangeGeneralNotes(string newNotes) => GeneralNotes = newNotes;
 
         public void ChangeOwner(Owner newOwner)
         {
             if (newOwner == null)
-                throw new ArgumentNullException("Власник не може бути порожнім.");
+                throw new ArgumentNullException(nameof(newOwner), "Власник не може бути порожнім.");
             Owner = newOwner;
         }
+
+        public override string ToString() =>
+            $"{_brand} {_model} | Номер: {_plateNumber} | Пробіг: {CurrentMileage} км | Власник: {Owner.FullName}";
     }
 }

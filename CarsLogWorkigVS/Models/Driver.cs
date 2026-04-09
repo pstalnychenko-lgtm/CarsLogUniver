@@ -30,13 +30,13 @@ namespace CarsLogWorkig.Models
             _licenseIssuedBy = value.Trim();
         }
 
-
         public void ChangeLicenseNumber(string newLicenseNumber)
         {
             if (newLicenseNumber == _licenseNumber)
                 throw new ArgumentException("Цей номер посвідчення вже встановлений.");
             SetLicenseNumber(newLicenseNumber);
         }
+
         public void ChangeLicenseIssuedBy(string newIssuedBy)
         {
             if (newIssuedBy == _licenseIssuedBy)
@@ -50,6 +50,13 @@ namespace CarsLogWorkig.Models
         public DateTime LicenseExpiryDate { get; private set; }
         public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
 
+        public void SetLicenseExpiryDate(DateTime expiryDate)
+        {
+            if (expiryDate <= DateTime.Now)
+                throw new ArgumentException("Дата закінчення повинна бути в майбутньому. Просимо завантажити діючі документи.");
+            LicenseExpiryDate = expiryDate;
+        }
+
         public void ChangeLicenseExpiryDate(DateTime newExpiryDate)
         {
             if (newExpiryDate == LicenseExpiryDate)
@@ -57,14 +64,6 @@ namespace CarsLogWorkig.Models
             if (newExpiryDate <= DateTime.Now)
                 throw new ArgumentException("Дата закінчення повинна бути в майбутньому.");
             LicenseExpiryDate = newExpiryDate;
-        }
-
-        public void SetLicenseExpiryDate(DateTime expiryDate)
-        {
-            if (expiryDate <= DateTime.Now)
-                throw new ArgumentException("Дата закінчення повинна бути в майбутньому.Або всеж якщо дата вказана правильно " +
-                    "просимо вас замінити документи та завантажити сюди діючі!");
-            LicenseExpiryDate = expiryDate;
         }
 
         private bool _medicalCertStatus;
@@ -76,9 +75,9 @@ namespace CarsLogWorkig.Models
                       string licenseNumber, string licenseIssuedBy,
                       DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Phone = phone;
+            ChangeFirstName(firstName);
+            ChangeLastName(lastName);
+            ChangePhone(phone);
             SetLicenseNumber(licenseNumber);
             SetLicenseIssuedBy(licenseIssuedBy);
             LicenseExpiryDate = licenseExpiryDate;
@@ -97,14 +96,14 @@ namespace CarsLogWorkig.Models
         {
             return _bloodType switch
             {
-                BloodType.O_Negative   => new List<BloodType> { BloodType.O_Negative },
-                BloodType.O_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive },
-                BloodType.A_Negative   => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative },
-                BloodType.A_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.A_Negative, BloodType.A_Positive },
-                BloodType.B_Negative   => new List<BloodType> { BloodType.O_Negative, BloodType.B_Negative },
-                BloodType.B_Positive   => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.B_Negative, BloodType.B_Positive },
-                BloodType.AB_Negative  => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative, BloodType.B_Negative, BloodType.AB_Negative },
-                BloodType.AB_Positive  => new List<BloodType>
+                BloodType.O_Negative  => new List<BloodType> { BloodType.O_Negative },
+                BloodType.O_Positive  => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive },
+                BloodType.A_Negative  => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative },
+                BloodType.A_Positive  => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.A_Negative, BloodType.A_Positive },
+                BloodType.B_Negative  => new List<BloodType> { BloodType.O_Negative, BloodType.B_Negative },
+                BloodType.B_Positive  => new List<BloodType> { BloodType.O_Negative, BloodType.O_Positive, BloodType.B_Negative, BloodType.B_Positive },
+                BloodType.AB_Negative => new List<BloodType> { BloodType.O_Negative, BloodType.A_Negative, BloodType.B_Negative, BloodType.AB_Negative },
+                BloodType.AB_Positive => new List<BloodType>
                 {
                     BloodType.O_Negative, BloodType.O_Positive,
                     BloodType.A_Negative, BloodType.A_Positive,
@@ -118,12 +117,21 @@ namespace CarsLogWorkig.Models
         public void AddLicenseCategory(LicenseCategory category)
         {
             if (category == null)
-                throw new ArgumentNullException("Категорія не може бути порожньою.");
+                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою.");
             if (!LicenseCategories.Contains(category))
                 LicenseCategories.Add(category);
         }
 
+        public void RemoveLicenseCategory(LicenseCategory category)
+        {
+            if (category == null)
+                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою.");
+            LicenseCategories.Remove(category);
+        }
+
         public bool IsLicenseValid() => LicenseExpiryDate > DateTime.Now;
+
+        public string GetBloodType() => _bloodType.ToString();
 
         public string GetDriverInfo()
         {
@@ -131,23 +139,9 @@ namespace CarsLogWorkig.Models
                    $"Видане: {_licenseIssuedBy}, Дійсне до: {DateOfLicenseFormatted}, " +
                    $"Мед. довідка: {_medicalCertStatus}, Група крові: {_bloodType}";
         }
-        public List<LicenseCategory> GetLicenseCategories() => LicenseCategories;
-        public void RemoveLicenseCategory(LicenseCategory category)
-        {
-            if (category == null)
-                throw new ArgumentNullException("Категорія не може бути порожньою.");
-            LicenseCategories.Remove(category);
-        }
-
-        public string GetBloodType() => _bloodType.ToString();
 
         public override string ToString() =>
             $"[Водій] {FullName} | Посвідчення: {_licenseNumber} | Дійсне до: {DateOfLicenseFormatted} | Мед. довідка: {_medicalCertStatus}";
-
-        public void ChangeLicenseIssuedBy(DateTime value)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public enum BloodType

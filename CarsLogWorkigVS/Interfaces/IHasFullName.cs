@@ -1,4 +1,4 @@
-﻿namespace CarsLogWorkig.Models
+namespace CarsLogWorkigVS.Interfaces
 {
     public interface IHasFullName
     {
@@ -7,9 +7,5 @@
         string FullName { get; }
         void ChangeFirstName(string newFirstName);
         void ChangeLastName(string newLastName);
-
-        
-
-
     }
 }

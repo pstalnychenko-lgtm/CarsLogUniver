@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-
 namespace CarsLogWorkigVS.Interfaces
 {
     public interface ICreateGasStation
     {
-        void CreateGasStationName();
-        void CreateGasStationAddress();
-        void UpdateGasStationName();
-        void UpdateGasStationAddress();
-        void CreateGasStation(string gasStationName, string gasStationAddress);
+        string GasStationName { get; }
+        string GasStationAddress { get; }
+
+        void SetGasStation(string gasStationName, string gasStationAddress);
+        void ChangeGasStationName(string newName);
+        void ChangeGasStationAddress(string newAddress);
     }
 }

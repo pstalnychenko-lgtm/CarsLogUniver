@@ -33,9 +33,9 @@ namespace CarsLogWorkig.Models
         public Owner(string firstName, string lastName, string phone,
                      string addressByOwner, DateTime dateOfPurchaseTheCar)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Phone = phone;
+            ChangeFirstName(firstName);
+            ChangeLastName(lastName);
+            ChangePhone(phone);
             ChangeAddress(addressByOwner);
 
             if (dateOfPurchaseTheCar > DateTime.Now)
@@ -46,7 +46,7 @@ namespace CarsLogWorkig.Models
         public void AddVehicle(Vehicle vehicle)
         {
             if (vehicle == null)
-                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
             if (vehicle.Owner.Id != this.Id)
                 throw new InvalidOperationException("Цей автомобіль належить іншому власнику.");
             if (!Vehicles.Contains(vehicle))
@@ -56,7 +56,7 @@ namespace CarsLogWorkig.Models
         public void RemoveVehicle(Vehicle vehicle)
         {
             if (vehicle == null)
-                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             Vehicles.Remove(vehicle);
@@ -65,9 +65,9 @@ namespace CarsLogWorkig.Models
         public void AssignDriverToVehicle(Vehicle vehicle, Driver driver)
         {
             if (vehicle == null)
-                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
             if (driver == null)
-                throw new ArgumentNullException("Водій не може бути порожнім.");
+                throw new ArgumentNullException(nameof(driver), "Водій не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             if (!driver.IsLicenseValid())
@@ -79,9 +79,9 @@ namespace CarsLogWorkig.Models
         public void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver)
         {
             if (vehicle == null)
-                throw new ArgumentNullException("Автомобіль не може бути порожнім.");
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
             if (driver == null)
-                throw new ArgumentNullException("Водій не може бути порожнім.");
+                throw new ArgumentNullException(nameof(driver), "Водій не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.Drivers.Remove(driver);
@@ -89,15 +89,21 @@ namespace CarsLogWorkig.Models
 
         public void AddNoteToVehicle(Vehicle vehicle, Note note)
         {
-            if (vehicle == null || note == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (note == null)
+                throw new ArgumentNullException(nameof(note), "Нотатка не може бути порожньою.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
-            vehicle.Notess.Add(note);
+            vehicle.Notes.Add(note);
         }
 
         public void AddExpenseToVehicle(Vehicle vehicle, Expense expense)
         {
-            if (vehicle == null || expense == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (expense == null)
+                throw new ArgumentNullException(nameof(expense), "Витрата не може бути порожньою.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.Expenses.Add(expense);
@@ -105,7 +111,10 @@ namespace CarsLogWorkig.Models
 
         public void AddDocumentToVehicle(Vehicle vehicle, Document document)
         {
-            if (vehicle == null || document == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (document == null)
+                throw new ArgumentNullException(nameof(document), "Документ не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.Documents.Add(document);
@@ -113,7 +122,10 @@ namespace CarsLogWorkig.Models
 
         public void AddServiceRecord(Vehicle vehicle, ServiceRecord record)
         {
-            if (vehicle == null || record == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (record == null)
+                throw new ArgumentNullException(nameof(record), "Запис обслуговування не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.ServiceRecords.Add(record);
@@ -121,7 +133,10 @@ namespace CarsLogWorkig.Models
 
         public void AddFuelEntry(Vehicle vehicle, FuelEntry entry)
         {
-            if (vehicle == null || entry == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry), "Запис заправки не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.FuelEntries.Add(entry);
@@ -129,7 +144,10 @@ namespace CarsLogWorkig.Models
 
         public void AddTripLog(Vehicle vehicle, TripLog tripLog)
         {
-            if (vehicle == null || tripLog == null) return;
+            if (vehicle == null)
+                throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+            if (tripLog == null)
+                throw new ArgumentNullException(nameof(tripLog), "Журнал поїздки не може бути порожнім.");
             if (!IsVehicleOwner(vehicle))
                 throw new InvalidOperationException("Ви не є власником цього автомобіля.");
             vehicle.TripLogs.Add(tripLog);

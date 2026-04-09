@@ -2,7 +2,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class ServiceRecord 
+    public class ServiceRecord
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -27,7 +27,7 @@ namespace CarsLogWorkig.Models
         public decimal Cost
         {
             get => _cost;
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentException("Вартість обслуговування не може бути від'ємною.");
@@ -35,7 +35,7 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public uint MileageAtService { get; private set; } 
+        public uint MileageAtService { get; private set; }
 
         public ServiceRecord(DateTime dateOfService, string description, uint mileageAtService, decimal cost)
         {

@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace CarsLogWorkigVS.Interfaces
 {
     public interface IDriverLicenseNumber
@@ -12,6 +8,6 @@ namespace CarsLogWorkigVS.Interfaces
         void SetLicenseNumber(string value);
         void SetLicenseIssuedBy(string value);
         void ChangeLicenseNumber(string newLicenseNumber);
-        void ChangeLicenseIssuedBy(DateTime value);
+        void ChangeLicenseIssuedBy(string newIssuedBy);
     }
 }

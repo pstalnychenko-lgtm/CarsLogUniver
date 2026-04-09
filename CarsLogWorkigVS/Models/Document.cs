@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class Document : IDocumentManager
+    public class Document
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -50,39 +50,30 @@ namespace CarsLogWorkig.Models
 
         public override string ToString() =>
             $"[{DocumentType}] {_title} | Видано: {DateOfIssueDocFormatted} | Номер: {_policyNumber}";
+    }
 
+    public class DocumentManager : IDocumentManager
+    {
         private readonly List<Document> _documents = new List<Document>();
 
-        public void AddDocument(string title, DateTime dateOfIssueDoc, DocumentType documentType, string policyNumber = "")
-        {
-            try
-            {
-                
-                var newDocument = new Document(title, dateOfIssueDoc, documentType, policyNumber);
+        public List<Document> Documents => _documents;
 
-                _documents.Add(newDocument);
-                Console.WriteLine($"[Успіх] Документ додано: {newDocument.Title}");
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"[Помилка додавання документа]: {ex.Message}");
-            }
+        public void AddDocument(Document document)
+        {
+            if (document == null)
+                throw new ArgumentNullException(nameof(document), "Документ не може бути порожнім.");
+            if (_documents.Any(d => d.Id == document.Id))
+                throw new InvalidOperationException("Цей документ вже додано.");
+            _documents.Add(document);
         }
 
         public void DeleteDocument(Guid documentId)
         {
-            var docToRemove = _documents.FirstOrDefault(d => d.Id == documentId);
-            if (docToRemove != null)
-            {
-                _documents.Remove(docToRemove);
-                Console.WriteLine($"[Успіх] Видалено документ: {docToRemove.Title}");
-            }
-            else
-            {
-                Console.WriteLine("[Помилка] Документ з таким ID не знайдено.");
-            }
+            var doc = _documents.FirstOrDefault(d => d.Id == documentId);
+            if (doc == null)
+                throw new ArgumentException("Документ з таким ID не знайдено.");
+            _documents.Remove(doc);
         }
-
     }
 
     public enum DocumentType

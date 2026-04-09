@@ -14,7 +14,7 @@ namespace CarsLogWorkig.Models
         IHasRole,
         IHasActivityStatus,
         IHasDateOfBirth,
-        IHasLastActiityDates,
+        IHasLastActivityDates,
         IHasSex
     {
         private readonly Guid _id = Guid.NewGuid();
@@ -51,32 +51,10 @@ namespace CarsLogWorkig.Models
         }
 
         private string _firstName = string.Empty;
-        public string FirstName
-        {
-            get => _firstName;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Ім'я не може бути порожнім.");
-                if (value.Trim().Length > 50)
-                    throw new ArgumentException("Ім'я не може перевищувати 50 символів.");
-                _firstName = value.Trim();
-            }
-        }
+        public string FirstName => _firstName;
 
         private string _lastName = string.Empty;
-        public string LastName
-        {
-            get => _lastName;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Прізвище не може бути порожнім.");
-                if (value.Trim().Length > 50)
-                    throw new ArgumentException("Прізвище не може перевищувати 50 символів.");
-                _lastName = value.Trim();
-            }
-        }
+        public string LastName => _lastName;
 
         public string FullName => $"{_firstName} {_lastName}".Trim();
 
@@ -84,30 +62,32 @@ namespace CarsLogWorkig.Models
         {
             if (string.IsNullOrWhiteSpace(newFirstName))
                 throw new ArgumentException("Ім'я не може бути порожнім.");
+            if (newFirstName.Trim().Length > 50)
+                throw new ArgumentException("Ім'я не може перевищувати 50 символів.");
             if (_firstName == newFirstName.Trim())
                 throw new ArgumentException("Це ім'я вже встановлено.");
-            FirstName = newFirstName;
+            _firstName = newFirstName.Trim();
         }
 
         public void ChangeLastName(string newLastName)
         {
             if (string.IsNullOrWhiteSpace(newLastName))
                 throw new ArgumentException("Прізвище не може бути порожнім.");
+            if (newLastName.Trim().Length > 50)
+                throw new ArgumentException("Прізвище не може перевищувати 50 символів.");
             if (_lastName == newLastName.Trim())
                 throw new ArgumentException("Це прізвище вже встановлено.");
-            LastName = newLastName;
+            _lastName = newLastName.Trim();
         }
 
         private string _phone = string.Empty;
-        public string Phone
+        public string Phone => _phone;
+
+        private void SetPhone(string value)
         {
-            get => _phone;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Телефон не може бути порожнім.");
-                _phone = value.Trim();
-            }
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Телефон не може бути порожнім.");
+            _phone = value.Trim();
         }
 
         public void ChangePhone(string newPhone)
@@ -116,7 +96,7 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentException("Телефон не може бути порожнім.");
             if (_phone == newPhone.Trim())
                 throw new ArgumentException("Цей телефон вже встановлено.");
-            Phone = newPhone;
+            SetPhone(newPhone);
         }
 
         private string _password = string.Empty;
@@ -135,22 +115,20 @@ namespace CarsLogWorkig.Models
             if (_password == value)
                 throw new ArgumentException("Новий пароль не може збігатися зі старим.");
             if (value.All(char.IsLetter))
-                throw new ArgumentException("Пароль має містить хоча б одне число і спеціальний символ.");
+                throw new ArgumentException("Пароль має містити хоча б одне число і спеціальний символ.");
             if (value.All(char.IsDigit))
                 throw new ArgumentException("Пароль не може складатися лише з цифр.");
             if (value.All(char.IsPunctuation))
                 throw new ArgumentException("Пароль не може складатися лише зі спеціальних символів.");
             if (value.Distinct().Count() < 4)
                 throw new ArgumentException("Пароль занадто одноманітний. Використовуйте більше різних символів.");
-            
+
             var weakRoots = new[] { "password", "admin", "qwerty", "12345", "user", "root" };
             string lowerValue = value.ToLower();
-           
             if (weakRoots.Any(root => lowerValue.Contains(root)))
                 throw new ArgumentException("Пароль містить легко передбачувані слова або послідовності.");
+
             _password = value;
-            
-            
         }
 
         public void ChangePassword(Guid requestingUserId, string newPassword)
@@ -238,6 +216,13 @@ namespace CarsLogWorkig.Models
 
         public User()
         {
+            Role = UserRole.Driver;
+        }
+
+        protected User(string firstName, string lastName)
+        {
+            ChangeFirstName(firstName);
+            ChangeLastName(lastName);
             Role = UserRole.Driver;
         }
 

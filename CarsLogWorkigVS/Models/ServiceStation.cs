@@ -7,31 +7,31 @@ namespace CarsLogWorkig.Models
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
 
-        private string _serviseName = string.Empty;
-        public string ServiseName
+        private string _serviceName = string.Empty;
+        public string ServiceName
         {
-            get => _serviseName;
+            get => _serviceName;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Назва сервісної станції не може бути порожньою.");
                 if (value.Trim().Length > 100)
                     throw new ArgumentException("Назва не може перевищувати 100 символів.");
-                _serviseName = value.Trim();
+                _serviceName = value.Trim();
             }
         }
 
-        private string _serviseAddress = string.Empty;
-        public string ServiseAddress
+        private string _serviceAddress = string.Empty;
+        public string ServiceAddress
         {
-            get => _serviseAddress;
+            get => _serviceAddress;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Адреса сервісної станції не може бути порожньою.");
                 if (value.Trim().Length > 200)
                     throw new ArgumentException("Адреса не може перевищувати 200 символів.");
-                _serviseAddress = value.Trim();
+                _serviceAddress = value.Trim();
             }
         }
 
@@ -47,14 +47,14 @@ namespace CarsLogWorkig.Models
             }
         }
 
-        public ServiceStation(string serviseName, string serviseAddress, string workingHours)
+        public ServiceStation(string serviceName, string serviceAddress, string workingHours)
         {
-            ServiseName = serviseName;
-            ServiseAddress = serviseAddress;
+            ServiceName = serviceName;
+            ServiceAddress = serviceAddress;
             WorkingHours = workingHours;
         }
 
         public override string ToString() =>
-            $"[Сервіс] {_serviseName} | {_serviseAddress} | Години: {_workingHours}";
+            $"[Сервіс] {_serviceName} | {_serviceAddress} | Години: {_workingHours}";
     }
 }
