@@ -4,7 +4,9 @@ using System;
 namespace CarsLogWorkig.Models
 {
     public class SuperAdmin : Admin,
-        IManagesAdmins,
+        IManagesAdminsRemove,
+        IManagesAdminsDeactivate,
+        IManagesAdminCreate,
         IViewsAsUser
     {
         private UserViewSession? _currentViewSession;

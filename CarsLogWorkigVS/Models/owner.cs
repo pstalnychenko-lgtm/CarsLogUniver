@@ -6,8 +6,9 @@ namespace CarsLogWorkig.Models
 {
     public class Owner : User,
         IHasAddress,
-        IHasPurchaseDate,
-        IManagesVehicles,
+        IManagesVehiclesAdd,
+        IChangePurchaseDate,
+        IManagesVehiclesRemove,
         IManagesDriverAssignment,
         IAddsVehicleNote,
         IAddsVehicleExpense,

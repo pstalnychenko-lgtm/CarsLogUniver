@@ -1,8 +1,7 @@
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasLogin
+    public interface IChangeLogin
     {
-        string Login { get; }
         void ChangeLogin(string newLogin);
     }
 }

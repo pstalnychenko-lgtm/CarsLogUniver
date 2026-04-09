@@ -1,8 +1,8 @@
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasPhone
+    public interface IChangePhone
     {
-        string Phone { get; }
+
         void ChangePhone(string newPhone);
     }
 }

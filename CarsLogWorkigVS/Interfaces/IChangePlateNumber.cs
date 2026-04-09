@@ -1,8 +1,7 @@
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IHasPlateNumber
+    public interface IChangePlateNumber
     {
-        string PlateNumber { get; }
         void ChangePlateNumber(string newPlateNumber);
     }
 }

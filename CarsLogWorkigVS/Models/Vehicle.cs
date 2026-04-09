@@ -5,8 +5,8 @@ using System.Collections.Generic;
 namespace CarsLogWorkig.Models
 {
     public class Vehicle :
-        IHasId,
-        IHasPlateNumber,
+        IHasMileageChange,
+        IChangePlateNumber,
         IHasVin,
         IHasBrand,
         IHasVehicleModel,
@@ -17,7 +17,7 @@ namespace CarsLogWorkig.Models
         IHasFuelType,
         IHasYearOfRelease,
         IHasCarReleaseDate,
-        IHasMileage,
+        IHasMileageGetTotalDistnce,
         IHasVehicleOwner,
         IHasGeneralNotes,
         IHasVehicleDrivers,

@@ -5,13 +5,12 @@ using System.Linq;
 namespace CarsLogWorkig.Models
 {
     public class User :
-        IHasId,
         IHasFullName,
-        IHasPhone,
+        IChangePhone,
         IHasEmail,
-        IHasLogin,
-        IHasPassword,
-        IHasRole,
+        IChangeLogin,
+        IChangePassword,
+        IChangeRole,
         IHasActivityStatus,
         IHasDateOfBirth,
         IHasLastActivityDates,
