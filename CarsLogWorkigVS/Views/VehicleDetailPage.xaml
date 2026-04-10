@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.VehicleDetailPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Frame Grid.Row="0" BackgroundColor="#0071E3" CornerRadius="0" HasShadow="True" Padding="15,30,15,16">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="White"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                    <Label x:Name="VehicleNameLabel" Text="" FontSize="20" FontAttributes="Bold"
+                           TextColor="White" HorizontalOptions="Center" />
+                    <Label x:Name="PlateLabel" Text="" FontSize="14" TextColor="#BFD9F7"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <Button Grid.Column="2" Text="✎" BackgroundColor="Transparent" TextColor="White"
+                        FontSize="18" WidthRequest="44" Clicked="OnEditClicked" />
+            </Grid>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="16">
+
+                <Frame BackgroundColor="White" CornerRadius="16" HasShadow="False" Padding="16">
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label x:Name="MileageLabel" Text="0" FontSize="22" FontAttributes="Bold"
+                                   TextColor="#0071E3" HorizontalOptions="Center" />
+                            <Label Text="км" FontSize="12" TextColor="#6E6E73" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label x:Name="FuelTypeLabel" Text="-" FontSize="22" FontAttributes="Bold"
+                                   TextColor="#34C759" HorizontalOptions="Center" />
+                            <Label Text="паливо" FontSize="12" TextColor="#6E6E73" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label x:Name="EngineLabel" Text="-" FontSize="22" FontAttributes="Bold"
+                                   TextColor="#FF9500" HorizontalOptions="Center" />
+                            <Label Text="куб. см" FontSize="12" TextColor="#6E6E73" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <Label Text="Дії" FontSize="17" FontAttributes="Bold" TextColor="#1D1D1F" Margin="4,0" />
+
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
+                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFuelTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="⛽" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Паливо" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTripsTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="🗺️" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Поїздки" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnServiceTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="🔧" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Сервіс" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExpensesTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="💰" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Витрати" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="2" Grid.Column="0" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDocumentsTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="📄" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Документи" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="2" Grid.Column="1" BackgroundColor="White" CornerRadius="14" Padding="14" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNotesTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="📝" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Нотатки" FontSize="13" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </Grid>
+
+                <Frame BackgroundColor="White" CornerRadius="16" HasShadow="False" Padding="16" Margin="0,4">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnComponentsTapped" />
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="🔩 Компоненти та запчастини" FontSize="15"
+                                   FontAttributes="Bold" TextColor="#1D1D1F" />
+                            <Label x:Name="ExpiredComponentsLabel" Text="" FontSize="13" TextColor="#FF3B30" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC" VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+
+                <Button Text="Видалити автомобіль" BackgroundColor="#FFF1F0" TextColor="#FF3B30"
+                        FontAttributes="Bold" FontSize="15" CornerRadius="12"
+                        HeightRequest="48" Margin="0,4,0,24" Clicked="OnDeleteClicked" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

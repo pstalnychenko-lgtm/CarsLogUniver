@@ -1,5 +1,3 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
 namespace CarsLogWorkigVS
 {
     public partial class App : Application
