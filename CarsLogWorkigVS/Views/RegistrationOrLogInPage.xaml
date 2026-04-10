@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.RegistrationOrLogInPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Frame Grid.Row="0"
+               BackgroundColor="White"
+               CornerRadius="0"
+               HasShadow="True"
+               Padding="15,25,15,15">
+            <Label Text="CarsLog"
+                   HorizontalOptions="Center"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1D1D1F" />
+        </Frame>
+
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="16"
+                             Padding="30">
+
+            <Image Source="dotnet_bot.png"
+                   HeightRequest="120"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,16" />
+
+            <Label Text="Ласкаво просимо до CarsLog"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#1D1D1F"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Керуйте своїми автомобілями легко"
+                   FontSize="14"
+                   TextColor="#6E6E73"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,16" />
+
+            <Button Text="Увійти"
+                    BackgroundColor="#0071E3"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="17"
+                    CornerRadius="12"
+                    WidthRequest="260"
+                    HeightRequest="52"
+                    Clicked="OnLoginClicked" />
+
+            <Button Text="Зареєструватися"
+                    BackgroundColor="White"
+                    TextColor="#0071E3"
+                    FontAttributes="Bold"
+                    FontSize="17"
+                    CornerRadius="12"
+                    BorderColor="#0071E3"
+                    BorderWidth="2"
+                    WidthRequest="260"
+                    HeightRequest="52"
+                    Clicked="OnRegisterClicked" />
+
+            <Button Text="Гість"
+                    BackgroundColor="Transparent"
+                    TextColor="#6E6E73"
+                    FontSize="15"
+                    WidthRequest="260"
+                    HeightRequest="44"
+                    Clicked="OnGuestClicked" />
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

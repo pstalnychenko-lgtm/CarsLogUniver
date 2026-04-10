@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <Label Grid.Column="1" Text="Вхід" FontSize="22" FontAttributes="Bold"
+                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" Margin="-44,0,0,0" />
+            </Grid>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16" Padding="24" VerticalOptions="Center">
+
+                <Label Text="Введіть дані для входу" FontSize="15" TextColor="#6E6E73"
+                       HorizontalOptions="Center" Margin="0,16,0,8" />
+
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="LoginEntry" Placeholder="Логін" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" ReturnType="Next" />
+                </Frame>
+
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="PasswordEntry" Placeholder="Пароль" IsPassword="True"
+                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" ReturnType="Done" />
+                </Frame>
+
+                <Label x:Name="ErrorLabel" TextColor="#FF3B30" FontSize="13"
+                       HorizontalOptions="Center" IsVisible="False" />
+
+                <Button Text="Увійти" BackgroundColor="#0071E3" TextColor="White"
+                        FontAttributes="Bold" FontSize="17" CornerRadius="12"
+                        HeightRequest="52" Margin="0,8,0,0" Clicked="OnLoginClicked" />
+
+                <Label Text="Немає акаунту? Зареєструватися"
+                       TextColor="#0071E3" FontSize="14"
+                       HorizontalOptions="Center" Margin="0,8,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGoToRegisterTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

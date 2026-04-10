@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.AdminPanelPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <Label Grid.Column="1" Text="Панель адміна" FontSize="22" FontAttributes="Bold"
+                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center"
+                       Margin="-44,0,0,0" />
+            </Grid>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="16">
+
+                <Frame x:Name="AccessDeniedFrame" BackgroundColor="#FFF1F0" CornerRadius="16"
+                       HasShadow="False" Padding="20" IsVisible="False">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="🔒" FontSize="36" HorizontalOptions="Center" />
+                        <Label Text="Доступ заборонено" FontSize="17" FontAttributes="Bold"
+                               TextColor="#FF3B30" HorizontalOptions="Center" />
+                        <Label Text="Ця панель доступна лише для Admin та SuperAdmin."
+                               FontSize="14" TextColor="#6E6E73" HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <VerticalStackLayout x:Name="AdminContent" IsVisible="False" Spacing="12">
+
+                    <Frame BackgroundColor="White" CornerRadius="16" HasShadow="False" Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="⚙️ Адміністрування" FontSize="17" FontAttributes="Bold"
+                                   TextColor="#1D1D1F" />
+                            <Label x:Name="AdminInfoLabel" Text="" FontSize="14" TextColor="#6E6E73" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Label Text="Управління користувачами" FontSize="15" FontAttributes="Bold"
+                           TextColor="#1D1D1F" Margin="4,4,0,0" />
+
+                    <Frame BackgroundColor="White" CornerRadius="16" HasShadow="False" Padding="0">
+                        <VerticalStackLayout Spacing="0">
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnActivateUserTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Активувати користувача" FontSize="15" TextColor="#1D1D1F" />
+                                    <Label Text="Встановити статус Online" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <BoxView HeightRequest="1" Color="#F2F2F7" Margin="16,0" />
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDeactivateUserTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Деактивувати користувача" FontSize="15" TextColor="#1D1D1F" />
+                                    <Label Text="Встановити статус Offline" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <BoxView HeightRequest="1" Color="#F2F2F7" Margin="16,0" />
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAssignRoleTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Змінити роль" FontSize="15" TextColor="#1D1D1F" />
+                                    <Label Text="Owner / Driver" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Label x:Name="SuperAdminSection" Text="SuperAdmin" FontSize="15"
+                           FontAttributes="Bold" TextColor="#1D1D1F" Margin="4,4,0,0"
+                           IsVisible="False" />
+
+                    <Frame x:Name="SuperAdminFrame" BackgroundColor="White" CornerRadius="16"
+                           HasShadow="False" Padding="0" IsVisible="False">
+                        <VerticalStackLayout Spacing="0">
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCreateAdminTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Призначити адміна" FontSize="15" TextColor="#1D1D1F" />
+                                    <Label Text="Надати права Admin" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <BoxView HeightRequest="1" Color="#F2F2F7" Margin="16,0" />
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRemoveAdminTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Зняти права адміна" FontSize="15" TextColor="#FF3B30" />
+                                    <Label Text="Повернути роль Driver" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Label x:Name="ResultLabel" Text="" FontSize="14" TextColor="#34C759"
+                           HorizontalOptions="Center" IsVisible="False" Margin="0,8" />
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

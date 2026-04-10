@@ -33,10 +33,7 @@ namespace CarsLogWorkig.Models
                 throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
             _licenseIssuedBy = value.Trim();
         }
-        public void UpdateDriverInfo(string info)
-        {
-            Console.WriteLine($"Оновлена інформація про водія: {info}");
-        }
+        public void UpdateDriverInfo(string info) { }
 
         public void ChangeLicenseNumber(string newLicenseNumber)
         {

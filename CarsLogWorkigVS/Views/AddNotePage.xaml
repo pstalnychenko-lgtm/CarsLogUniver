@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.AddNotePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <Label Grid.Column="1" Text="Нова нотатка" FontSize="22" FontAttributes="Bold"
+                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Button Grid.Column="2" Text="Зберегти" BackgroundColor="Transparent"
+                        TextColor="#0071E3" FontSize="15" Clicked="OnSaveClicked" />
+            </Grid>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="16">
+
+                <Label Text="Заголовок *" FontSize="13" TextColor="#6E6E73" Margin="4,8,0,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="TitleEntry" Placeholder="Заголовок нотатки..."
+                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Категорія" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <Picker x:Name="CategoryPicker" FontSize="16" TextColor="#1D1D1F">
+                        <Picker.Items>
+                            <x:String>Загальна</x:String>
+                            <x:String>Паливо</x:String>
+                            <x:String>Сервіс</x:String>
+                            <x:String>Фінанси</x:String>
+                            <x:String>Нагадування</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Frame>
+
+                <Label Text="Зміст *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,8">
+                    <Editor x:Name="ContentEditor" Placeholder="Текст нотатки..."
+                            FontSize="15" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC"
+                            AutoSize="TextChanges" MinimumHeightRequest="120" />
+                </Frame>
+
+                <Label x:Name="ErrorLabel" TextColor="#FF3B30" FontSize="13"
+                       HorizontalOptions="Center" IsVisible="False" />
+
+                <Button Text="Зберегти нотатку" BackgroundColor="#0071E3" TextColor="White"
+                        FontAttributes="Bold" FontSize="17" CornerRadius="12"
+                        HeightRequest="52" Margin="0,8,0,24" Clicked="OnSaveClicked" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

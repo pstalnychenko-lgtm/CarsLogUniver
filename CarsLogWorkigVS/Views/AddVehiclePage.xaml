@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.AddVehiclePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <Label Grid.Column="1" Text="Новий автомобіль" FontSize="22" FontAttributes="Bold"
+                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Button Grid.Column="2" Text="Зберегти" BackgroundColor="Transparent"
+                        TextColor="#0071E3" FontSize="15" Clicked="OnSaveClicked" />
+            </Grid>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="16">
+
+                <Label Text="Номерний знак *" FontSize="13" TextColor="#6E6E73" Margin="4,8,0,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="PlateEntry" Placeholder="AA0000AA" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="VIN *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="VinEntry" Placeholder="17 символів" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Марка *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="BrandEntry" Placeholder="Toyota, BMW..." FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Модель *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="ModelEntry" Placeholder="Camry, X5..." FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Колір" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="ColorEntry" Placeholder="Білий, Чорний..." FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Тип кузова" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <Picker x:Name="BodyTypePicker" FontSize="16" TextColor="#1D1D1F">
+                        <Picker.Items>
+                            <x:String>Седан</x:String>
+                            <x:String>Хетчбек</x:String>
+                            <x:String>Універсал</x:String>
+                            <x:String>Позашляховик (SUV)</x:String>
+                            <x:String>Мінівен</x:String>
+                            <x:String>Купе</x:String>
+                            <x:String>Кабріолет</x:String>
+                            <x:String>Пікап</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Frame>
+
+                <Label Text="Об'єм двигуна (куб. см) *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="EngineEntry" Placeholder="1600" Keyboard="Numeric" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Об'єм бака (л) *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="TankEntry" Placeholder="50" Keyboard="Numeric" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label Text="Тип палива" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <Picker x:Name="FuelTypePicker" FontSize="16" TextColor="#1D1D1F">
+                        <Picker.Items>
+                            <x:String>Бензин</x:String>
+                            <x:String>Дизель</x:String>
+                            <x:String>Електро</x:String>
+                            <x:String>Гібрид</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Frame>
+
+                <Label Text="Рік випуску" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <DatePicker x:Name="YearPicker" Format="yyyy" FontSize="16" TextColor="#1D1D1F" />
+                </Frame>
+
+                <Label Text="Поточний пробіг (км)" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="MileageEntry" Placeholder="0" Keyboard="Numeric" FontSize="16"
+                           TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
+                <Label x:Name="ErrorLabel" TextColor="#FF3B30" FontSize="13"
+                       HorizontalOptions="Center" IsVisible="False" Margin="0,4" />
+
+                <Button Text="Зберегти автомобіль" BackgroundColor="#0071E3" TextColor="White"
+                        FontAttributes="Bold" FontSize="17" CornerRadius="12"
+                        HeightRequest="52" Margin="0,8,0,24" Clicked="OnSaveClicked" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsLogWorkigVS.Views.VehicleListPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F7">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
+                <Label Grid.Column="1" Text="Мої автомобілі" FontSize="22" FontAttributes="Bold"
+                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Button Grid.Column="2" Text="+" BackgroundColor="Transparent" TextColor="#0071E3"
+                        FontSize="26" WidthRequest="44" Clicked="OnAddClicked" />
+            </Grid>
+        </Frame>
+
+        <Frame Grid.Row="1" BackgroundColor="White" CornerRadius="0" Padding="12,8" HasShadow="False">
+            <Frame BackgroundColor="#F5F5F7" CornerRadius="10" Padding="10,4" HasShadow="False">
+                <Grid ColumnDefinitions="Auto,*">
+                    <Label Grid.Column="0" Text="🔍" FontSize="16" VerticalOptions="Center" Margin="0,0,6,0" />
+                    <Entry Grid.Column="1" x:Name="SearchEntry" Placeholder="Пошук за маркою, моделлю, номером..."
+                           FontSize="15" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC"
+                           TextChanged="OnSearchChanged" />
+                </Grid>
+            </Frame>
+        </Frame>
+
+        <CollectionView Grid.Row="2" x:Name="VehiclesCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="OnVehicleSelected"
+                        EmptyView="Список порожній. Додайте перший автомобіль."
+                        Margin="16,8">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" CornerRadius="16" Margin="0,4"
+                           HasShadow="False" Padding="16">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="{Binding Brand, StringFormat='{0} '}" FontSize="17"
+                                       FontAttributes="Bold" TextColor="#1D1D1F" />
+                                <Label Text="{Binding Model}" FontSize="15" TextColor="#3C3C43" />
+                                <Label Text="{Binding PlateNumber}" FontSize="13" TextColor="#6E6E73" />
+                                <Label Text="{Binding CurrentMileage, StringFormat='Пробіг: {0} км'}"
+                                       FontSize="13" TextColor="#0071E3" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="8">
+                                <Label Text="{Binding FuelType}" FontSize="12" TextColor="#6E6E73"
+                                       HorizontalOptions="End" />
+                                <Label Text="›" FontSize="22" TextColor="#C7C7CC" HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
