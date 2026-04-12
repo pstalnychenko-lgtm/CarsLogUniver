@@ -52,13 +52,15 @@ namespace CarsLogWorkig.Models
             $"[{DocumentType}] {_title} | Видано: {DateOfIssueDocFormatted} | Номер: {_policyNumber}";
     }
 
-    public class DocumentManager : IDocumentManager
+    public class DocumentManager : 
+        IDocumentManagerDelete,
+        IDocumentManagerListAndAdd
     {
         private readonly List<Document> _documents = new List<Document>();
 
         public List<Document> Documents => _documents;
 
-        public void AddDocument(Document document)
+        public void AddDocument(Document document) // додавання нового документа
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document), "Документ не може бути порожнім.");
@@ -67,8 +69,8 @@ namespace CarsLogWorkig.Models
             _documents.Add(document);
         }
 
-        public void DeleteDocument(Guid documentId)
-        {
+        public void DeleteDocument(Guid documentId)//  видалення документа за його ID
+        { 
             var doc = _documents.FirstOrDefault(d => d.Id == documentId);
             if (doc == null)
                 throw new ArgumentException("Документ з таким ID не знайдено.");
