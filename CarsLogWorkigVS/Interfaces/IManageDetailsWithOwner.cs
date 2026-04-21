@@ -1,4 +1,5 @@
 using CarsLogWorkig.Models;
+using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
@@ -16,6 +17,5 @@ namespace CarsLogWorkigVS.Interfaces
         void AssignDriverToVehicle(Vehicle vehicle, Driver driver);
         void RemoveDriverFromVehicle(Vehicle vehicle, Driver driver);
         void RemoveVehicle(Vehicle vehicle);
-
     }
 }

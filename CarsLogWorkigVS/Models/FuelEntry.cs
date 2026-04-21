@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry : ISetFuelType, ICreateGasStation , ICreateGasStationChangeSomething
+    public class FuelEntry : IWorkedWithFuelEntry
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;

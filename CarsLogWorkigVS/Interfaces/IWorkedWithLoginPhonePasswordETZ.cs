@@ -1,4 +1,5 @@
 using CarsLogWorkig.Models;
+using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
@@ -16,8 +17,5 @@ namespace CarsLogWorkigVS.Interfaces
         void ChangeActivityStatus(IsActiveUser newStatus);
         void ChangeDateOfBirth(DateTime newDate);
         void UpdateDateOfLastActivity(DateTime newDate);
-
-
-
     }
 }

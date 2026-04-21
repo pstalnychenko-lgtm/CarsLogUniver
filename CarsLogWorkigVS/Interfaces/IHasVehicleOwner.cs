@@ -1,9 +1,0 @@
-using CarsLogWorkig.Models;
-
-namespace CarsLogWorkigVS.Interfaces
-{
-    public interface IHasVehicleOwner
-    {
-        void ChangeOwner(Owner newOwner);
-    }
-}

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class Document
+    public class Document : IDocumentManager
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -26,7 +26,7 @@ namespace CarsLogWorkig.Models
 
         public DateTime DateOfIssueDoc { get; private set; }
         public string DateOfIssueDocFormatted => DateOfIssueDoc.ToString("dd.MM.yyyy");
-        public DocumentType DocumentType { get; private set; }
+        public DocumentType DocumentCategory { get; private set; }
 
         private string _policyNumber = string.Empty;
         public string PolicyNumber
@@ -44,23 +44,18 @@ namespace CarsLogWorkig.Models
         {
             Title = title;
             DateOfIssueDoc = dateOfIssueDoc;
-            DocumentType = documentType;
+            DocumentCategory = documentType;
             PolicyNumber = policyNumber;
         }
 
         public override string ToString() =>
-            $"[{DocumentType}] {_title} | Видано: {DateOfIssueDocFormatted} | Номер: {_policyNumber}";
-    }
+            $"[{DocumentCategory}] {_title} | Видано: {DateOfIssueDocFormatted} | Номер: {_policyNumber}";
 
-    public class DocumentManager : 
-        IDocumentManagerDelete,
-        IDocumentManagerListAndAdd
-    {
         private readonly List<Document> _documents = new List<Document>();
 
         public List<Document> Documents => _documents;
 
-        public void AddDocument(Document document) // додавання нового документа
+        public void AddDocument(Document document)
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document), "Документ не може бути порожнім.");
@@ -69,20 +64,20 @@ namespace CarsLogWorkig.Models
             _documents.Add(document);
         }
 
-        public void DeleteDocument(Guid documentId)//  видалення документа за його ID
-        { 
+        public void DeleteDocument(Guid documentId)
+        {
             var doc = _documents.FirstOrDefault(d => d.Id == documentId);
             if (doc == null)
                 throw new ArgumentException("Документ з таким ID не знайдено.");
             _documents.Remove(doc);
         }
-    }
 
-    public enum DocumentType
-    {
-        VehicleRegistration,
-        Insurance,
-        TechnicalInspection,
-        Other
+        public enum DocumentType
+        {
+            VehicleRegistration,
+            Insurance,
+            TechnicalInspection,
+            Other
+        }
     }
 }

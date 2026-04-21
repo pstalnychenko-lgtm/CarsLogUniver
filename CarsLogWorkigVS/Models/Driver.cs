@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Driver : User,IWorkedWithDriver
+    public class Driver : User, IWorkedWithDriver
     {
         private string _licenseNumber = string.Empty;
         public string LicenseNumber => _licenseNumber;
 
-        public void SetLicenseNumber(string value)
+        private void SetLicenseNumber(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Номер посвідчення не може бути порожнім.");
@@ -19,12 +19,13 @@ namespace CarsLogWorkig.Models
         private string _licenseIssuedBy = string.Empty;
         public string LicenseIssuedBy => _licenseIssuedBy;
 
-        public void SetLicenseIssuedBy(string value)
+        private void SetLicenseIssuedBy(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
             _licenseIssuedBy = value.Trim();
         }
+
         public void UpdateDriverInfo(string info) { }
 
         public void ChangeLicenseNumber(string newLicenseNumber)

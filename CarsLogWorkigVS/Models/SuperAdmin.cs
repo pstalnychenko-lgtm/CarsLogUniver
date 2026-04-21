@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : Admin , IManagesAdmin
+    public class SuperAdmin : Admin, IManagesAdmin
     {
         private UserViewSession? _currentViewSession;
 
@@ -19,7 +19,7 @@ namespace CarsLogWorkig.Models
 
             ChangeFirstName(firstName);
             ChangeLastName(lastName);
-            this.ChangeRole(UserRole.Admin);
+            ChangeRole(UserRole.Admin);
         }
 
         public UserViewSession StartViewAs(User targetUser)

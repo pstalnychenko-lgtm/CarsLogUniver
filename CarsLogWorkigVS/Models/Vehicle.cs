@@ -4,11 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle :IHasMileageChange,IChangePlateNumber,IHasVin,IHasBrand,IHasVehicleModel,IHasColor,IHasBodyType,
-IHasEngineVolume,IHasFuelTankCapacity,IHasFuelType,IHasYearOfRelease,IHasCarReleaseDate,
-IHasMileageGetTotalDistnce,IHasVehicleOwner,IHasGeneralNotes,IHasVehicleDrivers,IHasVehicleDocuments,
-IHasVehicleFuelEntries, IHasVehicleServiceRecords,IHasVehicleComponents,IHasVehicleNotes,
-        IHasVehicleTripLogs,IHasVehicleExpenses
+    public class Vehicle : IWorkedWithVehecle
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
@@ -124,7 +120,7 @@ IHasVehicleFuelEntries, IHasVehicleServiceRecords,IHasVehicleComponents,IHasVehi
         public FuelsType FuelType { get; private set; }
         public DateTime YearOfRelease { get; private set; }
         public DateTime CarReleaseDate { get; private set; }
-        public uint CurrentMileage { get; set; }
+        public uint CurrentMileage { get; private set; }
 
         private string _generalNotes = string.Empty;
         public string GeneralNotes

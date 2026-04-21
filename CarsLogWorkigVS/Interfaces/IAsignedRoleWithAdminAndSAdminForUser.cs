@@ -7,6 +7,5 @@ namespace CarsLogWorkigVS.Interfaces
         void ActivateUser(User user);
         void DeactivateUser(User user);
         void AssignRole(User user, UserRole role);
-
     }
 }
