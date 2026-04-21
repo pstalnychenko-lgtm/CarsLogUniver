@@ -4,17 +4,7 @@ using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class User :
-        IHasFullName,
-        IChangePhone,
-        IHasEmail,
-        IChangeLogin,
-        IChangePassword,
-        IChangeRole,
-        IHasActivityStatus,
-        IHasDateOfBirth,
-        IHasLastActivityDates,
-        IHasSex
+    public class User : IWorkedWithLoginPhonePasswordETZ 
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;

@@ -4,30 +4,11 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle :
-        IHasMileageChange,
-        IChangePlateNumber,
-        IHasVin,
-        IHasBrand,
-        IHasVehicleModel,
-        IHasColor,
-        IHasBodyType,
-        IHasEngineVolume,
-        IHasFuelTankCapacity,
-        IHasFuelType,
-        IHasYearOfRelease,
-        IHasCarReleaseDate,
-        IHasMileageGetTotalDistnce,
-        IHasVehicleOwner,
-        IHasGeneralNotes,
-        IHasVehicleDrivers,
-        IHasVehicleDocuments,
-        IHasVehicleFuelEntries,
-        IHasVehicleServiceRecords,
-        IHasVehicleComponents,
-        IHasVehicleNotes,
-        IHasVehicleTripLogs,
-        IHasVehicleExpenses
+    public class Vehicle :IHasMileageChange,IChangePlateNumber,IHasVin,IHasBrand,IHasVehicleModel,IHasColor,IHasBodyType,
+IHasEngineVolume,IHasFuelTankCapacity,IHasFuelType,IHasYearOfRelease,IHasCarReleaseDate,
+IHasMileageGetTotalDistnce,IHasVehicleOwner,IHasGeneralNotes,IHasVehicleDrivers,IHasVehicleDocuments,
+IHasVehicleFuelEntries, IHasVehicleServiceRecords,IHasVehicleComponents,IHasVehicleNotes,
+        IHasVehicleTripLogs,IHasVehicleExpenses
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;

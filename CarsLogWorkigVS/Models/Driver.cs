@@ -4,15 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Driver : User,
-        IDriverLicenseNumberSet,
-        IChangeBloodType,
-        IGetCompatibleDonorTypes,
-        IDriverLicenseNumberCreate,
-        ILicenseExpiryDateChange,
-        ILicenseExpiryDateSet,
-        IHasLicenseCategories, 
-        IProvidesDriverInfo
+    public class Driver : User,IWorkedWithDriver
     {
         private string _licenseNumber = string.Empty;
         public string LicenseNumber => _licenseNumber;

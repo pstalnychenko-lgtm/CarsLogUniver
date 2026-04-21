@@ -4,18 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User,
-        IHasAddress,
-        IManagesVehiclesAdd,
-        IChangePurchaseDate,
-        IManagesVehiclesRemove,
-        IManagesDriverAssignment,
-        IAddsVehicleNote,
-        IAddsVehicleExpense,
-        IAddsVehicleDocument,
-        IAddsServiceRecord,
-        IAddsFuelEntry,
-        IAddsTripLog
+    public class Owner : User, IManageDetailsWithOwner 
     {
         public DateTime DateOfPurchaseTheCar { get; private set; }
         public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy");

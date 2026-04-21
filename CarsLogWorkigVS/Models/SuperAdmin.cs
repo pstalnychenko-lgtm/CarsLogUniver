@@ -3,11 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class SuperAdmin : Admin,
-        IManagesAdminsRemove,
-        IManagesAdminsDeactivate,
-        IManagesAdminCreate,
-        IViewsAsUser
+    public class SuperAdmin : Admin , IManagesAdmin
     {
         private UserViewSession? _currentViewSession;
 
