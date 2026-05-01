@@ -1,5 +1,6 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -7,12 +8,14 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly AppStateService _appState;
         private readonly VehicleViewModel _vm;
+        private readonly DatabaseService _db;
 
-        public AddDriverPage(AppStateService appState, VehicleViewModel vm)
+        public AddDriverPage(AppStateService appState, VehicleViewModel vm, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
             _vm = vm;
+            _db = db;
             BloodTypePicker.SelectedIndex = 0;
             ExpiryDatePicker.MinimumDate = DateTime.Now.AddDays(1);
             ExpiryDatePicker.Date = DateTime.Now.AddYears(3);
@@ -65,6 +68,10 @@ namespace CarsLogWorkigVS.Views
                     owner.AssignDriverToVehicle(vehicle, driver);
                 else if (vehicle != null)
                     vehicle.Drivers.Add(driver);
+
+                await _db.SaveUserAsync(driver);
+                if (vehicle != null)
+                    await _db.LinkDriverToVehicleAsync(vehicle.Id.ToString(), driver.Id.ToString());
 
                 await Shell.Current.GoToAsync("..");
             }

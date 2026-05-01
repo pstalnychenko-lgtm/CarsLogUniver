@@ -1,5 +1,6 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -7,12 +8,14 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly AppStateService _appState;
         private readonly VehicleViewModel _vm;
+        private readonly DatabaseService _db;
 
-        public AddTripLogPage(AppStateService appState, VehicleViewModel vm)
+        public AddTripLogPage(AppStateService appState, VehicleViewModel vm, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
             _vm = vm;
+            _db = db;
             PurposePicker.SelectedIndex = 0;
             TripDatePicker.MaximumDate = DateTime.Now;
             TripDatePicker.Date = DateTime.Now;
@@ -78,6 +81,8 @@ namespace CarsLogWorkigVS.Views
                     vehicle.TripLogs.Add(trip);
 
                 vehicle.ChangeCurrentMileage(end);
+                await _db.SaveTripLogAsync(vehicle.Id.ToString(), trip);
+                await _db.SaveVehicleAsync(vehicle);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

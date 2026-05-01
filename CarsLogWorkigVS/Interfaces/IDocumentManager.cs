@@ -7,7 +7,7 @@ namespace CarsLogWorkigVS.Interfaces
     public interface IDocumentManager
     {
         List<Document> Documents { get; }
-        void AddDocument(Document document);
-        void DeleteDocument(Guid documentId);
+        void AddDocument(Document document); 
+        void DeleteDocument(Guid documentId); 
     }
 }

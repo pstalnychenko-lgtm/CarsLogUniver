@@ -1,16 +1,19 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class AddNotePage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public AddNotePage(AppStateService appState)
+        public AddNotePage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
             CategoryPicker.SelectedIndex = 0;
         }
 
@@ -43,6 +46,7 @@ namespace CarsLogWorkigVS.Views
                 else
                     vehicle.Notes.Add(note);
 
+                await _db.SaveNoteAsync(vehicle.Id.ToString(), note);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

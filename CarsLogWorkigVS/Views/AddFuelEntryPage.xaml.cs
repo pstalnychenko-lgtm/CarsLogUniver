@@ -1,16 +1,19 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class AddFuelEntryPage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public AddFuelEntryPage(AppStateService appState)
+        public AddFuelEntryPage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
             FuelPicker.SelectedIndex = 0;
         }
 
@@ -60,6 +63,7 @@ namespace CarsLogWorkigVS.Views
                 else
                     vehicle.FuelEntries.Add(entry);
 
+                await _db.SaveFuelEntryAsync(vehicle.Id.ToString(), entry);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

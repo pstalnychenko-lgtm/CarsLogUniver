@@ -13,34 +13,34 @@ namespace CarsLogWorkig.Models
         public SuperAdmin(string firstName, string lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new ArgumentException("Ім'я не може бути порожнім.");
+                throw new ArgumentException("Ім'я не може бути порожнім."); 
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new ArgumentException("Прізвище не може бути порожнім.");
+                throw new ArgumentException("Прізвище не може бути порожнім."); 
 
-            ChangeFirstName(firstName);
-            ChangeLastName(lastName);
-            ChangeRole(UserRole.Admin);
+            ChangeFirstName(firstName); 
+            ChangeLastName(lastName); 
+            ChangeRole(UserRole.Admin); 
         }
 
         public UserViewSession StartViewAs(User targetUser)
         {
             if (targetUser == null)
-                throw new ArgumentNullException(nameof(targetUser));
+                throw new ArgumentNullException(nameof(targetUser)); 
             if (targetUser.Id == this.Id)
-                throw new InvalidOperationException("SuperAdmin не може переглядати систему від власного імені.");
+                throw new InvalidOperationException("SuperAdmin не може переглядати систему від власного імені."); 
             if (IsInViewAsMode)
-                throw new InvalidOperationException("Сесія перегляду вже активна. Завершіть поточну перед початком нової.");
+                throw new InvalidOperationException("Сесія перегляду вже активна. Завершіть поточну перед початком нової."); 
 
-            _currentViewSession = new UserViewSession(targetUser);
+            _currentViewSession = new UserViewSession(targetUser); 
             return _currentViewSession;
         }
 
         public void EndViewAs(UserViewSession session)
         {
             if (session == null)
-                throw new ArgumentNullException(nameof(session));
+                throw new ArgumentNullException(nameof(session)); 
             if (_currentViewSession == null || _currentViewSession.SessionId != session.SessionId)
-                throw new InvalidOperationException("Вказана сесія не є активною.");
+                throw new InvalidOperationException("Вказана сесія не є активною."); 
 
             _currentViewSession = null;
         }
@@ -48,23 +48,23 @@ namespace CarsLogWorkig.Models
         public void CreateAdmin(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             if (user.Role != UserRole.Admin)
-                user.ChangeRole(UserRole.Admin);
+                user.ChangeRole(UserRole.Admin); 
         }
 
         public void RemoveAdmin(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             if (user.Role == UserRole.Admin)
-                user.ChangeRole(UserRole.Driver);
+                user.ChangeRole(UserRole.Driver); 
         }
 
         public void DeactivateAdmin(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             if (user.Role == UserRole.Admin)
                 user.IsActive = IsActiveUser.Offline;
         }

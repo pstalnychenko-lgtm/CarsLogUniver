@@ -1,16 +1,20 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
+using static CarsLogWorkig.Models.Document;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class AddDocumentPage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public AddDocumentPage(AppStateService appState)
+        public AddDocumentPage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
             DocTypePicker.SelectedIndex = 0;
         }
 
@@ -44,6 +48,7 @@ namespace CarsLogWorkigVS.Views
                 else
                     vehicle.Documents.Add(doc);
 
+                await _db.SaveDocumentAsync(vehicle.Id.ToString(), doc);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

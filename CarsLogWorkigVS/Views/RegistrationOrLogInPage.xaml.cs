@@ -4,22 +4,22 @@ namespace CarsLogWorkigVS.Views
     {
         public RegistrationOrLogInPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(LoginPage));
+            await Shell.Current.GoToAsync(nameof(LoginPage)); 
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(RegisterPage));
+            await Shell.Current.GoToAsync(nameof(RegisterPage)); 
         }
 
         private async void OnGuestClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DashboardPage));
+            await Shell.Current.GoToAsync(nameof(DashboardPage)); 
         }
     }
 }

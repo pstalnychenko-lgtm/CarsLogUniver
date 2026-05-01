@@ -1,23 +1,39 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class ComponentsPage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public ComponentsPage(AppStateService appState)
+        public ComponentsPage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ComponentsCollection.ItemsSource = _appState.SelectedVehicle?.Components
-                ?? new List<VehicleComponent>();
+            var v = _appState.SelectedVehicle;
+            if (v == null) { ComponentsCollection.ItemsSource = new List<VehicleComponent>(); return; }
+
+            var entities = await _db.GetComponentsAsync(v.Id.ToString());
+            v.Components.Clear();
+            foreach (var e in entities)
+            {
+                try
+                {
+                    var component = new VehicleComponent(e.PartName, (uint)e.InstallationMileage, e.IsExpired, e.InstallationDate);
+                    v.Components.Add(component);
+                }
+                catch { }
+            }
+            ComponentsCollection.ItemsSource = v.Components.ToList();
         }
 
         private async void OnAddClicked(object sender, EventArgs e)
@@ -36,14 +52,10 @@ namespace CarsLogWorkigVS.Views
 
             try
             {
-                var component = new VehicleComponent(
-                    partName: name.Trim(),
-                    installationMileage: mileage,
-                    isExpired: expired,
-                    installationDate: DateTime.Now
-                );
+                var component = new VehicleComponent(name.Trim(), mileage, expired, DateTime.Now);
                 vehicle.Components.Add(component);
-                ComponentsCollection.ItemsSource = vehicle.Components;
+                await _db.SaveComponentAsync(vehicle.Id.ToString(), component);
+                ComponentsCollection.ItemsSource = vehicle.Components.ToList();
             }
             catch (Exception ex)
             {

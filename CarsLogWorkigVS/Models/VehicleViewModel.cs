@@ -10,11 +10,11 @@ namespace CarsLogWorkig.ViewModels
     public class VehicleViewModel
     {
         private const int MaxVehicles = 64;
-        private readonly List<Vehicle> _vehicles = new List<Vehicle>();
-        private readonly List<string> _actionLog = new List<string>();
-        private readonly Dictionary<string, string> _filterPresets = new Dictionary<string, string>();
-        private readonly Dictionary<Guid, int> _failedPinAttempts = new Dictionary<Guid, int>();
-        private readonly HashSet<Guid> _blockedUsers = new HashSet<Guid>();
+        private readonly List<Vehicle> _vehicles = new List<Vehicle>(); 
+        private readonly List<string> _actionLog = new List<string>(); 
+        private readonly Dictionary<string, string> _filterPresets = new Dictionary<string, string>(); 
+        private readonly Dictionary<Guid, int> _failedPinAttempts = new Dictionary<Guid, int>(); 
+        private readonly HashSet<Guid> _blockedUsers = new HashSet<Guid>(); 
 
         private string _searchQuery = string.Empty;
         private string _lastError = string.Empty;
@@ -22,7 +22,7 @@ namespace CarsLogWorkig.ViewModels
         public bool IsBusy { get; private set; }
         public bool IsEmpty => _vehicles.Count == 0;
         public string LastError => _lastError;
-        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly();
+        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly(); 
 
         public string SearchQuery
         {
@@ -38,24 +38,24 @@ namespace CarsLogWorkig.ViewModels
                 IsBusy = true;
 
                 if (vehicle == null)
-                    throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім.");
+                    throw new ArgumentNullException(nameof(vehicle), "Автомобіль не може бути порожнім."); 
 
-                var brand = vehicle.Brand?.Trim();
-                var plateNumber = vehicle.PlateNumber?.Trim();
+                var brand = vehicle.Brand?.Trim(); 
+                var plateNumber = vehicle.PlateNumber?.Trim(); 
 
                 if (string.IsNullOrWhiteSpace(brand))
-                    throw new ArgumentException("Марка автомобіля не може бути порожньою.");
+                    throw new ArgumentException("Марка автомобіля не може бути порожньою."); 
 
                 if (string.IsNullOrWhiteSpace(plateNumber))
-                    throw new ArgumentException("Номерний знак не може бути порожнім.");
+                    throw new ArgumentException("Номерний знак не може бути порожнім."); 
 
                 if (_vehicles.Any(v => v.PlateNumber.Equals(plateNumber, StringComparison.OrdinalIgnoreCase)))
-                    throw new InvalidOperationException($"Автомобіль з номером {plateNumber} вже існує.");
+                    throw new InvalidOperationException($"Автомобіль з номером {plateNumber} вже існує."); 
 
                 if (_vehicles.Count >= MaxVehicles)
-                    throw new InvalidOperationException($"Досягнуто максимальну кількість автомобілів ({MaxVehicles}).");
+                    throw new InvalidOperationException($"Досягнуто максимальну кількість автомобілів ({MaxVehicles})."); 
 
-                _vehicles.Add(vehicle);
+                _vehicles.Add(vehicle); 
                 return true;
             }
             catch (Exception ex)
@@ -74,13 +74,13 @@ namespace CarsLogWorkig.ViewModels
             try
             {
                 if (!confirmed)
-                    throw new InvalidOperationException("Потрібне підтвердження видалення.");
+                    throw new InvalidOperationException("Потрібне підтвердження видалення."); 
 
-                var vehicle = _vehicles.FirstOrDefault(v => v.Id == vehicleId);
+                var vehicle = _vehicles.FirstOrDefault(v => v.Id == vehicleId); 
                 if (vehicle == null)
-                    throw new ArgumentException("Автомобіль не знайдено.");
+                    throw new ArgumentException("Автомобіль не знайдено."); 
 
-                _vehicles.Remove(vehicle);
+                _vehicles.Remove(vehicle); 
                 return true;
             }
             catch (Exception ex)
@@ -117,7 +117,7 @@ namespace CarsLogWorkig.ViewModels
                 _lastError = "Email не може бути порожнім.";
                 return false;
             }
-            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$"); 
             if (!emailRegex.IsMatch(email))
             {
                 _lastError = "Невірний формат Email.";
@@ -133,7 +133,7 @@ namespace CarsLogWorkig.ViewModels
                 _lastError = "Телефон не може бути порожнім.";
                 return false;
             }
-            var phoneRegex = new Regex(@"^\+?[\d\s\-]{7,15}$");
+            var phoneRegex = new Regex(@"^\+?[\d\s\-]{7,15}$"); 
             if (!phoneRegex.IsMatch(phone))
             {
                 _lastError = "Невірний формат номера телефону.";
@@ -175,20 +175,20 @@ namespace CarsLogWorkig.ViewModels
         public IEnumerable<Vehicle> Search(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
-                return GetSortedVehicles();
+                return GetSortedVehicles(); 
 
-            var q = query.Trim().ToLowerInvariant();
+            var q = query.Trim().ToLowerInvariant(); 
             return _vehicles
                 .Where(v =>
                     v.Brand.ToLowerInvariant().Contains(q) ||
                     v.Model.ToLowerInvariant().Contains(q) ||
                     v.PlateNumber.ToLowerInvariant().Contains(q))
-                .OrderByDescending(v => v.YearOfRelease);
+                .OrderByDescending(v => v.YearOfRelease); 
         }
 
         public IEnumerable<Vehicle> GetSortedVehicles()
         {
-            return _vehicles.OrderByDescending(v => v.YearOfRelease);
+            return _vehicles.OrderByDescending(v => v.YearOfRelease); 
         }
 
         public string GetEmptyMessage()
@@ -206,7 +206,7 @@ namespace CarsLogWorkig.ViewModels
                 date: DateTime.Now,
                 description: "Новий запис",
                 vehicleId: vehicleId
-            );
+            ); 
         }
 
         public TripLog CreateDefaultTripLog(uint currentMileage)
@@ -219,16 +219,16 @@ namespace CarsLogWorkig.ViewModels
                 startMileage: currentMileage,
                 endMileage: currentMileage,
                 notes: string.Empty
-            );
+            ); 
         }
 
         public string FormatAmount(decimal amount) => $"{amount:N2} грн";
 
         public string FormatMileage(uint mileage) => $"{mileage:N0} км";
 
-        public IEnumerable<Vehicle> GetFilteredVehicles() => Search(_searchQuery);
+        public IEnumerable<Vehicle> GetFilteredVehicles() => Search(_searchQuery); 
 
-        public IReadOnlyList<string> GetActionLog() => _actionLog.AsReadOnly();
+        public IReadOnlyList<string> GetActionLog() => _actionLog.AsReadOnly(); 
 
         public void SaveFilterPreset(string presetName, string query)
         {
@@ -249,11 +249,11 @@ namespace CarsLogWorkig.ViewModels
 
         public List<string> GetExpiredComponentsReport(Vehicle vehicle)
         {
-            if (vehicle == null) return new List<string>();
+            if (vehicle == null) return new List<string>(); 
             return vehicle.Components
                 .Where(c => c.IsExpired)
                 .Select(c => $"{c.PartName} — потребує заміни (встановлено {c.InstallationDate:dd.MM.yyyy})")
-                .ToList();
+                .ToList(); 
         }
 
         public bool CheckInactivity(User user, int inactivityHours = 24)
@@ -283,13 +283,13 @@ namespace CarsLogWorkig.ViewModels
                 return true;
             }
 
-            _failedPinAttempts.TryGetValue(user.Id, out int attempts);
+            _failedPinAttempts.TryGetValue(user.Id, out int attempts); 
             attempts++;
             _failedPinAttempts[user.Id] = attempts;
 
             if (attempts >= 3)
             {
-                _blockedUsers.Add(user.Id);
+                _blockedUsers.Add(user.Id); 
                 _lastError = "Користувача заблоковано після 3 невірних спроб введення PIN.";
             }
             else
@@ -305,11 +305,11 @@ namespace CarsLogWorkig.ViewModels
             try
             {
                 IsBusy = true;
-                var sb = new StringBuilder();
-                var weekAgo = DateTime.Now.AddDays(-7);
+                var sb = new StringBuilder(); 
+                var weekAgo = DateTime.Now.AddDays(-7); 
 
-                sb.AppendLine($"Звіт за тиждень ({weekAgo:dd.MM.yyyy} – {DateTime.Now:dd.MM.yyyy})");
-                sb.AppendLine($"Всього автомобілів: {_vehicles.Count}");
+                sb.AppendLine($"Звіт за тиждень ({weekAgo:dd.MM.yyyy} – {DateTime.Now:dd.MM.yyyy})"); 
+                sb.AppendLine($"Всього автомобілів: {_vehicles.Count}"); 
 
                 decimal totalExpenses = 0;
                 int totalTrips = 0;
@@ -318,14 +318,14 @@ namespace CarsLogWorkig.ViewModels
                 {
                     var weekExpenses = v.Expenses
                         .Where(e => e != null)
-                        .Sum(e => e.Amount);
+                        .Sum(e => e.Amount); 
                     totalExpenses += weekExpenses;
-                    totalTrips += v.TripLogs.Count(t => t.TripDate >= weekAgo);
+                    totalTrips += v.TripLogs.Count(t => t.TripDate >= weekAgo); 
                 }
 
-                sb.AppendLine($"Загальні витрати: {FormatAmount(totalExpenses)}");
-                sb.AppendLine($"Поїздок за тиждень: {totalTrips}");
-                return sb.ToString();
+                sb.AppendLine($"Загальні витрати: {FormatAmount(totalExpenses)}"); 
+                sb.AppendLine($"Поїздок за тиждень: {totalTrips}"); 
+                return sb.ToString(); 
             }
             catch (Exception ex)
             {

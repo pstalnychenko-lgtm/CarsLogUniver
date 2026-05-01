@@ -7,7 +7,7 @@ namespace CarsLogWorkigVS.Interfaces
     public interface INoteManager
     {
         List<Note> Notes { get; }
-        void AddNote(Note note);
-        void DeleteNote(Guid noteId);
+        void AddNote(Note note); 
+        void DeleteNote(Guid noteId); 
     }
 }

@@ -12,8 +12,8 @@ namespace CarsLogWorkig.Models
         private void SetLicenseNumber(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Номер посвідчення не може бути порожнім.");
-            _licenseNumber = value.Trim();
+                throw new ArgumentException("Номер посвідчення не може бути порожнім."); 
+            _licenseNumber = value.Trim(); 
         }
 
         private string _licenseIssuedBy = string.Empty;
@@ -22,8 +22,8 @@ namespace CarsLogWorkig.Models
         private void SetLicenseIssuedBy(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Орган видачі посвідчення не може бути порожнім.");
-            _licenseIssuedBy = value.Trim();
+                throw new ArgumentException("Орган видачі посвідчення не може бути порожнім."); 
+            _licenseIssuedBy = value.Trim(); 
         }
 
         public void UpdateDriverInfo(string info) { }
@@ -31,53 +31,53 @@ namespace CarsLogWorkig.Models
         public void ChangeLicenseNumber(string newLicenseNumber)
         {
             if (newLicenseNumber == _licenseNumber)
-                throw new ArgumentException("Цей номер посвідчення вже встановлений.");
-            SetLicenseNumber(newLicenseNumber);
+                throw new ArgumentException("Цей номер посвідчення вже встановлений."); 
+            SetLicenseNumber(newLicenseNumber); 
         }
 
         public void ChangeLicenseIssuedBy(string newIssuedBy)
         {
             if (newIssuedBy == _licenseIssuedBy)
-                throw new ArgumentException("Цей орган видачі вже встановлений.");
-            SetLicenseIssuedBy(newIssuedBy);
+                throw new ArgumentException("Цей орган видачі вже встановлений."); 
+            SetLicenseIssuedBy(newIssuedBy); 
         }
 
         private BloodType _bloodType;
         public BloodType BloodType => _bloodType;
 
         public DateTime LicenseExpiryDate { get; private set; }
-        public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy");
+        public string DateOfLicenseFormatted => LicenseExpiryDate.ToString("dd.MM.yyyy"); 
 
         public void SetLicenseExpiryDate(DateTime expiryDate)
         {
             if (expiryDate <= DateTime.Now)
-                throw new ArgumentException("Дата закінчення повинна бути в майбутньому. Просимо завантажити діючі документи.");
+                throw new ArgumentException("Дата закінчення повинна бути в майбутньому. Просимо завантажити діючі документи."); 
             LicenseExpiryDate = expiryDate;
         }
 
         public void ChangeLicenseExpiryDate(DateTime newExpiryDate)
         {
             if (newExpiryDate == LicenseExpiryDate)
-                throw new ArgumentException("Ця дата закінчення вже встановлена.");
+                throw new ArgumentException("Ця дата закінчення вже встановлена."); 
             if (newExpiryDate <= DateTime.Now)
-                throw new ArgumentException("Дата закінчення повинна бути в майбутньому.");
+                throw new ArgumentException("Дата закінчення повинна бути в майбутньому."); 
             LicenseExpiryDate = newExpiryDate;
         }
 
         private bool _medicalCertStatus;
         public bool MedicalCertStatus => _medicalCertStatus;
 
-        public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>();
+        public List<LicenseCategory> LicenseCategories { get; private set; } = new List<LicenseCategory>(); 
 
         public Driver(string firstName, string lastName, string phone,
                       string licenseNumber, string licenseIssuedBy,
                       DateTime licenseExpiryDate, bool medicalCertStatus, BloodType bloodType)
         {
-            ChangeFirstName(firstName);
-            ChangeLastName(lastName);
-            ChangePhone(phone);
-            SetLicenseNumber(licenseNumber);
-            SetLicenseIssuedBy(licenseIssuedBy);
+            ChangeFirstName(firstName); 
+            ChangeLastName(lastName); 
+            ChangePhone(phone); 
+            SetLicenseNumber(licenseNumber); 
+            SetLicenseIssuedBy(licenseIssuedBy); 
             LicenseExpiryDate = licenseExpiryDate;
             _medicalCertStatus = medicalCertStatus;
             _bloodType = bloodType;
@@ -86,7 +86,7 @@ namespace CarsLogWorkig.Models
         public void ChangeBloodType(BloodType newBloodType)
         {
             if (_bloodType == newBloodType)
-                throw new ArgumentException("Ця група крові вже встановлена.");
+                throw new ArgumentException("Ця група крові вже встановлена."); 
             _bloodType = newBloodType;
         }
 
@@ -115,21 +115,21 @@ namespace CarsLogWorkig.Models
         public void AddLicenseCategory(LicenseCategory category)
         {
             if (category == null)
-                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою.");
+                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою."); 
             if (!LicenseCategories.Contains(category))
-                LicenseCategories.Add(category);
+                LicenseCategories.Add(category); 
         }
 
         public void RemoveLicenseCategory(LicenseCategory category)
         {
             if (category == null)
-                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою.");
-            LicenseCategories.Remove(category);
+                throw new ArgumentNullException(nameof(category), "Категорія не може бути порожньою."); 
+            LicenseCategories.Remove(category); 
         }
 
         public bool IsLicenseValid() => LicenseExpiryDate > DateTime.Now;
 
-        public string GetBloodType() => _bloodType.ToString();
+        public string GetBloodType() => _bloodType.ToString(); 
 
         public string GetDriverInfo()
         {

@@ -8,26 +8,26 @@ namespace CarsLogWorkig.Models
         public void DeactivateUser(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             if (user.Role == UserRole.Admin)
-                throw new InvalidOperationException("Адмін не може деактивувати іншого адміна.");
+                throw new InvalidOperationException("Адмін не може деактивувати іншого адміна."); 
             user.IsActive = IsActiveUser.Offline;
         }
 
         public void ActivateUser(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             user.IsActive = IsActiveUser.Online;
         }
 
         public void AssignRole(User user, UserRole role)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім.");
+                throw new ArgumentNullException(nameof(user), "Користувач не може бути порожнім."); 
             if (role == UserRole.Admin)
-                throw new InvalidOperationException("Адмін не може призначати роль адміна. Це може зробити лише SuperAdmin.");
-            user.ChangeRole(role);
+                throw new InvalidOperationException("Адмін не може призначати роль адміна. Це може зробити лише SuperAdmin."); 
+            user.ChangeRole(role); 
         }
 
         public bool CanViewUserDetails(User user)

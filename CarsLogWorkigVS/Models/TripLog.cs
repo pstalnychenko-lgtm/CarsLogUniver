@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class TripLog
     {
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;
 
         public DateTime TripDate { get; private set; }
@@ -16,10 +16,10 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Точка відправлення не може бути порожньою.");
+                    throw new ArgumentException("Точка відправлення не може бути порожньою."); 
                 if (value.Trim().Length > 100)
-                    throw new ArgumentException("Точка відправлення не може перевищувати 100 символів.");
-                _departurePoint = value.Trim();
+                    throw new ArgumentException("Точка відправлення не може перевищувати 100 символів."); 
+                _departurePoint = value.Trim(); 
             }
         }
 
@@ -30,10 +30,10 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Пункт призначення не може бути порожнім.");
+                    throw new ArgumentException("Пункт призначення не може бути порожнім."); 
                 if (value.Trim().Length > 100)
-                    throw new ArgumentException("Пункт призначення не може перевищувати 100 символів.");
-                _destination = value.Trim();
+                    throw new ArgumentException("Пункт призначення не може перевищувати 100 символів."); 
+                _destination = value.Trim(); 
             }
         }
 
@@ -53,7 +53,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value < _startMileage)
-                    throw new ArgumentException("Кінцевий пробіг не може бути меншим за початковий.");
+                    throw new ArgumentException("Кінцевий пробіг не може бути меншим за початковий."); 
                 _endMileage = value;
             }
         }
@@ -67,7 +67,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value != null && value.Trim().Length > 1000)
-                    throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів.");
+                    throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів."); 
                 _notes = value?.Trim() ?? string.Empty;
             }
         }

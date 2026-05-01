@@ -1,16 +1,19 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class LoginPage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public LoginPage(AppStateService appState)
+        public LoginPage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
         }
 
         private async void OnLoginClicked(object sender, EventArgs e)
@@ -24,15 +27,22 @@ namespace CarsLogWorkigVS.Views
                 return;
             }
 
-            var owner = new Owner("Іван", "Петренко", "+380671234567", "м. Київ", DateTime.Now.AddYears(-2));
-            try
+            var user = await _db.GetUserByLoginAsync(login);
+
+            if (user == null)
             {
-                owner.ChangeLogin(login);
+                ShowError("Користувача з таким логіном не знайдено.");
+                return;
             }
-            catch { }
 
-            _appState.CurrentUser = owner;
+            var passwordValid = await _db.VerifyPasswordAsync(login, password);
+            if (!passwordValid)
+            {
+                ShowError("Невірний пароль.");
+                return;
+            }
 
+            _appState.CurrentUser = user;
             await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
         }
 

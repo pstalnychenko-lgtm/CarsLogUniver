@@ -1,4 +1,6 @@
+using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -6,21 +8,35 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly AppStateService _appState;
         private readonly VehicleViewModel _vm;
+        private readonly DatabaseService _db;
 
-        public ExpensesPage(AppStateService appState, VehicleViewModel vm)
+        public ExpensesPage(AppStateService appState, VehicleViewModel vm, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
             _vm = vm;
+            _db = db;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             var v = _appState.SelectedVehicle;
-            var expenses = v?.Expenses ?? new List<CarsLogWorkig.Models.Expense>();
-            ExpensesCollection.ItemsSource = expenses;
-            TotalLabel.Text = _vm.FormatAmount(v?.GetTotalExpenses() ?? 0);
+            if (v == null) { ExpensesCollection.ItemsSource = new List<Expense>(); TotalLabel.Text = "0,00 грн"; return; }
+
+            var entities = await _db.GetExpensesAsync(v.Id.ToString());
+            v.Expenses.Clear();
+            foreach (var e in entities)
+            {
+                try
+                {
+                    var expense = new Expense((ExpenseCategory)e.Category, e.Amount, e.ExpenseDate, e.Description, v.Id);
+                    v.Expenses.Add(expense);
+                }
+                catch { }
+            }
+            ExpensesCollection.ItemsSource = v.Expenses.ToList();
+            TotalLabel.Text = _vm.FormatAmount(v.GetTotalExpenses());
         }
 
         private async void OnAddClicked(object sender, EventArgs e) =>

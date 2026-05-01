@@ -6,15 +6,15 @@ namespace CarsLogWorkigVS.Interfaces
 {
     public interface IWorkedWithDriver
     {
-        void ChangeBloodType(BloodType newBloodType);
-        List<BloodType> GetCompatibleDonorTypes();
-        void ChangeLicenseNumber(string newLicenseNumber);
-        void ChangeLicenseIssuedBy(string newIssuedBy);
-        void ChangeLicenseExpiryDate(DateTime newExpiryDate);
-        void SetLicenseExpiryDate(DateTime expiryDate);
+        void ChangeBloodType(BloodType newBloodType); 
+        List<BloodType> GetCompatibleDonorTypes(); 
+        void ChangeLicenseNumber(string newLicenseNumber); 
+        void ChangeLicenseIssuedBy(string newIssuedBy); 
+        void ChangeLicenseExpiryDate(DateTime newExpiryDate); 
+        void SetLicenseExpiryDate(DateTime expiryDate); 
         List<LicenseCategory> LicenseCategories { get; }
-        void AddLicenseCategory(LicenseCategory category);
-        void RemoveLicenseCategory(LicenseCategory category);
-        void UpdateDriverInfo(string info);
+        void AddLicenseCategory(LicenseCategory category); 
+        void RemoveLicenseCategory(LicenseCategory category); 
+        void UpdateDriverInfo(string info); 
     }
 }

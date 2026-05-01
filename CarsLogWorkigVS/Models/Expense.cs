@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class Expense
     {
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;
 
         public ExpenseCategory Category { get; private set; }
@@ -16,7 +16,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value < 0)
-                    throw new ArgumentException("Сума витрат не може бути від'ємною.");
+                    throw new ArgumentException("Сума витрат не може бути від'ємною."); 
                 _amount = value;
             }
         }
@@ -28,7 +28,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value != null && value.Trim().Length > 1000)
-                    throw new ArgumentException("Опис не може перевищувати 1000 символів.");
+                    throw new ArgumentException("Опис не може перевищувати 1000 символів."); 
                 _description = value?.Trim() ?? string.Empty;
             }
         }

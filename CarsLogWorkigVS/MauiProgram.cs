@@ -1,4 +1,5 @@
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 using CarsLogWorkigVS.Views;
 
 namespace CarsLogWorkigVS
@@ -7,45 +8,46 @@ namespace CarsLogWorkigVS
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            var builder = MauiApp.CreateBuilder(); 
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); 
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold"); 
+                }); 
 
-            builder.Services.AddSingleton<AppStateService>();
-            builder.Services.AddSingleton<VehicleViewModel>();
+            builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<AppStateService>(); 
+            builder.Services.AddSingleton<VehicleViewModel>(); 
 
-            builder.Services.AddTransient<RegistrationOrLogInPage>();
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<RegisterPage>();
-            builder.Services.AddTransient<DashboardPage>();
-            builder.Services.AddTransient<VehicleListPage>();
-            builder.Services.AddTransient<VehicleDetailPage>();
-            builder.Services.AddTransient<AddVehiclePage>();
-            builder.Services.AddTransient<FuelEntriesPage>();
-            builder.Services.AddTransient<AddFuelEntryPage>();
-            builder.Services.AddTransient<TripLogsPage>();
-            builder.Services.AddTransient<AddTripLogPage>();
-            builder.Services.AddTransient<ServiceRecordsPage>();
-            builder.Services.AddTransient<AddServiceRecordPage>();
-            builder.Services.AddTransient<ExpensesPage>();
-            builder.Services.AddTransient<AddExpensePage>();
-            builder.Services.AddTransient<DocumentsPage>();
-            builder.Services.AddTransient<AddDocumentPage>();
-            builder.Services.AddTransient<NotesPage>();
-            builder.Services.AddTransient<AddNotePage>();
-            builder.Services.AddTransient<DriversPage>();
-            builder.Services.AddTransient<AddDriverPage>();
-            builder.Services.AddTransient<ComponentsPage>();
-            builder.Services.AddTransient<ProfilePage>();
-            builder.Services.AddTransient<ReportPage>();
-            builder.Services.AddTransient<AdminPanelPage>();
+            builder.Services.AddTransient<RegistrationOrLogInPage>(); 
+            builder.Services.AddTransient<LoginPage>(); 
+            builder.Services.AddTransient<RegisterPage>(); 
+            builder.Services.AddTransient<DashboardPage>(); 
+            builder.Services.AddTransient<VehicleListPage>(); 
+            builder.Services.AddTransient<VehicleDetailPage>(); 
+            builder.Services.AddTransient<AddVehiclePage>(); 
+            builder.Services.AddTransient<FuelEntriesPage>(); 
+            builder.Services.AddTransient<AddFuelEntryPage>(); 
+            builder.Services.AddTransient<TripLogsPage>(); 
+            builder.Services.AddTransient<AddTripLogPage>(); 
+            builder.Services.AddTransient<ServiceRecordsPage>(); 
+            builder.Services.AddTransient<AddServiceRecordPage>(); 
+            builder.Services.AddTransient<ExpensesPage>(); 
+            builder.Services.AddTransient<AddExpensePage>(); 
+            builder.Services.AddTransient<DocumentsPage>(); 
+            builder.Services.AddTransient<AddDocumentPage>(); 
+            builder.Services.AddTransient<NotesPage>(); 
+            builder.Services.AddTransient<AddNotePage>(); 
+            builder.Services.AddTransient<DriversPage>(); 
+            builder.Services.AddTransient<AddDriverPage>(); 
+            builder.Services.AddTransient<ComponentsPage>(); 
+            builder.Services.AddTransient<ProfilePage>(); 
+            builder.Services.AddTransient<ReportPage>(); 
+            builder.Services.AddTransient<AdminPanelPage>(); 
 
-            return builder.Build();
+            return builder.Build(); 
         }
     }
 }

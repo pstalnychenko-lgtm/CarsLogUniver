@@ -52,6 +52,12 @@
                            IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
                 </Frame>
 
+                <Label Text="Підтвердження паролю" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="ConfirmPasswordEntry" Placeholder="Повторіть пароль"
+                           IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                </Frame>
+
                 <Label Text="Роль" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
                 <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
                     <Picker x:Name="RolePicker" FontSize="16" TextColor="#1D1D1F">

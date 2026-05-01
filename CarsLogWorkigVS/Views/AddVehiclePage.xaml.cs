@@ -1,5 +1,6 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -7,12 +8,14 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly VehicleViewModel _vm;
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public AddVehiclePage(VehicleViewModel vm, AppStateService appState)
+        public AddVehiclePage(VehicleViewModel vm, AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _vm = vm;
             _appState = appState;
+            _db = db;
             BodyTypePicker.SelectedIndex = 0;
             FuelTypePicker.SelectedIndex = 0;
             YearPicker.MaximumDate = DateTime.Now;
@@ -84,6 +87,7 @@ namespace CarsLogWorkigVS.Views
 
                 if (_vm.TryAddVehicle(vehicle))
                 {
+                    await _db.SaveVehicleAsync(vehicle);
                     _appState.SelectedVehicle = vehicle;
                     await Shell.Current.GoToAsync("..");
                 }

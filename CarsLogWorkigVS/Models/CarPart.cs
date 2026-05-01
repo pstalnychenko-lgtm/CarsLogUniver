@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class CarPart
     {
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;
 
         private string _customPartName = string.Empty;
@@ -14,10 +14,10 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Назва запчастини не може бути порожньою.");
+                    throw new ArgumentException("Назва запчастини не може бути порожньою."); 
                 if (value.Trim().Length > 100)
-                    throw new ArgumentException("Назва запчастини не може перевищувати 100 символів.");
-                _customPartName = value.Trim();
+                    throw new ArgumentException("Назва запчастини не може перевищувати 100 символів."); 
+                _customPartName = value.Trim(); 
             }
         }
 
@@ -31,7 +31,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value != null && value.Trim().Length > 1000)
-                    throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів.");
+                    throw new ArgumentException("Нотатки не можуть перевищувати 1000 символів."); 
                 _notesComponents = value?.Trim() ?? string.Empty;
             }
         }

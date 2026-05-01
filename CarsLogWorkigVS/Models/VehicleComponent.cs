@@ -11,10 +11,10 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Назва компонента не може бути порожньою.");
+                    throw new ArgumentException("Назва компонента не може бути порожньою."); 
                 if (value.Trim().Length > 100)
-                    throw new ArgumentException("Назва компонента не може перевищувати 100 символів.");
-                _partName = value.Trim();
+                    throw new ArgumentException("Назва компонента не може перевищувати 100 символів."); 
+                _partName = value.Trim(); 
             }
         }
 

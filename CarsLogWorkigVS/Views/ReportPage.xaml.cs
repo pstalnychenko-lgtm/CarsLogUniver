@@ -8,40 +8,40 @@ namespace CarsLogWorkigVS.Views
 
         public ReportPage(VehicleViewModel vm)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             _vm = vm;
         }
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            BuildReport();
+            base.OnAppearing(); 
+            BuildReport(); 
         }
 
         private void BuildReport()
         {
             var vehicles = _vm.Vehicles;
-            TotalVehiclesLabel.Text = vehicles.Count.ToString();
+            TotalVehiclesLabel.Text = vehicles.Count.ToString(); 
 
-            var weekAgo = DateTime.Now.AddDays(-7);
+            var weekAgo = DateTime.Now.AddDays(-7); 
             int weekTrips = 0;
             decimal totalExpenses = 0;
 
             foreach (var v in vehicles)
             {
-                weekTrips += v.TripLogs.Count(t => t.TripDate >= weekAgo);
-                totalExpenses += v.GetTotalExpenses();
+                weekTrips += v.TripLogs.Count(t => t.TripDate >= weekAgo); 
+                totalExpenses += v.GetTotalExpenses(); 
             }
 
-            WeekTripsLabel.Text = weekTrips.ToString();
-            TotalExpensesLabel.Text = _vm.FormatAmount(totalExpenses);
+            WeekTripsLabel.Text = weekTrips.ToString(); 
+            TotalExpensesLabel.Text = _vm.FormatAmount(totalExpenses); 
             VehicleReportCollection.ItemsSource = vehicles;
-            FullReportLabel.Text = _vm.GenerateWeeklyReport();
+            FullReportLabel.Text = _vm.GenerateWeeklyReport(); 
         }
 
-        private void OnRefreshClicked(object sender, EventArgs e) => BuildReport();
+        private void OnRefreshClicked(object sender, EventArgs e) => BuildReport(); 
 
         private async void OnBackClicked(object sender, EventArgs e) =>
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); 
     }
 }

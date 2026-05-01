@@ -1,16 +1,19 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
     public partial class AddServiceRecordPage : ContentPage
     {
         private readonly AppStateService _appState;
+        private readonly DatabaseService _db;
 
-        public AddServiceRecordPage(AppStateService appState)
+        public AddServiceRecordPage(AppStateService appState, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
+            _db = db;
             var v = appState.SelectedVehicle;
             if (v != null) MileageEntry.Text = v.CurrentMileage.ToString();
         }
@@ -43,6 +46,7 @@ namespace CarsLogWorkigVS.Views
                 else
                     vehicle.ServiceRecords.Add(record);
 
+                await _db.SaveServiceRecordAsync(vehicle.Id.ToString(), record);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

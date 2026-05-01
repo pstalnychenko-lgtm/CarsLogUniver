@@ -4,11 +4,11 @@ namespace CarsLogWorkig.Models
 {
     public class LicenseCategory 
     {
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid(); 
         public DateTime DateOfIssue { get; private set; }
-        public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy");
+        public string DateOfIssueFormatted => DateOfIssue.ToString("dd.MM.yyyy"); 
         public DateTime ExpirationDate { get; private set; }
-        public string ExpirationDateFormatted => ExpirationDate.ToString("dd.MM.yyyy");
+        public string ExpirationDateFormatted => ExpirationDate.ToString("dd.MM.yyyy"); 
 
         private string _cityOfIssue = string.Empty;
         public string CityOfIssue
@@ -17,8 +17,8 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Місто видачі не може бути порожнім.");
-                _cityOfIssue = value.Trim();
+                    throw new ArgumentException("Місто видачі не може бути порожнім."); 
+                _cityOfIssue = value.Trim(); 
             }
         }
 
@@ -29,8 +29,8 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Серійний номер не може бути порожнім.");
-                _serialNumber = value.Trim();
+                    throw new ArgumentException("Серійний номер не може бути порожнім."); 
+                _serialNumber = value.Trim(); 
             }
         }
 
@@ -41,8 +41,8 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Центр ДАІ не може бути порожнім.");
-                _trafficPoliceCenter = value.Trim();
+                    throw new ArgumentException("Центр ДАІ не може бути порожнім."); 
+                _trafficPoliceCenter = value.Trim(); 
             }
         }
 
@@ -53,7 +53,7 @@ namespace CarsLogWorkig.Models
                                 string trafficPoliceCenter, CategoryName categoryName)
         {
             if (expirationDate <= dateOfIssue)
-                throw new ArgumentException("Дата закінчення має бути пізніше дати видачі.");
+                throw new ArgumentException("Дата закінчення має бути пізніше дати видачі."); 
 
             DateOfIssue = dateOfIssue;
             ExpirationDate = expirationDate;
@@ -66,7 +66,7 @@ namespace CarsLogWorkig.Models
         public void VerifyCanDrive(CategoryName vehicleCategory)
         {
             if (CategoryName != vehicleCategory)
-                throw new InvalidOperationException($"У вас немає права керувати транспортом категорії {vehicleCategory}.");
+                throw new InvalidOperationException($"У вас немає права керувати транспортом категорії {vehicleCategory}."); 
         }
 
         public bool IsValid() => ExpirationDate > DateTime.Now;

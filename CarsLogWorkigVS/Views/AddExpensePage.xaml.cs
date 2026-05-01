@@ -1,5 +1,6 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -7,12 +8,14 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly AppStateService _appState;
         private readonly VehicleViewModel _vm;
+        private readonly DatabaseService _db;
 
-        public AddExpensePage(AppStateService appState, VehicleViewModel vm)
+        public AddExpensePage(AppStateService appState, VehicleViewModel vm, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
             _vm = vm;
+            _db = db;
             CategoryPicker.SelectedIndex = 0;
         }
 
@@ -53,6 +56,7 @@ namespace CarsLogWorkigVS.Views
                 else
                     vehicle.Expenses.Add(expense);
 
+                await _db.SaveExpenseAsync(expense);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

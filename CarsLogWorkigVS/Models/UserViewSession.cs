@@ -4,7 +4,7 @@ namespace CarsLogWorkig.Models
 {
     public class UserViewSession
     {
-        public Guid SessionId { get; } = Guid.NewGuid();
+        public Guid SessionId { get; } = Guid.NewGuid(); 
         public User TargetUser { get; }
         public UserRole ObservedRole { get; }
         public DateTime StartedAt { get; } = DateTime.UtcNow;
@@ -12,7 +12,7 @@ namespace CarsLogWorkig.Models
         public UserViewSession(User targetUser)
         {
             if (targetUser == null)
-                throw new ArgumentNullException(nameof(targetUser));
+                throw new ArgumentNullException(nameof(targetUser)); 
             TargetUser = targetUser;
             ObservedRole = targetUser.Role;
         }

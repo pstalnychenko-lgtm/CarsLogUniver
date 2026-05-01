@@ -5,7 +5,7 @@ namespace CarsLogWorkig.Models
 {
     public class FuelEntry : IWorkedWithFuelEntry
     {
-        private readonly Guid _id = Guid.NewGuid();
+        private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;
 
         private string _gasStationName = string.Empty;
@@ -15,10 +15,10 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Назва заправки не може бути порожньою.");
+                    throw new ArgumentException("Назва заправки не може бути порожньою."); 
                 if (value.Trim().Length > 100)
-                    throw new ArgumentException("Назва заправки не може перевищувати 100 символів.");
-                _gasStationName = value.Trim();
+                    throw new ArgumentException("Назва заправки не може перевищувати 100 символів."); 
+                _gasStationName = value.Trim(); 
             }
         }
 
@@ -29,17 +29,17 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Адреса заправки не може бути порожньою.");
+                    throw new ArgumentException("Адреса заправки не може бути порожньою."); 
                 if (value.Trim().Length > 200)
-                    throw new ArgumentException("Адреса заправки не може перевищувати 200 символів.");
-                _gasStationAddress = value.Trim();
+                    throw new ArgumentException("Адреса заправки не може перевищувати 200 символів."); 
+                _gasStationAddress = value.Trim(); 
             }
         }
 
         public void SetGasStation(string gasStationName, string gasStationAddress)
         {
-            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName));
-            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress));
+            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName)); 
+            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress)); 
 
             GasStationName = gasStationName;
             GasStationAddress = gasStationAddress;
@@ -47,17 +47,17 @@ namespace CarsLogWorkig.Models
 
         public void ChangeGasStationName(string newName)
         {
-            if (newName is null) throw new ArgumentNullException(nameof(newName));
+            if (newName is null) throw new ArgumentNullException(nameof(newName)); 
             if (_gasStationName == newName.Trim())
-                throw new ArgumentException("Ця назва заправки вже встановлена.");
+                throw new ArgumentException("Ця назва заправки вже встановлена."); 
             GasStationName = newName;
         }
 
         public void ChangeGasStationAddress(string newAddress)
         {
-            if (newAddress is null) throw new ArgumentNullException(nameof(newAddress));
+            if (newAddress is null) throw new ArgumentNullException(nameof(newAddress)); 
             if (_gasStationAddress == newAddress.Trim())
-                throw new ArgumentException("Ця адреса заправки вже встановлена.");
+                throw new ArgumentException("Ця адреса заправки вже встановлена."); 
             GasStationAddress = newAddress;
         }
 
@@ -75,7 +75,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value < 0)
-                    throw new ArgumentException("Ціна за літр не може бути від'ємною.");
+                    throw new ArgumentException("Ціна за літр не може бути від'ємною."); 
                 _pricePerLiter = value;
             }
         }
@@ -87,7 +87,7 @@ namespace CarsLogWorkig.Models
             private set
             {
                 if (value <= 0)
-                    throw new ArgumentException("Кількість літрів має бути більше нуля.");
+                    throw new ArgumentException("Кількість літрів має бути більше нуля."); 
                 _liters = value;
             }
         }
@@ -98,8 +98,8 @@ namespace CarsLogWorkig.Models
         public FuelEntry(string gasStationName, string gasStationAddress,
                          FuelsType fuelType, decimal liters, decimal pricePerLiter)
         {
-            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName));
-            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress));
+            if (gasStationName is null) throw new ArgumentNullException(nameof(gasStationName)); 
+            if (gasStationAddress is null) throw new ArgumentNullException(nameof(gasStationAddress)); 
 
             GasStationName = gasStationName;
             GasStationAddress = gasStationAddress;

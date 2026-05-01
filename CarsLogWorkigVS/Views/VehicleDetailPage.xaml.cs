@@ -1,4 +1,5 @@
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Database;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -6,12 +7,14 @@ namespace CarsLogWorkigVS.Views
     {
         private readonly AppStateService _appState;
         private readonly VehicleViewModel _vm;
+        private readonly DatabaseService _db;
 
-        public VehicleDetailPage(AppStateService appState, VehicleViewModel vm)
+        public VehicleDetailPage(AppStateService appState, VehicleViewModel vm, DatabaseService db)
         {
             InitializeComponent();
             _appState = appState;
             _vm = vm;
+            _db = db;
         }
 
         protected override void OnAppearing()
@@ -70,6 +73,7 @@ namespace CarsLogWorkigVS.Views
             if (!confirm) return;
 
             _vm.TryRemoveVehicle(v.Id, true);
+            await _db.DeleteVehicleAsync(v.Id.ToString());
             _appState.SelectedVehicle = null;
             await Shell.Current.GoToAsync("..");
         }
