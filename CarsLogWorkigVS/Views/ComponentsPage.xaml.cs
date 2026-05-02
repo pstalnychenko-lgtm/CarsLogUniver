@@ -31,7 +31,10 @@ namespace CarsLogWorkigVS.Views
                     var component = new VehicleComponent(e.PartName, (uint)e.InstallationMileage, e.IsExpired, e.InstallationDate);
                     v.Components.Add(component);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             ComponentsCollection.ItemsSource = v.Components.ToList();
         }

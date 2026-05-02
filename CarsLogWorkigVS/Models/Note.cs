@@ -60,7 +60,7 @@ namespace CarsLogWorkig.Models
             $"[{Category}] {_titleNote} | {CreatedAt:dd.MM.yyyy HH:mm}";
     }
 
-    public class NoteManager : INoteManager
+    public class NoteManager : INoteRepository
     {
         private readonly List<Note> _notes = new List<Note>(); 
 

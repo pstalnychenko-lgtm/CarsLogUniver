@@ -2,7 +2,7 @@ using CarsLogWorkig.Models;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IAsignedRoleWithAdminAndSAdminForUser
+    public interface IUserRoleManager
     {
         void ActivateUser(User user); 
         void DeactivateUser(User user); 

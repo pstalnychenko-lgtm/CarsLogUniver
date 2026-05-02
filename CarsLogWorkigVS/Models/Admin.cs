@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class Admin : User, IAsignedRoleWithAdminAndSAdminForUser
+    public class Admin : User, IUserRoleManager
     {
         public void DeactivateUser(User user)
         {

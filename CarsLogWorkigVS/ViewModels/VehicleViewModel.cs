@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using CarsLogWorkig.Models;
 
 namespace CarsLogWorkig.ViewModels
 {
-    public class VehicleViewModel
+    public class VehicleViewModel : INotifyPropertyChanged
     {
         private const int MaxVehicles = 64;
-        private readonly List<Vehicle> _vehicles = new List<Vehicle>(); 
+        private readonly ObservableCollection<Vehicle> _vehicles = new ObservableCollection<Vehicle>(); 
         private readonly List<string> _actionLog = new List<string>(); 
         private readonly Dictionary<string, string> _filterPresets = new Dictionary<string, string>(); 
         private readonly Dictionary<Guid, int> _failedPinAttempts = new Dictionary<Guid, int>(); 
@@ -18,16 +21,98 @@ namespace CarsLogWorkig.ViewModels
 
         private string _searchQuery = string.Empty;
         private string _lastError = string.Empty;
+        private bool _isBusy;
 
-        public bool IsBusy { get; private set; }
+        private readonly CarsLogWorkigVS.Database.DatabaseService _db;
+        private readonly AppStateService _appState;
+
+        public VehicleViewModel() { }
+
+        public VehicleViewModel(CarsLogWorkigVS.Database.DatabaseService db, AppStateService appState)
+        {
+            _db = db;
+            _appState = appState;
+        }
+
+        public async Task LoadVehiclesAsync()
+        {
+            if (_db == null || _appState?.CurrentUser == null) return;
+            IsBusy = true;
+            try
+            {
+                var ownerId = _appState.CurrentUser.Id.ToString();
+                var entities = await _db.GetVehiclesForOwnerAsync(ownerId);
+                foreach (var entity in entities)
+                {
+                    if (_vehicles.Any(v => v.Id.ToString() == entity.Id)) continue;
+                    if (_appState.CurrentUser is Owner owner)
+                    {
+                        var vehicle = new Vehicle(entity.PlateNumber, entity.Vin, entity.Brand, entity.Model, entity.Color, entity.BodyType, (uint)entity.EngineVolumeCc, (FuelsType)entity.FuelType, entity.FuelTankCapacity, entity.YearOfRelease, entity.CarReleaseDate, owner);
+                        vehicle.ChangeCurrentMileage((uint)entity.CurrentMileage);
+                        if (!string.IsNullOrEmpty(entity.GeneralNotes)) vehicle.ChangeGeneralNotes(entity.GeneralNotes);
+                        TryAddVehicle(vehicle);
+                    }
+                }
+                OnPropertyChanged(nameof(FilteredVehicles));
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            private set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool IsEmpty => _vehicles.Count == 0;
-        public string LastError => _lastError;
-        public IReadOnlyList<Vehicle> Vehicles => _vehicles.AsReadOnly(); 
+
+        public string LastError
+        {
+            get => _lastError;
+            private set
+            {
+                if (_lastError != value)
+                {
+                    _lastError = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ObservableCollection<Vehicle> Vehicles => _vehicles; 
+        
+        public IEnumerable<Vehicle> FilteredVehicles => GetFilteredVehicles();
 
         public string SearchQuery
         {
             get => _searchQuery;
-            set { _searchQuery = value ?? string.Empty; }
+            set
+            {
+                var val = value ?? string.Empty;
+                if (_searchQuery != val)
+                {
+                    _searchQuery = val;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(FilteredVehicles));
+                }
+            }
         }
 
         public bool TryAddVehicle(Vehicle vehicle)
@@ -55,12 +140,13 @@ namespace CarsLogWorkig.ViewModels
                 if (_vehicles.Count >= MaxVehicles)
                     throw new InvalidOperationException($"Досягнуто максимальну кількість автомобілів ({MaxVehicles})."); 
 
-                _vehicles.Add(vehicle); 
+                _vehicles.Add(vehicle);
+                OnPropertyChanged(nameof(IsEmpty));
                 return true;
             }
             catch (Exception ex)
             {
-                _lastError = ex.Message;
+                LastError = ex.Message;
                 return false;
             }
             finally
@@ -80,12 +166,13 @@ namespace CarsLogWorkig.ViewModels
                 if (vehicle == null)
                     throw new ArgumentException("Автомобіль не знайдено."); 
 
-                _vehicles.Remove(vehicle); 
+                _vehicles.Remove(vehicle);
+                OnPropertyChanged(nameof(IsEmpty));
                 return true;
             }
             catch (Exception ex)
             {
-                _lastError = ex.Message;
+                LastError = ex.Message;
                 return false;
             }
         }
@@ -94,7 +181,7 @@ namespace CarsLogWorkig.ViewModels
         {
             if (dateOfBirth > DateTime.Now)
             {
-                _lastError = "Дата народження не може бути в майбутньому.";
+                LastError = "Дата народження не може бути в майбутньому.";
                 return false;
             }
             return true;
@@ -104,7 +191,7 @@ namespace CarsLogWorkig.ViewModels
         {
             if (serviceDate < DateTime.Now.Date)
             {
-                _lastError = "Дата запланованого сервісу не може бути в минулому.";
+                LastError = "Дата запланованого сервісу не може бути в минулому.";
                 return false;
             }
             return true;
@@ -114,13 +201,13 @@ namespace CarsLogWorkig.ViewModels
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                _lastError = "Email не може бути порожнім.";
+                LastError = "Email не може бути порожнім.";
                 return false;
             }
             var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$"); 
             if (!emailRegex.IsMatch(email))
             {
-                _lastError = "Невірний формат Email.";
+                LastError = "Невірний формат Email.";
                 return false;
             }
             return true;
@@ -130,13 +217,13 @@ namespace CarsLogWorkig.ViewModels
         {
             if (string.IsNullOrWhiteSpace(phone))
             {
-                _lastError = "Телефон не може бути порожнім.";
+                LastError = "Телефон не може бути порожнім.";
                 return false;
             }
             var phoneRegex = new Regex(@"^\+?[\d\s\-]{7,15}$"); 
             if (!phoneRegex.IsMatch(phone))
             {
-                _lastError = "Невірний формат номера телефону.";
+                LastError = "Невірний формат номера телефону.";
                 return false;
             }
             return true;
@@ -146,7 +233,7 @@ namespace CarsLogWorkig.ViewModels
         {
             if (amount < 0)
             {
-                _lastError = "Сума витрат не може бути від'ємною.";
+                LastError = "Сума витрат не може бути від'ємною.";
                 return false;
             }
             return true;
@@ -156,7 +243,7 @@ namespace CarsLogWorkig.ViewModels
         {
             if (mileage < currentMileage)
             {
-                _lastError = "Пробіг не може бути меншим за поточний.";
+                LastError = "Пробіг не може бути меншим за поточний.";
                 return false;
             }
             return true;
@@ -166,7 +253,7 @@ namespace CarsLogWorkig.ViewModels
         {
             if (text != null && text.Length > maxLength)
             {
-                _lastError = $"Поле '{fieldName}' перевищує максимальну довжину {maxLength} символів.";
+                LastError = $"Поле '{fieldName}' перевищує максимальну довжину {maxLength} символів.";
                 return false;
             }
             return true;
@@ -243,7 +330,7 @@ namespace CarsLogWorkig.ViewModels
                 SearchQuery = query;
                 return true;
             }
-            _lastError = $"Пресет '{presetName}' не знайдено.";
+            LastError = $"Пресет '{presetName}' не знайдено.";
             return false;
         }
 
@@ -273,7 +360,7 @@ namespace CarsLogWorkig.ViewModels
 
             if (_blockedUsers.Contains(user.Id))
             {
-                _lastError = "Користувача заблоковано через забагато невірних спроб.";
+                LastError = "Користувача заблоковано через забагато невірних спроб.";
                 return false;
             }
 
@@ -290,11 +377,11 @@ namespace CarsLogWorkig.ViewModels
             if (attempts >= 3)
             {
                 _blockedUsers.Add(user.Id); 
-                _lastError = "Користувача заблоковано після 3 невірних спроб введення PIN.";
+                LastError = "Користувача заблоковано після 3 невірних спроб введення PIN.";
             }
             else
             {
-                _lastError = $"Невірний PIN. Залишилось спроб: {3 - attempts}.";
+                LastError = $"Невірний PIN. Залишилось спроб: {3 - attempts}.";
             }
 
             return false;
@@ -329,7 +416,7 @@ namespace CarsLogWorkig.ViewModels
             }
             catch (Exception ex)
             {
-                _lastError = ex.Message;
+                LastError = ex.Message;
                 return string.Empty;
             }
             finally

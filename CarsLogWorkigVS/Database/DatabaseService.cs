@@ -1,11 +1,14 @@
 using CarsLogWorkig.Models;
 using SQLite;
+using System.Text.Json;
+using System.Threading;
 
 namespace CarsLogWorkigVS.Database
 {
     public class DatabaseService
     {
         private SQLiteAsyncConnection? _db;
+        private readonly SemaphoreSlim _initLock = new SemaphoreSlim(1, 1);
 
         private static string DbPath =>
             Path.Combine(FileSystem.AppDataDirectory, "carslog.db3");
@@ -14,19 +17,29 @@ namespace CarsLogWorkigVS.Database
         {
             if (_db != null) return;
 
-            _db = new SQLiteAsyncConnection(DbPath,
-                SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+            await _initLock.WaitAsync();
+            try
+            {
+                if (_db != null) return;
 
-            await _db.CreateTableAsync<UserEntity>();
-            await _db.CreateTableAsync<VehicleEntity>();
-            await _db.CreateTableAsync<FuelEntryEntity>();
-            await _db.CreateTableAsync<ServiceRecordEntity>();
-            await _db.CreateTableAsync<TripLogEntity>();
-            await _db.CreateTableAsync<ExpenseEntity>();
-            await _db.CreateTableAsync<DocumentEntity>();
-            await _db.CreateTableAsync<NoteEntity>();
-            await _db.CreateTableAsync<VehicleComponentEntity>();
-            await _db.CreateTableAsync<DriverVehicleEntity>();
+                _db = new SQLiteAsyncConnection(DbPath,
+                    SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+
+                await _db.CreateTableAsync<UserEntity>();
+                await _db.CreateTableAsync<VehicleEntity>();
+                await _db.CreateTableAsync<FuelEntryEntity>();
+                await _db.CreateTableAsync<ServiceRecordEntity>();
+                await _db.CreateTableAsync<TripLogEntity>();
+                await _db.CreateTableAsync<ExpenseEntity>();
+                await _db.CreateTableAsync<DocumentEntity>();
+                await _db.CreateTableAsync<NoteEntity>();
+                await _db.CreateTableAsync<VehicleComponentEntity>();
+                await _db.CreateTableAsync<DriverVehicleEntity>();
+            }
+            finally
+            {
+                _initLock.Release();
+            }
         }
 
         private async Task<SQLiteAsyncConnection> GetDb()
@@ -34,8 +47,6 @@ namespace CarsLogWorkigVS.Database
             await InitAsync();
             return _db!;
         }
-
-        // ─── USERS ─────────────────────────────────────────────────────────
 
         public async Task SaveUserAsync(User user)
         {
@@ -100,8 +111,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<UserEntity>(id);
         }
 
-        // ─── VEHICLES ──────────────────────────────────────────────────────
-
         public async Task SaveVehicleAsync(Vehicle vehicle)
         {
             var db = await GetDb();
@@ -159,8 +168,6 @@ namespace CarsLogWorkigVS.Database
             await db.Table<DriverVehicleEntity>().DeleteAsync(x => x.VehicleId == vehicleId);
         }
 
-        // ─── FUEL ENTRIES ──────────────────────────────────────────────────
-
         public async Task SaveFuelEntryAsync(string vehicleId, FuelEntry entry)
         {
             var db = await GetDb();
@@ -199,8 +206,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<FuelEntryEntity>(id);
         }
 
-        // ─── SERVICE RECORDS ───────────────────────────────────────────────
-
         public async Task SaveServiceRecordAsync(string vehicleId, ServiceRecord record)
         {
             var db = await GetDb();
@@ -235,8 +240,6 @@ namespace CarsLogWorkigVS.Database
             var db = await GetDb();
             await db.DeleteAsync<ServiceRecordEntity>(id);
         }
-
-        // ─── TRIP LOGS ─────────────────────────────────────────────────────
 
         public async Task SaveTripLogAsync(string vehicleId, TripLog trip)
         {
@@ -276,8 +279,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<TripLogEntity>(id);
         }
 
-        // ─── EXPENSES ──────────────────────────────────────────────────────
-
         public async Task SaveExpenseAsync(Expense expense)
         {
             var db = await GetDb();
@@ -312,8 +313,6 @@ namespace CarsLogWorkigVS.Database
             var db = await GetDb();
             await db.DeleteAsync<ExpenseEntity>(id);
         }
-
-        // ─── DOCUMENTS ─────────────────────────────────────────────────────
 
         public async Task SaveDocumentAsync(string vehicleId, Document document)
         {
@@ -350,8 +349,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<DocumentEntity>(id);
         }
 
-        // ─── NOTES ─────────────────────────────────────────────────────────
-
         public async Task SaveNoteAsync(string vehicleId, Note note)
         {
             var db = await GetDb();
@@ -387,8 +384,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<NoteEntity>(id);
         }
 
-        // ─── COMPONENTS ────────────────────────────────────────────────────
-
         public async Task SaveComponentAsync(string vehicleId, VehicleComponent component)
         {
             var db = await GetDb();
@@ -423,8 +418,6 @@ namespace CarsLogWorkigVS.Database
             await db.DeleteAsync<VehicleComponentEntity>(dbId);
         }
 
-        // ─── DRIVER-VEHICLE LINKS ──────────────────────────────────────────
-
         public async Task LinkDriverToVehicleAsync(string vehicleId, string driverId)
         {
             var db = await GetDb();
@@ -450,8 +443,6 @@ namespace CarsLogWorkigVS.Database
                 .ToListAsync();
             return links.Select(l => l.DriverId).ToList();
         }
-
-        // ─── MAPPERS ───────────────────────────────────────────────────────
 
         private static UserEntity MapUserToEntity(User user)
         {
@@ -486,6 +477,7 @@ namespace CarsLogWorkigVS.Database
                 entity.LicenseExpiryDate = driver.LicenseExpiryDate;
                 entity.MedicalCertStatus = driver.MedicalCertStatus;
                 entity.BloodType = (int)driver.BloodType;
+                entity.LicenseCategoriesSerialized = JsonSerializer.Serialize(driver.LicenseCategories);
             }
             else if (user is SuperAdmin)
             {
@@ -527,6 +519,22 @@ namespace CarsLogWorkigVS.Database
                         e.MedicalCertStatus,
                         (BloodType)e.BloodType
                     );
+
+                    if (!string.IsNullOrEmpty(e.LicenseCategoriesSerialized))
+                    {
+                        try
+                        {
+                            var categories = JsonSerializer.Deserialize<List<LicenseCategory>>(e.LicenseCategoriesSerialized);
+                            if (categories != null)
+                            {
+                                foreach (var cat in categories)
+                                {
+                                    driver.AddLicenseCategory(cat);
+                                }
+                            }
+                        }
+                        catch { throw; }
+                    }
                     user = driver;
                     break;
 
@@ -544,9 +552,9 @@ namespace CarsLogWorkigVS.Database
                     break;
             }
 
-            try { if (e.Login.Length > 0) user.ChangeLogin(e.Login); } catch { }
-            try { if (e.Email.Length > 0) user.ChangeEmail(e.Email); } catch { }
-            try { if (e.Address.Length > 0 && user is not Owner) user.ChangeAddress(e.Address); } catch { }
+            try { if (e.Login.Length > 0) user.ChangeLogin(e.Login); } catch { throw; }
+            try { if (e.Email.Length > 0) user.ChangeEmail(e.Email); } catch { throw; }
+            try { if (e.Address.Length > 0 && user is not Owner) user.ChangeAddress(e.Address); } catch { throw; }
             user.IsActive = (IsActiveUser)e.IsActive;
 
             return user;

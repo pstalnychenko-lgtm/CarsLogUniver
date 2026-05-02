@@ -31,7 +31,10 @@ namespace CarsLogWorkigVS.Views
                     var note = new Note(e.TitleNote, e.NoteContent, (NoteCategory)e.Category, e.CreatedAt);
                     v.Notes.Add(note);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             NotesCollection.ItemsSource = v.Notes.ToList();
         }

@@ -32,7 +32,10 @@ namespace CarsLogWorkigVS.Views
                         (FuelsType)e.FuelType, e.Liters, e.PricePerLiter);
                     v.FuelEntries.Add(entry);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             FuelCollection.ItemsSource = v.FuelEntries.ToList();
         }

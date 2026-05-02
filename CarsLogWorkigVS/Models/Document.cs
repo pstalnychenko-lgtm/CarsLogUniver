@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CarsLogWorkig.Models
 {
-    public class Document : IDocumentManager
+    public class Document : IDocumentRepository
     {
         private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;

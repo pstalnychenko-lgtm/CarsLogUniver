@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IWorkedWithVehecle
+    public interface IVehicleManager
     {
         void ChangePlateNumber(string newPlateNumber);   
         void ChangeCurrentMileage(uint newMileage);  

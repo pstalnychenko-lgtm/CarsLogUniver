@@ -32,7 +32,10 @@ namespace CarsLogWorkigVS.Views
                     var doc = new Document(e.Title, e.DateOfIssueDoc, (DocumentType)e.DocumentCategory, e.PolicyNumber);
                     v.Documents.Add(doc);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             DocsCollection.ItemsSource = v.Documents.ToList();
         }

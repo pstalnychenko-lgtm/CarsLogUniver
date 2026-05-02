@@ -1,10 +1,9 @@
-using CarsLogWorkigVS.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Vehicle : IWorkedWithVehecle
+    public class Vehicle
     {
         private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;

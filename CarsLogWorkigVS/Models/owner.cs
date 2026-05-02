@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkig.Models
 {
-    public class Owner : User, IManageDetailsWithOwner 
+    public class Owner : User, IOwnerVehicleManager
     {
         public DateTime DateOfPurchaseTheCar { get; private set; }
         public string DateOfPurchaseTheCarFormatted => DateOfPurchaseTheCar.ToString("dd.MM.yyyy"); 

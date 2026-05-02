@@ -1,9 +1,8 @@
-using CarsLogWorkigVS.Interfaces;
 using System;
 
 namespace CarsLogWorkig.Models
 {
-    public class FuelEntry : IWorkedWithFuelEntry
+    public class FuelEntry
     {
         private readonly Guid _id = Guid.NewGuid(); 
         public Guid Id => _id;

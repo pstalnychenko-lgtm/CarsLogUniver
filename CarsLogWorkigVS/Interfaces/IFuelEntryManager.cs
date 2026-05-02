@@ -2,7 +2,7 @@ using CarsLogWorkig.Models;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IWorkedWithFuelEntry
+    public interface IFuelEntryManager
     {
         void SetGasStation(string gasStationName, string gasStationAddress); 
         void SetFuelType(FuelsType fuelType); 

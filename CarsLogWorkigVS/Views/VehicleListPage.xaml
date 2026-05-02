@@ -24,39 +24,42 @@
                     <Label Grid.Column="0" Text="🔍" FontSize="16" VerticalOptions="Center" Margin="0,0,6,0" />
                     <Entry Grid.Column="1" x:Name="SearchEntry" Placeholder="Пошук за маркою, моделлю, номером..."
                            FontSize="15" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC"
-                           TextChanged="OnSearchChanged" />
+                           Text="{Binding SearchQuery, Mode=TwoWay}" />
                 </Grid>
             </Frame>
         </Frame>
 
-        <CollectionView Grid.Row="2" x:Name="VehiclesCollection"
-                        SelectionMode="Single"
-                        SelectionChanged="OnVehicleSelected"
-                        EmptyView="Список порожній. Додайте перший автомобіль."
-                        Margin="16,8">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BackgroundColor="White" CornerRadius="16" Margin="0,4"
-                           HasShadow="False" Padding="16">
-                        <Grid ColumnDefinitions="*,Auto">
-                            <VerticalStackLayout Grid.Column="0" Spacing="4">
-                                <Label Text="{Binding Brand, StringFormat='{0} '}" FontSize="17"
-                                       FontAttributes="Bold" TextColor="#1D1D1F" />
-                                <Label Text="{Binding Model}" FontSize="15" TextColor="#3C3C43" />
-                                <Label Text="{Binding PlateNumber}" FontSize="13" TextColor="#6E6E73" />
-                                <Label Text="{Binding CurrentMileage, StringFormat='Пробіг: {0} км'}"
-                                       FontSize="13" TextColor="#0071E3" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="8">
-                                <Label Text="{Binding FuelType}" FontSize="12" TextColor="#6E6E73"
-                                       HorizontalOptions="End" />
-                                <Label Text="›" FontSize="22" TextColor="#C7C7CC" HorizontalOptions="End" />
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <RefreshView Grid.Row="2" IsRefreshing="{Binding IsBusy}">
+            <CollectionView x:Name="VehiclesCollection"
+                            ItemsSource="{Binding FilteredVehicles}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnVehicleSelected"
+                            EmptyView="Список порожній. Додайте перший автомобіль."
+                            Margin="16,8">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="16" Margin="0,4"
+                               HasShadow="False" Padding="16">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="{Binding Brand, StringFormat='{0} '}" FontSize="17"
+                                           FontAttributes="Bold" TextColor="#1D1D1F" />
+                                    <Label Text="{Binding Model}" FontSize="15" TextColor="#3C3C43" />
+                                    <Label Text="{Binding PlateNumber}" FontSize="13" TextColor="#6E6E73" />
+                                    <Label Text="{Binding CurrentMileage, StringFormat='Пробіг: {0} км'}"
+                                           FontSize="13" TextColor="#0071E3" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="8">
+                                    <Label Text="{Binding FuelType}" FontSize="12" TextColor="#6E6E73"
+                                           HorizontalOptions="End" />
+                                    <Label Text="›" FontSize="22" TextColor="#C7C7CC" HorizontalOptions="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
 
     </Grid>
 </ContentPage>

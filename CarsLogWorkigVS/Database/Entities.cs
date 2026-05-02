@@ -27,6 +27,7 @@ namespace CarsLogWorkigVS.Database
         public DateTime LicenseExpiryDate { get; set; }
         public bool MedicalCertStatus { get; set; }
         public int BloodType { get; set; }
+        public string LicenseCategoriesSerialized { get; set; } = "[]";
     }
 
     [Table("Vehicles")]
@@ -47,6 +48,7 @@ namespace CarsLogWorkigVS.Database
         public DateTime CarReleaseDate { get; set; }
         public long CurrentMileage { get; set; }
         public string GeneralNotes { get; set; } = string.Empty;
+        [Indexed]
         public string OwnerId { get; set; } = string.Empty;
     }
 
@@ -55,6 +57,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public string GasStationName { get; set; } = string.Empty;
         public string GasStationAddress { get; set; } = string.Empty;
@@ -70,6 +73,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public DateTime DateOfService { get; set; }
         public string Description { get; set; } = string.Empty;
@@ -82,6 +86,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public DateTime TripDate { get; set; }
         public string DeparturePoint { get; set; } = string.Empty;
@@ -97,6 +102,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public int Category { get; set; }
         public decimal Amount { get; set; }
@@ -109,6 +115,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public DateTime DateOfIssueDoc { get; set; }
@@ -121,6 +128,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey]
         public string Id { get; set; } = string.Empty;
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public string TitleNote { get; set; } = string.Empty;
         public string NoteContent { get; set; } = string.Empty;
@@ -133,6 +141,7 @@ namespace CarsLogWorkigVS.Database
     {
         [PrimaryKey, AutoIncrement]
         public int DbId { get; set; }
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
         public string PartName { get; set; } = string.Empty;
         public long InstallationMileage { get; set; }
@@ -140,12 +149,14 @@ namespace CarsLogWorkigVS.Database
         public DateTime InstallationDate { get; set; }
     }
 
-    [Table("Drivers")]
+    [Table("DriverVehicles")]
     public class DriverVehicleEntity
     {
         [PrimaryKey, AutoIncrement]
         public int DbId { get; set; }
+        [Indexed]
         public string VehicleId { get; set; } = string.Empty;
+        [Indexed]
         public string DriverId { get; set; } = string.Empty;
     }
 }

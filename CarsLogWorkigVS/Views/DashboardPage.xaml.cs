@@ -4,46 +4,19 @@ namespace CarsLogWorkigVS.Views
 {
     public partial class DashboardPage : ContentPage
     {
-        private readonly AppStateService _appState;
-        private readonly VehicleViewModel _vm;
+        private readonly DashboardViewModel _vm;
 
-        public DashboardPage(AppStateService appState, VehicleViewModel vm)
+        public DashboardPage(AppStateService appState, VehicleViewModel vehicleViewModel)
         {
             InitializeComponent(); 
-            _appState = appState;
-            _vm = vm;
+            _vm = new DashboardViewModel(appState, vehicleViewModel);
+            BindingContext = _vm;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing(); 
-            Refresh(); 
-        }
-
-        private void Refresh()
-        {
-            if (_appState.IsLoggedIn)
-                GreetingLabel.Text = $"Вітаємо, {_appState.CurrentUser!.FullName}!";
-            else
-                GreetingLabel.Text = "Вітаємо, Гість!";
-
-            var vehicles = _vm.Vehicles;
-            VehicleCountLabel.Text = vehicles.Count.ToString(); 
-
-            if (vehicles.Count > 0)
-            {
-                var last = vehicles[^1];
-                LastVehicleName.Text = $"{last.Brand} {last.Model}";
-                LastVehiclePlate.Text = last.PlateNumber;
-                LastVehicleMileage.Text = _vm.FormatMileage(last.CurrentMileage); 
-                LastVehicleFrame.IsVisible = true;
-                EmptyVehicleFrame.IsVisible = false;
-            }
-            else
-            {
-                LastVehicleFrame.IsVisible = false;
-                EmptyVehicleFrame.IsVisible = true;
-            }
+            _vm.LoadData(); 
         }
 
         private async void OnVehiclesClicked(object sender, EventArgs e) =>

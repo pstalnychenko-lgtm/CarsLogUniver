@@ -33,7 +33,10 @@ namespace CarsLogWorkigVS.Views
                     var expense = new Expense((ExpenseCategory)e.Category, e.Amount, e.ExpenseDate, e.Description, v.Id);
                     v.Expenses.Add(expense);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             ExpensesCollection.ItemsSource = v.Expenses.ToList();
             TotalLabel.Text = _vm.FormatAmount(v.GetTotalExpenses());

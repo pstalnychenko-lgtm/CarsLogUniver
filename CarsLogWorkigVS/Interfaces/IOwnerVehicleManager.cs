@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IManageDetailsWithOwner
+    public interface IOwnerVehicleManager
     {
         void AddFuelEntry(Vehicle vehicle, FuelEntry entry); 
         void AddServiceRecord(Vehicle vehicle, ServiceRecord record); 

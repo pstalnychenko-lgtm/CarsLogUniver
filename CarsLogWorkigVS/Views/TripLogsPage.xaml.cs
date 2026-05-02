@@ -32,7 +32,10 @@ namespace CarsLogWorkigVS.Views
                         (TripPurpose)e.Purpose, (uint)e.StartMileage, (uint)e.EndMileage, e.Notes);
                     v.TripLogs.Add(trip);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             TripCollection.ItemsSource = v.TripLogs.ToList();
         }

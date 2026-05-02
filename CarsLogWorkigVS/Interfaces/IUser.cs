@@ -3,7 +3,7 @@ using System;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IWorkedWithLoginPhonePasswordETZ
+    public interface IUser
     {
         void ChangeLogin(string newLogin); 
         void ChangePhone(string newPhone); 

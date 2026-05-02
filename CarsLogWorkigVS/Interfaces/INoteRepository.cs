@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface INoteManager
+    public interface INoteRepository
     {
         List<Note> Notes { get; }
         void AddNote(Note note); 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CarsLogWorkigVS.Interfaces
 {
-    public interface IWorkedWithDriver
+    public interface IDriverProfile
     {
         void ChangeBloodType(BloodType newBloodType); 
         List<BloodType> GetCompatibleDonorTypes(); 

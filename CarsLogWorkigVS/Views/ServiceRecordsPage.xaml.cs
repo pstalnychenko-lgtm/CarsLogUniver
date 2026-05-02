@@ -31,7 +31,10 @@ namespace CarsLogWorkigVS.Views
                     var record = new ServiceRecord(e.DateOfService, e.Description, (uint)e.MileageAtService, e.Cost);
                     v.ServiceRecords.Add(record);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlert("Помилка", ex.Message, "OK");
+                }
             }
             ServiceCollection.ItemsSource = v.ServiceRecords.ToList();
         }
