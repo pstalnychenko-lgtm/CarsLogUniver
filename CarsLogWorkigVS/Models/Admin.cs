@@ -5,6 +5,18 @@ namespace CarsLogWorkig.Models
 {
     public class Admin : User, IUserRoleManager
     {
+        public Admin(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("Ім'я не може бути порожнім."); 
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("Прізвище не може бути порожнім."); 
+
+            ChangeFirstName(firstName); 
+            ChangeLastName(lastName); 
+            ChangeRole(UserRole.Admin); 
+        }
+
         public void DeactivateUser(User user)
         {
             if (user == null)

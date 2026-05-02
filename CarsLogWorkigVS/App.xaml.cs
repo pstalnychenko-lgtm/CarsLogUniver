@@ -1,10 +1,15 @@
+using CarsLogWorkigVS.Services;
+
 namespace CarsLogWorkigVS
 {
     public partial class App : Application
     {
-        public App()
+        public static NavigationService? NavigationService { get; private set; }
+
+        public App(NavigationService navigationService)
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            NavigationService = navigationService;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

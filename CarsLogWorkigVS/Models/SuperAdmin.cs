@@ -10,15 +10,8 @@ namespace CarsLogWorkig.Models
         public bool IsInViewAsMode => _currentViewSession != null;
         public UserViewSession? CurrentViewSession => _currentViewSession;
 
-        public SuperAdmin(string firstName, string lastName)
+        public SuperAdmin(string firstName, string lastName) : base(firstName, lastName)
         {
-            if (string.IsNullOrWhiteSpace(firstName))
-                throw new ArgumentException("Ім'я не може бути порожнім."); 
-            if (string.IsNullOrWhiteSpace(lastName))
-                throw new ArgumentException("Прізвище не може бути порожнім."); 
-
-            ChangeFirstName(firstName); 
-            ChangeLastName(lastName); 
             ChangeRole(UserRole.Admin); 
         }
 

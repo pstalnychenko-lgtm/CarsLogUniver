@@ -40,6 +40,6 @@ namespace CarsLogWorkigVS.Views
             await Shell.Current.GoToAsync(nameof(AddVehiclePage));
 
         private async void OnBackClicked(object sender, EventArgs e) =>
-            await Shell.Current.GoToAsync("..");
+            await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
     }
 }

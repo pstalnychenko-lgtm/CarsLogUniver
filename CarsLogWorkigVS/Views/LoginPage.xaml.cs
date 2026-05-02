@@ -46,10 +46,8 @@ namespace CarsLogWorkigVS.Views
             await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
         }
 
-        private async void OnBackClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("..");
-        }
+        private async void OnBackClicked(object sender, EventArgs e) =>
+            await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
 
         private async void OnGoToRegisterTapped(object sender, TappedEventArgs e)
         {

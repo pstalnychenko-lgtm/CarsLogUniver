@@ -103,7 +103,7 @@ namespace CarsLogWorkigVS.Views
         }
 
         private async void OnBackClicked(object sender, EventArgs e) =>
-            await Shell.Current.GoToAsync("..");
+            await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
 
         private void ShowError(string message)
         {

@@ -1,5 +1,6 @@
 using CarsLogWorkig.Models;
 using CarsLogWorkig.ViewModels;
+using CarsLogWorkigVS.Services;
 
 namespace CarsLogWorkigVS.Views
 {
@@ -17,6 +18,13 @@ namespace CarsLogWorkigVS.Views
         {
             base.OnAppearing(); 
             var user = _appState.CurrentUser;
+            
+            if (App.NavigationService != null)
+            {
+                var history = App.NavigationService.GetHistory();
+                HistoryLabel.Text = string.Join(" → ", history.Select(h => h.Split('/').Last()));
+            }
+
             if (user == null)
             {
                 FullNameLabel.Text = "Гість";
@@ -58,6 +66,6 @@ namespace CarsLogWorkigVS.Views
         }
 
         private async void OnBackClicked(object sender, EventArgs e) =>
-            await Shell.Current.GoToAsync(".."); 
+            await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
     }
 }

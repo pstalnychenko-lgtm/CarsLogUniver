@@ -1,6 +1,8 @@
 using CarsLogWorkig.ViewModels;
 using CarsLogWorkigVS.Database;
 using CarsLogWorkigVS.Views;
+using CarsLogWorkigVS.ViewModels;
+using CarsLogWorkigVS.Services;
 
 namespace CarsLogWorkigVS
 {
@@ -20,6 +22,10 @@ namespace CarsLogWorkigVS
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<AppStateService>(); 
             builder.Services.AddSingleton<VehicleViewModel>(); 
+            builder.Services.AddSingleton<NavigationService>();
+
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<DashboardViewModel>();
 
             builder.Services.AddTransient<RegistrationOrLogInPage>(); 
             builder.Services.AddTransient<LoginPage>(); 
