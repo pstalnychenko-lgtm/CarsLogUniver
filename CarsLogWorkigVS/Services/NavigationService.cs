@@ -11,11 +11,21 @@ namespace CarsLogWorkigVS.Services
 
         public NavigationService()
         {
-            Shell.Current.Navigated += OnNavigated;
+            SubscribeToNavigated();
+        }
+
+        public void SubscribeToNavigated()
+        {
+            if (Shell.Current != null)
+            {
+                Shell.Current.Navigated -= OnNavigated;
+                Shell.Current.Navigated += OnNavigated;
+            }
         }
 
         private void OnNavigated(object? sender, ShellNavigatedEventArgs e)
         {
+            if (Shell.Current?.CurrentState == null) return;
             var route = Shell.Current.CurrentState.Location.ToString();
             
             if (_history.LastOrDefault() == route) return;
@@ -29,6 +39,8 @@ namespace CarsLogWorkigVS.Services
 
         public async Task GoBackAsync()
         {
+            if (Shell.Current == null) return;
+
             if (_history.Count > 1)
             {
                 _history.RemoveAt(_history.Count - 1);

@@ -137,7 +137,7 @@ namespace CarsLogWorkigVS.ViewModels
 
                 await _db.SaveUserWithPasswordAsync(newUser, Password);
                 _appState.CurrentUser = newUser;
-                await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+                await Shell.Current.GoToAsync($"{nameof(DashboardPage)}");
             }
             catch (Exception ex)
             {

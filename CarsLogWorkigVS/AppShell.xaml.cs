@@ -8,6 +8,8 @@ namespace CarsLogWorkigVS
         {
             InitializeComponent(); 
 
+            App.NavigationService?.SubscribeToNavigated();
+
             Routing.RegisterRoute(nameof(RegistrationOrLogInPage), typeof(RegistrationOrLogInPage)); 
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage)); 
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage)); 
