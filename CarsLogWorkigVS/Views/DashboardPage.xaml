@@ -3,101 +3,98 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsLogWorkigVS.Views.DashboardPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="{StaticResource SystemBackground}">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="#FF9500" Padding="15,40,15,10" IsVisible="False">
+        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="{StaticResource AdminColor}" Padding="15,40,15,10" IsVisible="False">
             <Grid ColumnDefinitions="*,Auto">
-                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" />
-                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="White" TextColor="#FF9500" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
+                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="{StaticResource White}" FontAttributes="Bold" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="{StaticResource White}" TextColor="{StaticResource AdminColor}" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
             </Grid>
         </Grid>
 
-        <Frame Grid.Row="1" BackgroundColor="#0071E3" CornerRadius="0" HasShadow="True" Padding="16,30,16,16">
+        <Frame Grid.Row="1" BackgroundColor="{StaticResource PrimaryAction}" CornerRadius="0" HasShadow="True" Padding="16,30,16,16">
             <Grid ColumnDefinitions="*,Auto">
                 <VerticalStackLayout Grid.Column="0">
                     <Label Text="{Binding Greeting}" FontSize="20"
-                           FontAttributes="Bold" TextColor="White" />
-                    <Label x:Name="RoleBadgeLabel" Text="" FontSize="13" TextColor="#BFD9F7" />
+                           FontAttributes="Bold" TextColor="{StaticResource White}" />
+                    <Label x:Name="RoleBadgeLabel" Text="" FontSize="13" TextColor="{StaticResource OnPrimaryText}" />
                 </VerticalStackLayout>
                 <Button Grid.Column="1" Text="👤" BackgroundColor="Transparent"
-                        FontSize="22" TextColor="White" WidthRequest="44" Clicked="OnProfileClicked" />
+                        FontSize="22" TextColor="{StaticResource White}" WidthRequest="44" Clicked="OnProfileClicked" />
             </Grid>
         </Frame>
 
         <ScrollView Grid.Row="2">
             <VerticalStackLayout Spacing="12" Padding="16">
 
-                <Label Text="Швидкий доступ" FontSize="17" FontAttributes="Bold"
-                       TextColor="#1D1D1F" Margin="4,8,0,4" />
+                <Label Text="Швидкий доступ" Style="{StaticResource SectionHeaderStyle}" />
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                    <Frame Grid.Column="0" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="0" Style="{StaticResource CardFrameStyle}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnVehiclesClicked" />
                         </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="8">
                             <Label Text="🚗" FontSize="28" HorizontalOptions="Center" />
                             <Label Text="Автомобілі" FontSize="14" FontAttributes="Bold"
-                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
+                                   TextColor="{StaticResource LabelPrimary}" HorizontalOptions="Center" />
                             <Label Text="{Binding VehicleCount}" FontSize="22"
-                                   FontAttributes="Bold" TextColor="#0071E3" HorizontalOptions="Center" />
+                                   FontAttributes="Bold" TextColor="{StaticResource PrimaryAction}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Grid.Column="1" x:Name="ReportTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="1" x:Name="ReportTile" Style="{StaticResource CardFrameStyle}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnReportClicked" />
                         </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="8">
                             <Label Text="📊" FontSize="28" HorizontalOptions="Center" />
                             <Label Text="Звіт" FontSize="14" FontAttributes="Bold"
-                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
-                            <Label Text="Тижневий" FontSize="13" TextColor="#6E6E73" HorizontalOptions="Center" />
+                                   TextColor="{StaticResource LabelPrimary}" HorizontalOptions="Center" />
+                            <Label Text="Тижневий" FontSize="13" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
                 </Grid>
 
                 <Grid x:Name="SecondRowGrid" ColumnDefinitions="*,*" ColumnSpacing="12">
-                    <Frame Grid.Column="0" x:Name="DriversTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="0" x:Name="DriversTile" Style="{StaticResource CardFrameStyle}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnDriversClicked" />
                         </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="8">
                             <Label Text="👨‍✈️" FontSize="28" HorizontalOptions="Center" />
                             <Label Text="Водії" FontSize="14" FontAttributes="Bold"
-                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
-                            <Label Text="Керувати" FontSize="13" TextColor="#6E6E73" HorizontalOptions="Center" />
+                                   TextColor="{StaticResource LabelPrimary}" HorizontalOptions="Center" />
+                            <Label Text="Керувати" FontSize="13" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Grid.Column="1" x:Name="AdminTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="1" x:Name="AdminTile" Style="{StaticResource CardFrameStyle}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAdminClicked" />
                         </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="8">
                             <Label Text="⚙️" FontSize="28" HorizontalOptions="Center" />
                             <Label Text="Адмін" FontSize="14" FontAttributes="Bold"
-                                   TextColor="#1D1D1F" HorizontalOptions="Center" />
-                            <Label Text="Панель" FontSize="13" TextColor="#6E6E73" HorizontalOptions="Center" />
+                                   TextColor="{StaticResource LabelPrimary}" HorizontalOptions="Center" />
+                            <Label Text="Панель" FontSize="13" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
                 </Grid>
 
-                <Frame x:Name="DriverInfoBanner" BackgroundColor="#EBF4FF" CornerRadius="12"
-                       HasShadow="False" Padding="14" IsVisible="False">
+                <Frame x:Name="DriverInfoBanner" Style="{StaticResource InfoFrameStyle}" Padding="14" IsVisible="False">
                     <Grid ColumnDefinitions="Auto,*">
                         <Label Grid.Column="0" Text="ℹ️" FontSize="18" VerticalOptions="Center" Margin="0,0,10,0" />
                         <Label Grid.Column="1" Text="Ви увійшли як Водій. Доступні: заправки, поїздки, документи, нотатки."
-                               FontSize="13" TextColor="#0071E3" LineBreakMode="WordWrap" />
+                               FontSize="13" TextColor="{StaticResource PrimaryAction}" LineBreakMode="WordWrap" />
                     </Grid>
                 </Frame>
 
-                <Label Text="Останній автомобіль" FontSize="17" FontAttributes="Bold"
-                       TextColor="#1D1D1F" Margin="4,8,0,4" />
+                <Label Text="Останній автомобіль" Style="{StaticResource SectionHeaderStyle}" />
 
-                <Frame BackgroundColor="White" CornerRadius="16"
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="16"
                        HasShadow="False" Padding="16" IsVisible="{Binding HasLastVehicle}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnLastVehicleTapped" />
@@ -105,21 +102,21 @@
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Grid.Column="0" Spacing="4">
                             <Label Text="{Binding LastVehicleName}" FontSize="16"
-                                   FontAttributes="Bold" TextColor="#1D1D1F" />
-                            <Label Text="{Binding LastVehiclePlate}" FontSize="14" TextColor="#6E6E73" />
-                            <Label Text="{Binding LastVehicleMileage}" FontSize="13" TextColor="#0071E3" />
+                                   FontAttributes="Bold" TextColor="{StaticResource LabelPrimary}" />
+                            <Label Text="{Binding LastVehiclePlate}" FontSize="14" TextColor="{StaticResource LabelSecondary}" />
+                            <Label Text="{Binding LastVehicleMileage}" FontSize="13" TextColor="{StaticResource PrimaryAction}" />
                         </VerticalStackLayout>
-                        <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                        <Label Grid.Column="1" Text="›" FontSize="22" TextColor="{StaticResource LabelTertiary}"
                                VerticalOptions="Center" />
                     </Grid>
                 </Frame>
 
-                <Frame BackgroundColor="White" CornerRadius="16"
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="16"
                        HasShadow="False" Padding="16" IsVisible="{Binding HasNoVehicles}">
                     <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label Text="Немає автомобілів" FontSize="15" TextColor="#6E6E73"
+                        <Label Text="Немає автомобілів" FontSize="15" TextColor="{StaticResource LabelSecondary}"
                                HorizontalOptions="Center" />
-                        <Button x:Name="AddVehicleButton" Text="+ Додати автомобіль" BackgroundColor="#0071E3" TextColor="White"
+                        <Button x:Name="AddVehicleButton" Text="+ Додати автомобіль" BackgroundColor="{StaticResource PrimaryAction}" TextColor="{StaticResource White}"
                                 CornerRadius="10" HeightRequest="40" FontSize="14" Clicked="OnAddVehicleClicked" />
                     </VerticalStackLayout>
                 </Frame>
@@ -127,35 +124,35 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <Frame Grid.Row="3" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="0,8">
+        <Frame Grid.Row="3" BackgroundColor="{StaticResource White}" CornerRadius="0" HasShadow="True" Padding="0,8">
             <Grid ColumnDefinitions="*,*,*,*" Padding="0">
                 <VerticalStackLayout Grid.Column="0">
                     <VerticalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnVehiclesClicked" />
                     </VerticalStackLayout.GestureRecognizers>
                     <Label Text="🚗" FontSize="22" HorizontalOptions="Center" />
-                    <Label Text="Авто" FontSize="11" TextColor="#0071E3" HorizontalOptions="Center" />
+                    <Label Text="Авто" FontSize="11" TextColor="{StaticResource PrimaryAction}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1">
                     <VerticalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFuelClicked" />
                     </VerticalStackLayout.GestureRecognizers>
                     <Label Text="⛽" FontSize="22" HorizontalOptions="Center" />
-                    <Label Text="Паливо" FontSize="11" TextColor="#6E6E73" HorizontalOptions="Center" />
+                    <Label Text="Паливо" FontSize="11" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
                 <VerticalStackLayout x:Name="ExpensesTab" Grid.Column="2">
                     <VerticalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnExpensesClicked" />
                     </VerticalStackLayout.GestureRecognizers>
                     <Label Text="💰" FontSize="22" HorizontalOptions="Center" />
-                    <Label Text="Витрати" FontSize="11" TextColor="#6E6E73" HorizontalOptions="Center" />
+                    <Label Text="Витрати" FontSize="11" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="3">
                     <VerticalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnProfileClicked" />
                     </VerticalStackLayout.GestureRecognizers>
                     <Label Text="👤" FontSize="22" HorizontalOptions="Center" />
-                    <Label Text="Профіль" FontSize="11" TextColor="#6E6E73" HorizontalOptions="Center" />
+                    <Label Text="Профіль" FontSize="11" TextColor="{StaticResource LabelSecondary}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
             </Grid>
         </Frame>

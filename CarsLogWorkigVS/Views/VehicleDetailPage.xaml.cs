@@ -34,8 +34,8 @@ namespace CarsLogWorkigVS.Views
                 ? $"{expired.Count} компонент(и) потребують заміни"
                 : "Всі компоненти в порядку";
             ExpiredComponentsLabel.TextColor = expired.Count > 0
-                ? Microsoft.Maui.Graphics.Color.FromArgb("#FF3B30")
-                : Microsoft.Maui.Graphics.Color.FromArgb("#34C759");
+                ? (Color)Application.Current.Resources["Alert"]
+                : (Color)Application.Current.Resources["Success"];
         }
 
         private async void OnBackClicked(object sender, EventArgs e) =>

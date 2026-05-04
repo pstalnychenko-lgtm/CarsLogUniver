@@ -3,62 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsLogWorkigVS.Views.AddDriverPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="{StaticResource SystemBackground}">
 
     <Grid RowDefinitions="Auto,*">
-        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+        <Frame Grid.Row="0" BackgroundColor="{StaticResource White}" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
             <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                <Button Grid.Column="0" Text="←" Style="{StaticResource HeaderButtonStyle}"
                         FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
                 <Label Grid.Column="1" Text="Новий водій" FontSize="22" FontAttributes="Bold"
-                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
-                <Button Grid.Column="2" Text="Зберегти" BackgroundColor="Transparent"
-                        TextColor="#0071E3" FontSize="15" Clicked="OnSaveClicked" />
+                       TextColor="{StaticResource LabelPrimary}" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Button Grid.Column="2" Text="Зберегти" Style="{StaticResource HeaderButtonStyle}" Clicked="OnSaveClicked" />
             </Grid>
         </Frame>
 
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="12" Padding="16">
 
-                <Label Text="Ім'я *" FontSize="13" TextColor="#6E6E73" Margin="4,8,0,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="FirstNameEntry" Placeholder="Ім'я"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Ім'я *" Style="{StaticResource FormLabelStyle}" Margin="4,8,0,0" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="FirstNameEntry" Placeholder="Ім'я" Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Прізвище *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="LastNameEntry" Placeholder="Прізвище"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Прізвище *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="LastNameEntry" Placeholder="Прізвище" Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Телефон *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="PhoneEntry" Placeholder="+380..." Keyboard="Telephone"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Телефон *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="PhoneEntry" Placeholder="+380..." Keyboard="Telephone" Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Номер посвідчення водія *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="LicenseEntry" Placeholder="DRV-1234567"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Номер посвідчення водія *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="LicenseEntry" Placeholder="DRV-1234567" Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Орган видачі посвідчення *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="IssuedByEntry" Placeholder="ТСЦ №..."
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Орган видачі посвідчення *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="IssuedByEntry" Placeholder="ТСЦ №..." Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Дата закінчення посвідчення *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
-                    <DatePicker x:Name="ExpiryDatePicker" Format="dd.MM.yyyy" FontSize="16"
-                                TextColor="#1D1D1F" />
+                <Label Text="Дата закінчення посвідчення *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <DatePicker x:Name="ExpiryDatePicker" Format="dd.MM.yyyy" Style="{StaticResource FormDatePickerStyle}" />
                 </Frame>
 
-                <Label Text="Група крові" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
-                    <Picker x:Name="BloodTypePicker" FontSize="16" TextColor="#1D1D1F">
+                <Label Text="Група крові" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <Picker x:Name="BloodTypePicker" Style="{StaticResource FormPickerStyle}">
                         <Picker.Items>
                             <x:String>A+</x:String>
                             <x:String>A-</x:String>
@@ -74,16 +67,13 @@
 
                 <Grid ColumnDefinitions="*,Auto" Margin="4,4">
                     <Label Grid.Column="0" Text="Наявність медичної довідки"
-                           FontSize="15" TextColor="#1D1D1F" VerticalOptions="Center" />
+                           FontSize="15" TextColor="{StaticResource LabelPrimary}" VerticalOptions="Center" />
                     <Switch x:Name="MedCertSwitch" Grid.Column="1" IsToggled="True" />
                 </Grid>
 
-                <Label x:Name="ErrorLabel" TextColor="#FF3B30" FontSize="13"
-                       HorizontalOptions="Center" IsVisible="False" />
+                <Label x:Name="ErrorLabel" Style="{StaticResource ErrorLabelStyle}" IsVisible="False" />
 
-                <Button Text="Додати водія" BackgroundColor="#0071E3" TextColor="White"
-                        FontAttributes="Bold" FontSize="17" CornerRadius="12"
-                        HeightRequest="52" Margin="0,8,0,24" Clicked="OnSaveClicked" />
+                <Button Text="Додати водія" Style="{StaticResource PrimaryButtonStyle}" Clicked="OnSaveClicked" />
 
             </VerticalStackLayout>
         </ScrollView>

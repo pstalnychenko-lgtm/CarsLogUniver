@@ -3,38 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsLogWorkigVS.Views.AddFuelEntryPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="{StaticResource SystemBackground}">
 
     <Grid RowDefinitions="Auto,*">
-        <Frame Grid.Row="0" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
+        <Frame Grid.Row="0" BackgroundColor="{StaticResource White}" CornerRadius="0" HasShadow="True" Padding="15,25,15,15">
             <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                <Button Grid.Column="0" Text="←" Style="{StaticResource HeaderButtonStyle}"
                         FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
                 <Label Grid.Column="1" Text="Нова заправка" FontSize="22" FontAttributes="Bold"
-                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
-                <Button Grid.Column="2" Text="Зберегти" BackgroundColor="Transparent"
-                        TextColor="#0071E3" FontSize="15" Clicked="OnSaveClicked" />
+                       TextColor="{StaticResource LabelPrimary}" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Button Grid.Column="2" Text="Зберегти" Style="{StaticResource HeaderButtonStyle}" Clicked="OnSaveClicked" />
             </Grid>
         </Frame>
 
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="12" Padding="16">
 
-                <Label Text="Назва АЗС *" FontSize="13" TextColor="#6E6E73" Margin="4,8,0,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="StationNameEntry" Placeholder="OKKO, WOG, Shell..."
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Назва АЗС *" Style="{StaticResource FormLabelStyle}" Margin="4,8,0,0" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="StationNameEntry" Placeholder="OKKO, WOG, Shell..." Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Адреса АЗС" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="StationAddressEntry" Placeholder="вул. ..."
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Адреса АЗС" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="StationAddressEntry" Placeholder="вул. ..." Style="{StaticResource FormEntryStyle}" />
                 </Frame>
 
-                <Label Text="Тип палива" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="8,0">
-                    <Picker x:Name="FuelPicker" FontSize="16" TextColor="#1D1D1F">
+                <Label Text="Тип палива" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="8,0">
+                    <Picker x:Name="FuelPicker" Style="{StaticResource FormPickerStyle}">
                         <Picker.Items>
                             <x:String>Бензин</x:String>
                             <x:String>Дизель</x:String>
@@ -44,36 +41,31 @@
                     </Picker>
                 </Frame>
 
-                <Label Text="Кількість літрів *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="LitersEntry" Placeholder="40.5" Keyboard="Numeric"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC"
+                <Label Text="Кількість літрів *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="LitersEntry" Placeholder="40.5" Keyboard="Numeric" Style="{StaticResource FormEntryStyle}"
                            TextChanged="OnAmountChanged" />
                 </Frame>
 
-                <Label Text="Ціна за літр (грн) *" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Frame BackgroundColor="White" CornerRadius="12" HasShadow="False" Padding="16,4">
-                    <Entry x:Name="PriceEntry" Placeholder="58.50" Keyboard="Numeric"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC"
+                <Label Text="Ціна за літр (грн) *" Style="{StaticResource FormLabelStyle}" />
+                <Frame BackgroundColor="{StaticResource White}" CornerRadius="12" HasShadow="False" Padding="16,4">
+                    <Entry x:Name="PriceEntry" Placeholder="58.50" Keyboard="Numeric" Style="{StaticResource FormEntryStyle}"
                            TextChanged="OnAmountChanged" />
                 </Frame>
 
-                <Frame BackgroundColor="#EBF4FF" CornerRadius="12" HasShadow="False" Padding="16,12">
+                <Frame Style="{StaticResource InfoFrameStyle}">
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Загальна вартість:" FontSize="15" TextColor="#1D1D1F"
+                        <Label Text="Загальна вартість:" FontSize="15" TextColor="{StaticResource LabelPrimary}"
                                VerticalOptions="Center" />
                         <Label x:Name="TotalLabel" Text="0.00 грн" FontSize="18"
-                               FontAttributes="Bold" TextColor="#0071E3"
+                               FontAttributes="Bold" TextColor="{StaticResource PrimaryAction}"
                                Grid.Column="1" VerticalOptions="Center" />
                     </Grid>
                 </Frame>
 
-                <Label x:Name="ErrorLabel" TextColor="#FF3B30" FontSize="13"
-                       HorizontalOptions="Center" IsVisible="False" />
+                <Label x:Name="ErrorLabel" Style="{StaticResource ErrorLabelStyle}" IsVisible="False" />
 
-                <Button Text="Зберегти заправку" BackgroundColor="#0071E3" TextColor="White"
-                        FontAttributes="Bold" FontSize="17" CornerRadius="12"
-                        HeightRequest="52" Margin="0,8,0,24" Clicked="OnSaveClicked" />
+                <Button Text="Зберегти заправку" Style="{StaticResource PrimaryButtonStyle}" Clicked="OnSaveClicked" />
 
             </VerticalStackLayout>
         </ScrollView>

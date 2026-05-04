@@ -27,6 +27,22 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
+    <!-- Project Specific Colors -->
+    <Color x:Key="SystemBackground">#F5F5F7</Color>
+    <Color x:Key="PrimaryAction">#0071E3</Color>
+    <Color x:Key="Success">#34C759</Color>
+    <Color x:Key="Alert">#FF3B30</Color>
+    <Color x:Key="LabelPrimary">#1D1D1F</Color>
+    <Color x:Key="LabelSecondary">#6E6E73</Color>
+    <Color x:Key="LabelTertiary">#C7C7CC</Color>
+    <Color x:Key="LabelQuaternary">#8E8E93</Color>
+    <Color x:Key="Separator">#F2F2F7</Color>
+    <Color x:Key="InfoBackground">#EBF4FF</Color>
+    <Color x:Key="WarningBackground">#FFF1F0</Color>
+    <Color x:Key="AdminColor">#FF9500</Color>
+    <Color x:Key="PlaceholderColor">#C7C7CC</Color>
+    <Color x:Key="OnPrimaryText">#BFD9F7</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
@@ -41,4 +57,8 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+    <SolidColorBrush x:Key="PrimaryActionBrush" Color="{StaticResource PrimaryAction}"/>
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource Success}"/>
+    <SolidColorBrush x:Key="AlertBrush" Color="{StaticResource Alert}"/>
 </ResourceDictionary>

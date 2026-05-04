@@ -81,6 +81,8 @@ namespace CarsLogWorkigVS.Database
         public long MileageAtService { get; set; }
     }
 
+
+
     [Table("TripLogs")]
     public class TripLogEntity
     {

@@ -17,7 +17,6 @@ namespace CarsLogWorkig.ViewModels
         public bool IsAdmin => CurrentUser is Admin;
         public bool IsSuperAdmin => CurrentUser is SuperAdmin;
 
-        // RBAC: дозволи за роллю
         public bool CanManageVehicles => IsOwner || IsAdmin || IsSuperAdmin;
         public bool CanAddFuelAndTrips => IsOwner || IsDriver;
         public bool CanViewReports => IsOwner || IsAdmin || IsSuperAdmin;

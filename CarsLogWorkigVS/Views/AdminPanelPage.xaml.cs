@@ -139,8 +139,8 @@ namespace CarsLogWorkigVS.Views
         {
             ResultLabel.Text = msg;
             ResultLabel.TextColor = isError
-                ? Microsoft.Maui.Graphics.Color.FromArgb("#FF3B30")
-                : Microsoft.Maui.Graphics.Color.FromArgb("#34C759"); 
+                ? (Color)Application.Current.Resources["Alert"]
+                : (Color)Application.Current.Resources["Success"]; 
             ResultLabel.IsVisible = true;
         }
 

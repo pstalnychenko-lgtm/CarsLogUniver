@@ -3,85 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsLogWorkigVS.Views.ProfilePage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="{StaticResource SystemBackground}">
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="#FF9500" Padding="15,40,15,10" IsVisible="False">
+        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="{StaticResource AdminColor}" Padding="15,40,15,10" IsVisible="False">
             <Grid ColumnDefinitions="*,Auto">
-                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" />
-                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="White" TextColor="#FF9500" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
+                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="{StaticResource White}" FontAttributes="Bold" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="{StaticResource White}" TextColor="{StaticResource AdminColor}" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
             </Grid>
         </Grid>
 
-        <Border Grid.Row="1" BackgroundColor="White" StrokeThickness="0" Padding="15,25,15,15">
+        <Border Grid.Row="1" BackgroundColor="{StaticResource White}" StrokeThickness="0" Padding="15,25,15,15">
             <Border.Shadow>
                 <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1" />
             </Border.Shadow>
             <Grid ColumnDefinitions="Auto,*">
-                <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
+                <Button Grid.Column="0" Text="←" Style="{StaticResource HeaderButtonStyle}"
                         FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
                 <Label Grid.Column="1" Text="Профіль" FontSize="22" FontAttributes="Bold"
-                       TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" Margin="-44,0,0,0" />
+                       TextColor="{StaticResource LabelPrimary}" VerticalOptions="Center" HorizontalOptions="Center" Margin="-44,0,0,0" />
             </Grid>
         </Border>
 
         <ScrollView Grid.Row="2">
             <VerticalStackLayout Spacing="20" Padding="20">
 
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
+                <Border BackgroundColor="{StaticResource White}" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
                     <VerticalStackLayout Spacing="10">
-                        <Label x:Name="FullNameLabel" FontSize="24" FontAttributes="Bold" TextColor="#1D1D1F" HorizontalOptions="Center" />
-                        <Label x:Name="RoleLabel" FontSize="16" TextColor="#0071E3" HorizontalOptions="Center" />
+                        <Label x:Name="FullNameLabel" FontSize="24" FontAttributes="Bold" TextColor="{StaticResource LabelPrimary}" HorizontalOptions="Center" />
+                        <Label x:Name="RoleLabel" FontSize="16" TextColor="{StaticResource PrimaryAction}" HorizontalOptions="Center" />
                         
-                        <BoxView HeightRequest="1" Color="#E5E5E5" Margin="0,10" />
+                        <BoxView HeightRequest="1" Color="{StaticResource Separator}" Margin="0,10" />
                         
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="15">
-                            <Label Grid.Row="0" Grid.Column="0" Text="Email:" TextColor="#8E8E93" />
-                            <Label Grid.Row="0" Grid.Column="1" x:Name="EmailLabel" TextColor="#1D1D1F" />
+                            <Label Grid.Row="0" Grid.Column="0" Text="Email:" TextColor="{StaticResource LabelSecondary}" />
+                            <Label Grid.Row="0" Grid.Column="1" x:Name="EmailLabel" TextColor="{StaticResource LabelPrimary}" />
                             
-                            <Label Grid.Row="1" Grid.Column="0" Text="Тел:" TextColor="#8E8E93" />
-                            <Label Grid.Row="1" Grid.Column="1" x:Name="PhoneLabel" TextColor="#1D1D1F" />
+                            <Label Grid.Row="1" Grid.Column="0" Text="Тел:" TextColor="{StaticResource LabelSecondary}" />
+                            <Label Grid.Row="1" Grid.Column="1" x:Name="PhoneLabel" TextColor="{StaticResource LabelPrimary}" />
                             
-                            <Label Grid.Row="2" Grid.Column="0" Text="Реєстрація:" TextColor="#8E8E93" />
-                            <Label Grid.Row="2" Grid.Column="1" x:Name="RegDateLabel" TextColor="#1D1D1F" />
+                            <Label Grid.Row="2" Grid.Column="0" Text="Реєстрація:" TextColor="{StaticResource LabelSecondary}" />
+                            <Label Grid.Row="2" Grid.Column="1" x:Name="RegDateLabel" TextColor="{StaticResource LabelPrimary}" />
                             
-                            <Label Grid.Row="3" Grid.Column="0" Text="Статус:" TextColor="#8E8E93" />
-                            <Label Grid.Row="3" Grid.Column="1" x:Name="StatusLabel" TextColor="#1D1D1F" />
+                            <Label Grid.Row="3" Grid.Column="0" Text="Статус:" TextColor="{StaticResource LabelSecondary}" />
+                            <Label Grid.Row="3" Grid.Column="1" x:Name="StatusLabel" TextColor="{StaticResource LabelPrimary}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border x:Name="OwnerInfoFrame" IsVisible="False" BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
+                <Border x:Name="OwnerInfoFrame" IsVisible="False" BackgroundColor="{StaticResource White}" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
                     <VerticalStackLayout Spacing="10">
-                        <Label Text="Інформація власника" FontAttributes="Bold" FontSize="18" />
-                        <Label Text="Адреса:" TextColor="#8E8E93" />
-                        <Label x:Name="AddressLabel" />
-                        <Label Text="Кількість авто:" TextColor="#8E8E93" />
-                        <Label x:Name="VehicleCountLabel" />
+                        <Label Text="Інформація власника" FontAttributes="Bold" FontSize="18" TextColor="{StaticResource LabelPrimary}" />
+                        <Label Text="Адреса:" TextColor="{StaticResource LabelSecondary}" />
+                        <Label x:Name="AddressLabel" TextColor="{StaticResource LabelPrimary}" />
+                        <Label Text="Кількість авто:" TextColor="{StaticResource LabelSecondary}" />
+                        <Label x:Name="VehicleCountLabel" TextColor="{StaticResource LabelPrimary}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border x:Name="DriverInfoFrame" IsVisible="False" BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
+                <Border x:Name="DriverInfoFrame" IsVisible="False" BackgroundColor="{StaticResource White}" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">
                     <VerticalStackLayout Spacing="10">
-                        <Label Text="Інформація водія" FontAttributes="Bold" FontSize="18" />
-                        <Label Text="Посвідчення:" TextColor="#8E8E93" />
-                        <Label x:Name="LicenseLabel" />
-                        <Label Text="Дійсне до:" TextColor="#8E8E93" />
-                        <Label x:Name="LicenseExpiryLabel" />
-                        <Label Text="Група крові:" TextColor="#8E8E93" />
-                        <Label x:Name="BloodTypeLabel" />
+                        <Label Text="Інформація водія" FontAttributes="Bold" FontSize="18" TextColor="{StaticResource LabelPrimary}" />
+                        <Label Text="Посвідчення:" TextColor="{StaticResource LabelSecondary}" />
+                        <Label x:Name="LicenseLabel" TextColor="{StaticResource LabelPrimary}" />
+                        <Label Text="Дійсне до:" TextColor="{StaticResource LabelSecondary}" />
+                        <Label x:Name="LicenseExpiryLabel" TextColor="{StaticResource LabelPrimary}" />
+                        <Label Text="Група крові:" TextColor="{StaticResource LabelSecondary}" />
+                        <Label x:Name="BloodTypeLabel" TextColor="{StaticResource LabelPrimary}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border BackgroundColor="#FDF2F2" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="15">
+                <Border BackgroundColor="{StaticResource WarningBackground}" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="15">
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="Історія переходів (останні 3)" FontAttributes="Bold" TextColor="#1D1D1F" />
-                        <Label x:Name="HistoryLabel" FontSize="12" TextColor="#6E6E73" LineBreakMode="WordWrap" />
+                        <Label Text="Історія переходів (останні 3)" FontAttributes="Bold" TextColor="{StaticResource LabelPrimary}" />
+                        <Label x:Name="HistoryLabel" FontSize="12" TextColor="{StaticResource LabelSecondary}" LineBreakMode="WordWrap" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Button Text="Вийти" Clicked="OnLogoutClicked" BackgroundColor="#FF3B30" TextColor="White" 
+                <Button Text="Вийти" Clicked="OnLogoutClicked" BackgroundColor="{StaticResource Alert}" TextColor="{StaticResource White}" 
                         CornerRadius="12" HeightRequest="50" FontAttributes="Bold" />
 
             </VerticalStackLayout>
