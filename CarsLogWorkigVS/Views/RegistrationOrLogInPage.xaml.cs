@@ -19,7 +19,7 @@ namespace CarsLogWorkigVS.Views
 
         private async void OnGuestClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DashboardPage)); 
+            await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}"); 
         }
     }
 }

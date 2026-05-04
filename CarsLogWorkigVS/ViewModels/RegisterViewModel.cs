@@ -47,6 +47,22 @@ namespace CarsLogWorkigVS.ViewModels
         private int _roleIndex;
         public int RoleIndex { get => _roleIndex; set => SetProperty(ref _roleIndex, value); }
 
+        private int _genderIndex = 2;
+        public int GenderIndex { get => _genderIndex; set => SetProperty(ref _genderIndex, value); }
+
+        private int _bloodTypeIndex = -1;
+        public int BloodTypeIndex { get => _bloodTypeIndex; set => SetProperty(ref _bloodTypeIndex, value); }
+
+        public string[] Genders => new[] { "Чоловіча", "Жіноча", "Інше/Не вказувати" };
+        
+        public string[] BloodTypes => new[] 
+        { 
+            "I(0) Rh+", "I(0) Rh-", 
+            "II(A) Rh+", "II(A) Rh-", 
+            "III(B) Rh+", "III(B) Rh-", 
+            "IV(AB) Rh+", "IV(AB) Rh-" 
+        };
+
         private string _secretCode = string.Empty;
         public string SecretCode { get => _secretCode; set => SetProperty(ref _secretCode, value); }
 
@@ -64,6 +80,22 @@ namespace CarsLogWorkigVS.ViewModels
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
 
         public ICommand RegisterCommand { get; }
+
+        private BloodType GetSelectedBloodType()
+        {
+            return BloodTypeIndex switch
+            {
+                0 => BloodType.O_Positive,
+                1 => BloodType.O_Negative,
+                2 => BloodType.A_Positive,
+                3 => BloodType.A_Negative,
+                4 => BloodType.B_Positive,
+                5 => BloodType.B_Negative,
+                6 => BloodType.AB_Positive,
+                7 => BloodType.AB_Negative,
+                _ => BloodType.O_Positive
+            };
+        }
 
         private async Task ExecuteRegister()
         {
@@ -113,12 +145,15 @@ namespace CarsLogWorkigVS.ViewModels
                 }
 
                 User newUser;
+                
+                string[] adminKeys = { "ADM123", "ADMIN_KEY", "ROOT_ACCESS" };
+                string[] superAdminKeys = { "SUP_ADM", "S_ADMIN_99", "GOD_MODE" };
 
-                if (SecretCode == "ADMIN123")
+                if (adminKeys.Contains(SecretCode))
                 {
                     newUser = new Admin(FirstName, LastName);
                 }
-                else if (SecretCode == "SUPER999")
+                else if (superAdminKeys.Contains(SecretCode))
                 {
                     newUser = new SuperAdmin(FirstName, LastName);
                 }
@@ -128,8 +163,11 @@ namespace CarsLogWorkigVS.ViewModels
                 }
                 else
                 {
-                    newUser = new Driver(FirstName, LastName, Phone, "DRV-0000", "ТСЦ", DateTime.Now.AddYears(3), true, BloodType.A_Positive);
+                    newUser = new Driver(FirstName, LastName, Phone, "DRV-0000", "ТСЦ", DateTime.Now.AddYears(3), true, GetSelectedBloodType());
                 }
+
+                UserSex selectedSex = GenderIndex switch { 0 => UserSex.Male, 1 => UserSex.Female, _ => UserSex.Other };
+                newUser.ChangeSex(selectedSex);
 
                 try { newUser.ChangeLogin(Login); } catch { }
                 try { if (!string.IsNullOrWhiteSpace(Email)) newUser.ChangeEmail(Email); } catch { }
@@ -137,7 +175,7 @@ namespace CarsLogWorkigVS.ViewModels
 
                 await _db.SaveUserWithPasswordAsync(newUser, Password);
                 _appState.CurrentUser = newUser;
-                await Shell.Current.GoToAsync($"{nameof(DashboardPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
             }
             catch (Exception ex)
             {

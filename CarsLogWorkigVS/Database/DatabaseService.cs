@@ -482,10 +482,12 @@ namespace CarsLogWorkigVS.Database
             else if (user is SuperAdmin)
             {
                 entity.UserType = "SuperAdmin";
+                entity.Role = (int)UserRole.SuperAdmin;
             }
             else if (user is Admin)
             {
                 entity.UserType = "Admin";
+                entity.Role = (int)UserRole.Admin;
             }
 
             return entity;

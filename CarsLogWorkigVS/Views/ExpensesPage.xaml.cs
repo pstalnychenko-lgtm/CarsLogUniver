@@ -21,6 +21,12 @@ namespace CarsLogWorkigVS.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (!_appState.CanViewExpenses)
+            {
+                await DisplayAlert("Доступ заборонено", "Витрати доступні лише для Власника та Адміна.", "OK");
+                await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
+                return;
+            }
             var v = _appState.SelectedVehicle;
             if (v == null) { ExpensesCollection.ItemsSource = new List<Expense>(); TotalLabel.Text = "0,00 грн"; return; }
 

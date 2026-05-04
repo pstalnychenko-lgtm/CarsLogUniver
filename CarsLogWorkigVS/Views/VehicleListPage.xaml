@@ -13,7 +13,7 @@
                         FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
                 <Label Grid.Column="1" Text="Мої автомобілі" FontSize="22" FontAttributes="Bold"
                        TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" />
-                <Button Grid.Column="2" Text="+" BackgroundColor="Transparent" TextColor="#0071E3"
+                <Button Grid.Column="2" x:Name="AddButton" Text="+" BackgroundColor="Transparent" TextColor="#0071E3"
                         FontSize="26" WidthRequest="44" Clicked="OnAddClicked" />
             </Grid>
         </Frame>

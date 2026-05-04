@@ -17,7 +17,9 @@ namespace CarsLogWorkigVS.Views
         protected override void OnAppearing()
         {
             base.OnAppearing(); 
-            var user = _appState.CurrentUser;
+            var user = _appState.ViewingUser ?? _appState.CurrentUser;
+            _appState.ViewingUser = null;
+            ViewingModeBanner.IsVisible = _appState.IsViewingAsOther;
             
             if (App.NavigationService != null)
             {
@@ -67,5 +69,13 @@ namespace CarsLogWorkigVS.Views
 
         private async void OnBackClicked(object sender, EventArgs e) =>
             await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));
+
+        private void OnReturnToAdminClicked(object sender, EventArgs e)
+        {
+            if (Shell.Current is AppShell shell)
+            {
+                shell.OnReturnToAdminClicked(sender, e);
+            }
+        }
     }
 }

@@ -5,9 +5,16 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="#F5F5F7">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,Auto,*">
 
-        <Border Grid.Row="0" BackgroundColor="White" StrokeThickness="0" Padding="15,25,15,15">
+        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="#FF9500" Padding="15,40,15,10" IsVisible="False">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="White" TextColor="#FF9500" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="1" BackgroundColor="White" StrokeThickness="0" Padding="15,25,15,15">
             <Border.Shadow>
                 <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1" />
             </Border.Shadow>
@@ -19,7 +26,7 @@
             </Grid>
         </Border>
 
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout Spacing="20" Padding="20">
 
                 <Border BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="20">

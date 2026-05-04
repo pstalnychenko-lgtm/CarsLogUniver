@@ -7,7 +7,7 @@ namespace CarsLogWorkigVS.Services
     public class NavigationService
     {
         private readonly List<string> _history = new List<string>();
-        private const int MaxHistory = 3;
+        private const int MaxHistory = 5;
 
         public NavigationService()
         {
@@ -31,7 +31,7 @@ namespace CarsLogWorkigVS.Services
             if (_history.LastOrDefault() == route) return;
 
             _history.Add(route);
-            if (_history.Count > MaxHistory + 1)
+            if (_history.Count > MaxHistory)
             {
                 _history.RemoveAt(0);
             }
@@ -40,17 +40,7 @@ namespace CarsLogWorkigVS.Services
         public async Task GoBackAsync()
         {
             if (Shell.Current == null) return;
-
-            if (_history.Count > 1)
-            {
-                _history.RemoveAt(_history.Count - 1);
-                var previousRoute = _history.Last();
-                await Shell.Current.GoToAsync(previousRoute);
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("..");
-            }
+            await Shell.Current.GoToAsync("..");
         }
 
         public List<string> GetHistory() => _history.ToList();

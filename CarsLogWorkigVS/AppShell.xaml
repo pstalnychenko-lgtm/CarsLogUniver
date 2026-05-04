@@ -7,9 +7,28 @@
     Shell.NavBarIsVisible="False"
     Title="CarsLog">
 
-    <ShellContent
-        Route="RegistrationOrLogInPage"
-        ContentTemplate="{DataTemplate views:RegistrationOrLogInPage}"
-        Shell.NavBarIsVisible="False" />
+    <Shell.FlyoutHeader>
+        <Grid x:Name="AdminBanner" BackgroundColor="#FF9500" Padding="15,45,15,15" IsVisible="False">
+            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" FontSize="16" />
+                <Label Text="Ви переглядаєте систему як інший користувач" TextColor="White" FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                <Button Text="Повернутись в Адмін" Clicked="OnReturnToAdminClicked" BackgroundColor="White" TextColor="#FF9500" FontAttributes="Bold" HeightRequest="40" Padding="15,0" CornerRadius="8" Margin="0,5,0,0" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Route="auth" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Route="RegistrationOrLogInPage"
+            ContentTemplate="{DataTemplate views:RegistrationOrLogInPage}"
+            Shell.NavBarIsVisible="False" />
+    </FlyoutItem>
+
+    <FlyoutItem Route="main" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Route="DashboardPage"
+            ContentTemplate="{DataTemplate views:DashboardPage}"
+            Shell.NavBarIsVisible="False" />
+    </FlyoutItem>
 
 </Shell>

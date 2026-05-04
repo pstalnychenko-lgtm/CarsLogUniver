@@ -124,6 +124,20 @@
                                        VerticalOptions="Center" />
                             </Grid>
 
+                            <BoxView HeightRequest="1" Color="#F2F2F7" Margin="16,0" />
+
+                            <Grid Padding="16,14" ColumnDefinitions="*,Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnViewUserProfileTapped" />
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Переглянути профіль" FontSize="15" TextColor="#1D1D1F" />
+                                    <Label Text="Перегляд профілю іншого користувача" FontSize="12" TextColor="#6E6E73" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#C7C7CC"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
                         </VerticalStackLayout>
                     </Frame>
 

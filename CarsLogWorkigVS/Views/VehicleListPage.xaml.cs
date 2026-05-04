@@ -24,6 +24,14 @@ namespace CarsLogWorkigVS.Views
         {
             base.OnAppearing();
             await _vm.LoadVehiclesAsync();
+            ApplyRbac();
+        }
+
+        private void ApplyRbac()
+        {
+            var addButton = this.FindByName<Button>("AddButton");
+            if (addButton != null)
+                addButton.IsVisible = _appState.CanManageVehicles;
         }
 
         private async void OnVehicleSelected(object sender, SelectionChangedEventArgs e)
@@ -36,8 +44,15 @@ namespace CarsLogWorkigVS.Views
             }
         }
 
-        private async void OnAddClicked(object sender, EventArgs e) =>
+        private async void OnAddClicked(object sender, EventArgs e)
+        {
+            if (!_appState.CanManageVehicles)
+            {
+                await DisplayAlert("Доступ заборонено", "Додавання авто доступне лише для Власника та Адміна.", "OK");
+                return;
+            }
             await Shell.Current.GoToAsync(nameof(AddVehiclePage));
+        }
 
         private async void OnBackClicked(object sender, EventArgs e) =>
             await (App.NavigationService?.GoBackAsync() ?? Shell.Current.GoToAsync(".."));

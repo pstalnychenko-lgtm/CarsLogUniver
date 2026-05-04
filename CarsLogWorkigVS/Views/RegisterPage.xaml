@@ -16,71 +16,108 @@
             <Grid ColumnDefinitions="Auto,*">
                 <Button Grid.Column="0" Text="←" BackgroundColor="Transparent" TextColor="#0071E3"
                         FontSize="20" WidthRequest="44" Clicked="OnBackClicked" />
-                <Label Grid.Column="1" Text="Реєстрація" FontSize="22" FontAttributes="Bold"
+                <Label Grid.Column="1" Text="Створення профілю" FontSize="22" FontAttributes="Bold"
                        TextColor="#1D1D1F" VerticalOptions="Center" HorizontalOptions="Center" Margin="-44,0,0,0" />
             </Grid>
         </Border>
 
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="12" Padding="24">
+            <VerticalStackLayout Spacing="16" Padding="24">
+                
+                <Label Text="АвтоЖурнал" 
+                       FontSize="34" 
+                       FontFamily="OpenSans-Semibold"
+                       FontAttributes="Bold" 
+                       TextColor="#0071E3" 
+                       HorizontalOptions="Center" 
+                       Margin="0,10,0,10" />
 
-                <Label Text="Ім'я" FontSize="13" TextColor="#6E6E73" Margin="4,16,0,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding FirstName}" Placeholder="Ім'я" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Персональні дані" FontSize="18" FontAttributes="Bold" TextColor="#1D1D1F" Margin="0,10,0,0" />
+                <Border BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        
+                        <Label Text="Ім'я" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding FirstName}" Placeholder="Введіть ім'я" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+
+                        <Label Text="Прізвище" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding LastName}" Placeholder="Введіть прізвище" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+
+                        <Label Text="Стать" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="8,0">
+                            <Picker ItemsSource="{Binding Genders}" SelectedIndex="{Binding GenderIndex}" FontSize="16" TextColor="#1D1D1F" Title="Оберіть стать" />
+                        </Border>
+
+                        <Label Text="Логін" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding Login}" Placeholder="Створіть логін" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+
+                        <Label Text="Email" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding Email}" Placeholder="example@email.com" Keyboard="Email" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+
+                        <Label Text="Телефон" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding Phone}" Placeholder="+380..." Keyboard="Telephone" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+                    </VerticalStackLayout>
                 </Border>
 
-                <Label Text="Прізвище" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding LastName}" Placeholder="Прізвище" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Безпека" FontSize="18" FontAttributes="Bold" TextColor="#1D1D1F" Margin="0,10,0,0" />
+                <Border BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Пароль" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding Password}" Placeholder="Мін. 8 символів, велика літера, цифра" IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+
+                        <Label Text="Підтвердження паролю" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding ConfirmPassword}" Placeholder="Повторіть пароль" IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+                    </VerticalStackLayout>
                 </Border>
 
-                <Label Text="Логін" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding Login}" Placeholder="Логін" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                <Label Text="Професійна інформація" FontSize="18" FontAttributes="Bold" TextColor="#1D1D1F" Margin="0,10,0,0" />
+                <Border BackgroundColor="White" StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Роль" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="2" Stroke="#0071E3" Padding="8,0">
+                            <Picker SelectedIndex="{Binding RoleIndex}" FontSize="16" TextColor="#1D1D1F" Title="Оберіть вашу роль">
+                                <Picker.Items>
+                                    <x:String>Власник (Owner)</x:String>
+                                    <x:String>Водій (Driver)</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Border>
+
+                        <Label Text="Група крові (для водіїв)" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="8,0">
+                            <Picker ItemsSource="{Binding BloodTypes}" SelectedIndex="{Binding BloodTypeIndex}" FontSize="16" TextColor="#1D1D1F" Title="Оберіть групу крові" />
+                        </Border>
+
+                        <Label Text="Секретний код (для Адмінів)" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
+                        <Border BackgroundColor="#F5F5F7" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
+                            <Entry Text="{Binding SecretCode}" Placeholder="Лише для спеціальних ролей" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
+                        </Border>
+                    </VerticalStackLayout>
                 </Border>
 
-                <Label Text="Email" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding Email}" Placeholder="example@email.com" Keyboard="Email"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
-                </Border>
-
-                <Label Text="Телефон" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding Phone}" Placeholder="+380..." Keyboard="Telephone"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
-                </Border>
-
-                <Label Text="Пароль" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding Password}" Placeholder="Мін. 8 символів, велика літера, цифра"
-                           IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
-                </Border>
-
-                <Label Text="Підтвердження паролю" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding ConfirmPassword}" Placeholder="Повторіть пароль"
-                           IsPassword="True" FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
-                </Border>
-
-                <Label Text="Секретний код (для Адмінів)" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="16,4">
-                    <Entry Text="{Binding SecretCode}" Placeholder="Лише для спеціальних ролей"
-                           FontSize="16" TextColor="#1D1D1F" PlaceholderColor="#C7C7CC" />
-                </Border>
-
-                <Label Text="Роль" FontSize="13" TextColor="#6E6E73" Margin="4,0" />
-                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="8,0">
-                    <Picker SelectedIndex="{Binding RoleIndex}" FontSize="16" TextColor="#1D1D1F">
-                        <Picker.Items>
-                            <x:String>Власник (Owner)</x:String>
-                            <x:String>Водій (Driver)</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </Border>
-
-                <Label Text="{Binding ErrorMessage}" TextColor="#FF3B30" FontSize="13"
-                       HorizontalOptions="Center" IsVisible="{Binding HasError}" Margin="0,4" />
+                <Label Text="{Binding ErrorMessage}" TextColor="#FF3B30" FontSize="13" HorizontalOptions="Center" IsVisible="{Binding HasError}" Margin="0,4" />
 
                 <Button Text="Зареєструватися" Command="{Binding RegisterCommand}"
                         BackgroundColor="#0071E3" TextColor="White"

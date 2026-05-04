@@ -109,6 +109,32 @@ namespace CarsLogWorkigVS.Views
             ShowResult($"Права знято. Поточна роль: {mockAdmin.Role}"); 
         }
 
+        private async void OnViewUserProfileTapped(object sender, TappedEventArgs e)
+        {
+            if (_superAdmin == null) return;
+            string role = await DisplayActionSheet("Оберіть тип профілю", "Скасувати", null, "Профіль Водія (Driver)", "Профіль Власника (Owner)"); 
+            
+            User mockUserToView;
+            if (role == "Профіль Водія (Driver)")
+            {
+                mockUserToView = new Driver("Іван", "Іванов", "+380991234567", "BXI-123456", "МВС", DateTime.Now.AddYears(5), true, BloodType.AB_Positive);
+            }
+            else if (role == "Профіль Власника (Owner)")
+            {
+                mockUserToView = new Owner("Петро", "Петренко", "+380501234567", "м. Київ, вул. Хрещатик 1", DateTime.Now.AddYears(-2));
+                mockUserToView.ChangeRole(UserRole.Owner);
+            }
+            else
+            {
+                return;
+            }
+
+            _appState.RealUser = _appState.CurrentUser;
+            _appState.CurrentUser = mockUserToView;
+            
+            await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+        }
+
         private void ShowResult(string msg, bool isError = false)
         {
             ResultLabel.Text = msg;

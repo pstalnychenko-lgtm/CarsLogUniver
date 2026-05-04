@@ -23,7 +23,7 @@ namespace CarsLogWorkig.Models
             if (string.IsNullOrWhiteSpace(newLogin))
                 throw new ArgumentException("Логін не може бути порожнім."); 
             if (_login == newLogin.Trim())
-                throw new ArgumentException("Цей логін вже встановлено."); 
+                return; 
             _login = newLogin.Trim(); 
         }
 
@@ -35,7 +35,7 @@ namespace CarsLogWorkig.Models
             if (string.IsNullOrWhiteSpace(newAddress))
                 throw new ArgumentException("Адреса не може бути порожньою."); 
             if (_address == newAddress.Trim())
-                throw new ArgumentException("Ця адреса вже встановлена."); 
+                return; 
             _address = newAddress.Trim(); 
         }
 
@@ -54,7 +54,7 @@ namespace CarsLogWorkig.Models
             if (newFirstName.Trim().Length > 50)
                 throw new ArgumentException("Ім'я не може перевищувати 50 символів."); 
             if (_firstName == newFirstName.Trim())
-                throw new ArgumentException("Це ім'я вже встановлено."); 
+                return; 
             _firstName = newFirstName.Trim(); 
         }
 
@@ -65,7 +65,7 @@ namespace CarsLogWorkig.Models
             if (newLastName.Trim().Length > 50)
                 throw new ArgumentException("Прізвище не може перевищувати 50 символів."); 
             if (_lastName == newLastName.Trim())
-                throw new ArgumentException("Це прізвище вже встановлено."); 
+                return; 
             _lastName = newLastName.Trim(); 
         }
 
@@ -84,7 +84,7 @@ namespace CarsLogWorkig.Models
             if (string.IsNullOrWhiteSpace(newPhone))
                 throw new ArgumentException("Телефон не може бути порожнім."); 
             if (_phone == newPhone.Trim())
-                throw new ArgumentException("Цей телефон вже встановлено."); 
+                return; 
             SetPhone(newPhone); 
         }
 
@@ -102,7 +102,7 @@ namespace CarsLogWorkig.Models
             if (!value.Any(char.IsDigit))
                 throw new ArgumentException("Пароль має містити хоча б одну цифру."); 
             if (_password == value)
-                throw new ArgumentException("Новий пароль не може збігатися зі старим."); 
+                return; 
             if (value.All(char.IsLetter))
                 throw new ArgumentException("Пароль має містити хоча б одне число і спеціальний символ."); 
             if (value.All(char.IsDigit))
@@ -139,7 +139,7 @@ namespace CarsLogWorkig.Models
             if (!newEmail.Contains("@"))
                 throw new ArgumentException("Некоректний формат Email."); 
             if (_email == newEmail.Trim())
-                throw new ArgumentException("Цей Email вже встановлено."); 
+                return; 
             _email = newEmail.Trim(); 
         }
 
@@ -151,7 +151,7 @@ namespace CarsLogWorkig.Models
             if (newDate > DateTime.Now)
                 throw new ArgumentException("Дата народження не може бути в майбутньому."); 
             if (_dateOfBirth == newDate)
-                throw new ArgumentException("Ця дата народження вже встановлена."); 
+                return; 
             _dateOfBirth = newDate;
         }
 
@@ -165,7 +165,7 @@ namespace CarsLogWorkig.Models
         public void ChangeSex(UserSex newSex)
         {
             if (_currentSex == newSex)
-                throw new ArgumentException("Вказане значення вже встановлено."); 
+                return; 
             _currentSex = newSex;
         }
 
@@ -176,7 +176,7 @@ namespace CarsLogWorkig.Models
             if (!Enum.IsDefined(typeof(IsActiveUser), newStatus))
                 throw new ArgumentException("Недопустиме значення статусу."); 
             if (IsActive == newStatus)
-                throw new ArgumentException("Цей статус вже встановлено."); 
+                return; 
             IsActive = newStatus;
         }
 
@@ -188,7 +188,7 @@ namespace CarsLogWorkig.Models
             if (newDate > DateTime.UtcNow)
                 throw new ArgumentException("Дата останньої активності не може бути в майбутньому."); 
             if (DateOfLastActivity == newDate)
-                throw new ArgumentException("Ця дата вже встановлена."); 
+                return; 
             DateOfLastActivity = newDate;
         }
 
@@ -224,9 +224,9 @@ namespace CarsLogWorkig.Models
             $"[{Role}] {FullName} | Email: {_email} | Active: {IsActive}";
     }
 
-    public enum UserRole { Owner, Driver, Admin }
+    public enum UserRole { Owner, Driver, Admin, SuperAdmin }
 
-    public enum UserSex { Male, Female }
+    public enum UserSex { Male, Female, Other }
 
     public enum IsActiveUser
     {

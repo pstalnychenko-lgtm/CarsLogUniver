@@ -5,29 +5,35 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="#F5F5F7">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <Frame Grid.Row="0" BackgroundColor="#0071E3" CornerRadius="0" HasShadow="True" Padding="16,30,16,16">
+        <Grid x:Name="ViewingModeBanner" Grid.Row="0" BackgroundColor="#FF9500" Padding="15,40,15,10" IsVisible="False">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="⚠️ РЕЖИМ ПЕРЕГЛЯДУ" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Повернутись" Clicked="OnReturnToAdminClicked" BackgroundColor="White" TextColor="#FF9500" FontAttributes="Bold" HeightRequest="30" Padding="10,0" CornerRadius="5" FontSize="12" />
+            </Grid>
+        </Grid>
+
+        <Frame Grid.Row="1" BackgroundColor="#0071E3" CornerRadius="0" HasShadow="True" Padding="16,30,16,16">
             <Grid ColumnDefinitions="*,Auto">
                 <VerticalStackLayout Grid.Column="0">
                     <Label Text="{Binding Greeting}" FontSize="20"
                            FontAttributes="Bold" TextColor="White" />
-                    <Label Text="Ваші авто" FontSize="14" TextColor="#BFD9F7" />
+                    <Label x:Name="RoleBadgeLabel" Text="" FontSize="13" TextColor="#BFD9F7" />
                 </VerticalStackLayout>
                 <Button Grid.Column="1" Text="👤" BackgroundColor="Transparent"
                         FontSize="22" TextColor="White" WidthRequest="44" Clicked="OnProfileClicked" />
             </Grid>
         </Frame>
 
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout Spacing="12" Padding="16">
 
                 <Label Text="Швидкий доступ" FontSize="17" FontAttributes="Bold"
                        TextColor="#1D1D1F" Margin="4,8,0,4" />
 
-                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
-
-                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Frame Grid.Column="0" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnVehiclesClicked" />
                         </Frame.GestureRecognizers>
@@ -40,7 +46,7 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="1" x:Name="ReportTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnReportClicked" />
                         </Frame.GestureRecognizers>
@@ -51,8 +57,10 @@
                             <Label Text="Тижневий" FontSize="13" TextColor="#6E6E73" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
+                </Grid>
 
-                    <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                <Grid x:Name="SecondRowGrid" ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Frame Grid.Column="0" x:Name="DriversTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnDriversClicked" />
                         </Frame.GestureRecognizers>
@@ -64,7 +72,7 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
+                    <Frame Grid.Column="1" x:Name="AdminTile" BackgroundColor="White" CornerRadius="16" Padding="16" HasShadow="False">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAdminClicked" />
                         </Frame.GestureRecognizers>
@@ -75,8 +83,16 @@
                             <Label Text="Панель" FontSize="13" TextColor="#6E6E73" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Frame>
-
                 </Grid>
+
+                <Frame x:Name="DriverInfoBanner" BackgroundColor="#EBF4FF" CornerRadius="12"
+                       HasShadow="False" Padding="14" IsVisible="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" Text="ℹ️" FontSize="18" VerticalOptions="Center" Margin="0,0,10,0" />
+                        <Label Grid.Column="1" Text="Ви увійшли як Водій. Доступні: заправки, поїздки, документи, нотатки."
+                               FontSize="13" TextColor="#0071E3" LineBreakMode="WordWrap" />
+                    </Grid>
+                </Frame>
 
                 <Label Text="Останній автомобіль" FontSize="17" FontAttributes="Bold"
                        TextColor="#1D1D1F" Margin="4,8,0,4" />
@@ -103,7 +119,7 @@
                     <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
                         <Label Text="Немає автомобілів" FontSize="15" TextColor="#6E6E73"
                                HorizontalOptions="Center" />
-                        <Button Text="+ Додати автомобіль" BackgroundColor="#0071E3" TextColor="White"
+                        <Button x:Name="AddVehicleButton" Text="+ Додати автомобіль" BackgroundColor="#0071E3" TextColor="White"
                                 CornerRadius="10" HeightRequest="40" FontSize="14" Clicked="OnAddVehicleClicked" />
                     </VerticalStackLayout>
                 </Frame>
@@ -111,7 +127,7 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <Frame Grid.Row="2" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="0,8">
+        <Frame Grid.Row="3" BackgroundColor="White" CornerRadius="0" HasShadow="True" Padding="0,8">
             <Grid ColumnDefinitions="*,*,*,*" Padding="0">
                 <VerticalStackLayout Grid.Column="0">
                     <VerticalStackLayout.GestureRecognizers>
@@ -127,7 +143,7 @@
                     <Label Text="⛽" FontSize="22" HorizontalOptions="Center" />
                     <Label Text="Паливо" FontSize="11" TextColor="#6E6E73" HorizontalOptions="Center" />
                 </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="2">
+                <VerticalStackLayout x:Name="ExpensesTab" Grid.Column="2">
                     <VerticalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnExpensesClicked" />
                     </VerticalStackLayout.GestureRecognizers>
